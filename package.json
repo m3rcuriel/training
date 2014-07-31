@@ -1,8 +1,25 @@
 {
-  "name": "web-app",
-  "version": "0.1.0",
-  "description": "a front-end web app skeleton",
+  "name": "training-app",
+  "version": "0.0.1",
+  "description": "an application to facilitate frc student training",
   "main": "index.js",
+  "keywords": [
+    "OpenShift",
+    "Node.js",
+    "application",
+    "openshift"
+  ],
+  "author": "Logan Howard",
+  "license": "http://license.azuretalon.com",
+  "homepage": "https://github.com/PikaDotus/react-training",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PikaDotus/react-training"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
   "dependencies": {
     "bignumber.js": "^1.4.1",
     "cortexjs": "^0.6.0",
@@ -19,17 +36,5 @@
     "wisp": "^0.10.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kballenegger/freshpay-web-app.git"
-  },
-  "author": "Kenneth Ballenegger",
-  "license": "http://license.azuretalon.com",
-  "bugs": {
-    "url": "https://github.com/kballenegger/freshpay-web-app/issues"
-  },
-  "homepage": "https://github.com/kballenegger/freshpay-web-app"
+  "private": true
 }
