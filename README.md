@@ -1,7 +1,6 @@
-# Front-end Skeleton
+# Training web app
 
-This can be used as a base for any React.js based app. Supports SCSS, JSX, and
-Wisp compilation out of the box. Everything is run on make.
+This is the code that powers the frontend of the training site for team 3501 Firebots.
 
 ### Usage
 
@@ -12,3 +11,9 @@ Install dependencies using `npm`:
 Then, develop with one command:
 
     make dev
+
+# Licensing and credits
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 License](http://creativecommons.org/licenses/by-nc/4.0/).
+
+Credits to [Kenneth Balleneger](https://github.com/kballenegger/) and [Brandon Goldman](https://github.com/bgoldman) for their development upon the [Frontend Skeleton](https://github.com/kballenegger/frontend-skeleton) framework.

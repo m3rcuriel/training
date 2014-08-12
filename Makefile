@@ -9,7 +9,9 @@ SHELL := /bin/bash
 JSX ?= jsx
 
 # Variables
-NODE_ENV ?= production
+NODE_ENV ?= development
+API_BASE ?= http://api.oflogan.com
+
 
 # Paths
 DIST ?= _dist
@@ -20,7 +22,7 @@ JSX_FILES := $(shell find ./src/js -name '*.jsx')
 WISP_FILES := $(shell find ./src/js -name '*.wisp')
 WISP_MACRO_FILES := $(shell find ./src/wisp-macros -name '*.wisp')
 SCSS_FILES := $(shell find ./src/style -name '*.scss')
-ASSET_FILES := $(shell find ./src/assets)
+ASSET_FILES := $(shell find ./src/assets -type f)
 
 # Default target
 default: all
@@ -31,19 +33,23 @@ default: all
 # files for target wisp
 $(BUILD)/js/%.js: src/js/%.wisp
 	@echo "Compiling wisp: $^."
+	@mkdir -p $$(dirname "$@")
 	@cat $(WISP_MACRO_FILES) $^ | wisp > $@
 
 # files for target jsx
 $(BUILD)/js/%.js: src/js/%.jsx
 	@echo "Compiling JSX: $^."
+	@mkdir -p $$(dirname "$@")
 	@cat $^ | jsx > $@
 
 $(BUILD)/server/%.js: src/server/%.js
 	@echo "Copying server js: $^."
+	@mkdir -p $$(dirname "$@")
 	@cp $^ $@
 
 $(BUILD)/js/%.js: src/js/%.js
 	@echo "Copying client js: $^."
+	@mkdir -p $$(dirname "$@")
 	@cp $^ $@
 
 # files for target js
@@ -52,7 +58,11 @@ $(DIST)/static/app.js: jsx wisp $(patsubst ./src/js/%.js,./$(BUILD)/js/%.js,$(JS
 	@echo "Running browserify."
 	@browserify $(BUILD)/js/app.js > $(BUILD)/bundle.js
 	@echo "Running envify."
-	@NODE_ENV="$(NODE_ENV)" envify $(BUILD)/bundle.js > $@
+	@NODE_ENV="$(NODE_ENV)" API_BASE="$(API_BASE)" \
+	envify $(BUILD)/bundle.js > $(BUILD)/envified.js
+	@if [ "$(NODE_ENV)" = "production" ] ; then echo "Running uglify." ; fi
+	@if [ "$(NODE_ENV)" = "production" ] ; then uglifyjs $(BUILD)/envified.js > $@ ; fi
+	@if [ "$(NODE_ENV)" != "production" ] ; then cp $(BUILD)/envified.js $@ ; fi
 
 # files for target scss
 # NOTE: only the root file is compiled, the rest are included by sass itself
@@ -62,7 +72,11 @@ $(DIST)/static/style.css: $(SCSS_FILES)
 
 $(DIST)/static/assets/%: src/assets/%
 	@echo "Copying asset: $^"
+	@mkdir -p $$(dirname "$@")
 	@cp $^ $@
+
+node_modules: package.json
+	npm install
 
 
 # Targets
@@ -72,7 +86,7 @@ all: html js css assets
 jsx: $(patsubst ./src/js/%.jsx,./$(BUILD)/js/%.js,$(JSX_FILES))
 wisp: $(patsubst ./src/js/%.wisp,./$(BUILD)/js/%.js,$(WISP_FILES))
 assets: $(patsubst ./src/assets/%,./$(DIST)/static/assets/%,$(ASSET_FILES))
-js: $(BUILD)/server/server.js $(DIST)/static/app.js
+js: node_modules $(BUILD)/server/server.js $(DIST)/static/app.js
 css: $(DIST)/static/style.css
 
 
@@ -102,5 +116,6 @@ file-structure:
 	@mkdir -p $(BUILD)/js
 	@mkdir -p $(BUILD)/server
 
+npm: node_modules
 
 .PHONY: default clean file-structure all server dev deps concat html jsx wisp js server-only assets

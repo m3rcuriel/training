@@ -1,17 +1,24 @@
 // React stuff
 React = require('react');
 
-Bootstrap = require('react-bootstrap');
-
-// Mori
-_ = require('underscore');
+// Lodash
+_ = require('lodash');
 
 // App source code
-//require('./app-wisp.js');
-var App = require('./app-jsx.js');
+var App = require('./components/app.js');
 
 if (typeof document !== 'undefined' && typeof window !== 'undefined') {
-    React.renderComponent(App({path: window.location.pathname}), document.getElementById('app'));
+  require('./lib/authentication.js').authenticate();
+
+  // NOTE: before the app can render, we must wait for it to initialize
+  var immediate = (typeof setImmediate === 'function')
+    ? setImmediate
+    : function (fn) { setTimeout(fn, 0); };
+
+  var app = App();
+  immediate(function renderApp () {
+    React.renderComponent(app, document.getElementById('app'));
+  });
 } else {
-    module.exports = App;
+  module.exports = App;
 }

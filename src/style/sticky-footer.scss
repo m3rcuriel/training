@@ -1,0 +1,40 @@
+/* http://mystrd.at/modern-clean-css-sticky-footer/ */
+
+$footer-height: 169px;
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+  margin-bottom: $footer-height;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height;
+}
+
+@media (max-width: 1140px) {
+  $footer-height: 277px;
+
+  footer {
+    height: $footer-height;
+  }
+  body {
+    margin-bottom: $footer-height;
+  }
+}
+
+@media (max-width: 767px) {
+  $footer-height: 352px;
+
+  footer {
+    height: $footer-height;
+  }
+  body {
+    margin-bottom: $footer-height;
+  }
+}
