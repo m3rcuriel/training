@@ -3,6 +3,9 @@ var JSONbig =   require('json-bigint');
 
 // HTTP base URL comes from the environment variable API_BASE.
 var httpBase = process.env.API_BASE;
+if (process.env.OPENSHIFT_NODEJS_PORT) {
+  httpBase = 'http://api.oflogan.com';
+}
 
 var token = {value: null};
 
