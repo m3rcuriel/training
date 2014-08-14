@@ -7,6 +7,7 @@ var profileState = require('../state/profile.js');
 var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
+var gravatar = require('gravatar');
 
 var Profile = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -19,6 +20,7 @@ var Profile = React.createClass({
     }
 
     var userBadges = profileState().badges.val();
+    var user = applicationState().auth.user.val();
 
     return <main className="register">
       <header>
@@ -29,6 +31,7 @@ var Profile = React.createClass({
           <div className="large-9 columns">
             <ul className="button-group right">
               <li><a href="#" className="button">Profile</a></li>
+              <li><a href="/logout" className="button">Logout</a></li>
             </ul>
           </div>
         </div>
@@ -36,22 +39,24 @@ var Profile = React.createClass({
           <div className="large-12 columns">
             <div className="row">
               <div className="large-4 columns">
-                <img src={'http://placehold.it/400x300&text=[img]'} />
+                <img src={gravatar.url(user.email, {s: '250', r: 'pg'}, true)} />
               </div>
               <div className="large-8 columns">
                 <div className="row">
                   <div className="large-12 columns">
-                    <h1>NAME</h1>
+                    <h1>{user.first_name + ' ' + user.last_name}</h1>
                   </div>
                 </div>
                 <div className="row">
                   <div className="large-12 columns">
-                    <h1>SUBGROUP(S)</h1>
+                    <h1>{(user.technical_group ? user.technical_group : null) +
+                      (user.nontechnical_group ? (' / ' + user.nontechnical_group) : null)
+                    }</h1>
                   </div>
                 </div>
                 <div className="row">
                   <div className="large-12 columns">
-                    <h1>TITLE (if any)</h1>
+                    <h1>{user.title ? user.title : null}</h1>
                   </div>
                 </div>
               </div>
@@ -63,7 +68,7 @@ var Profile = React.createClass({
 
       <section>
         <div className="row">
-          <div className="large-4 columns">
+          <div className="large-6 columns">
             <ul className="small-block-grid-4">
               {this.renderNoBadges(userBadges.no)}
               {this.renderReviewBadges(userBadges.review)}
@@ -77,7 +82,8 @@ var Profile = React.createClass({
   },
   renderBadge: function renderBadge (badge) {
     return <li key={badge.id}>
-      <a href={'/badge/' + badge.id}><img src={'http://placehold.it/200x150&text=' + badge.status} /></a>
+      <a href={'/badges?id=' + badge.id}><img src={
+        'http://placehold.it/200x150&text=' + badge.status} /></a>
     </li>;
   },
   renderNoBadges: function renderNoBadges (no) {
