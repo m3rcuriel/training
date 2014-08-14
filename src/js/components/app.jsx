@@ -22,6 +22,7 @@ var Settings = require('../components/settings.js');
 var Register = require('../components/register.js');
 
 // authenticated
+var Profile = require('../components/profile.js');
 
 // Router if not logged in
 //
@@ -45,7 +46,7 @@ var AuthenticatedRouter = React.createClass({
   render: function () {
     return <CaptureClicks>
       <Locations path={this.props.path}>
-        <Location path="/" handler={Layout(React.DOM.div)} />
+        <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/logout" handler={Layout(Logout)} />
         <NotFound handler={Layout(E404)} />
