@@ -68,7 +68,8 @@ $(DIST)/static/app.js: jsx wisp $(patsubst ./src/js/%.js,./$(BUILD)/js/%.js,$(JS
 # NOTE: only the root file is compiled, the rest are included by sass itself
 $(DIST)/static/style.css: $(SCSS_FILES)
 	@echo "Compiling SCSS."
-	@sass src/style/style.scss $(DIST)/static/style.css
+	@if [ "$(OPENSHIFT_CLOUD_DOMAIN)" == "rhcloud.com" ] ; then ~/.gem/bin/sass src/style/style.scss $(DIST)/static/style.css ; fi
+	@if [ "$(OPENSHIFT_CLOUD_DOMAIN)" != "rhcloud.com" ] ; then sass src/style/style.scss $(DIST)/static/style.css ; fi
 
 $(DIST)/static/assets/%: src/assets/%
 	@echo "Copying asset: $^"
@@ -109,7 +110,7 @@ clean:
 	@rm -rf $(DEV)/*
 	@make file-structure
 
-file-structure: 
+file-structure:
 	@echo "Creating file structure."
 	@mkdir -p $(DEV)
 	@mkdir -p $(DIST)/static/assets
