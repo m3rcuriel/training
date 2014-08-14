@@ -7,6 +7,10 @@ var crypo = require('crypto');
 var applicationState = require('../../state/application.js');
 var persistAuthentication = require('../../lib/authentication.js').persistAuthentication;
 
+var badges = require('../../state/badges.js');
+var Badges = require('../api/badges.js');
+var EntityStates = require('../../lib/entity-states.js');
+
 //var app = BigNumber(process.env.APP_ID);
 var app = 'firebots-web';
 var appSecret = process.env.APP_SECRET;
@@ -31,6 +35,18 @@ var Auth = {
       .end(API.end(function (res) {
         applicationState().auth.user.set(res.body.user);
         applicationState().auth.token.set(res.body.token);
+
+        badges().loaded.set(EntityStates.LOADING);
+        Badges.all(function all (response) {
+          if (response.status !== 200) {
+            return;
+          }
+          badges().set({
+            badges: response,
+            loaded: EntityStates.LOADED,
+          })
+        })
+
         persistAuthentication();
         if (callback) callback(res.body);
       }));
