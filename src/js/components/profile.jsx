@@ -22,60 +22,80 @@ var Profile = React.createClass({
 
     return <main className="register">
       <header>
-        <div className="container">
-          <h1 className="primary-color">Profile.</h1>
+        <div className="row">
+          <div className="large-3 columns">
+            <h1><img src={'http://placehold.it/400x100&text=Firebots Logo'} /></h1>
+          </div>
+          <div className="large-9 columns">
+            <ul className="button-group right">
+              <li><a href="#" className="button">Profile</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="row">
+          <div className="large-12 columns">
+            <div className="row">
+              <div className="large-4 columns">
+                <img src={'http://placehold.it/400x300&text=[img]'} />
+              </div>
+              <div className="large-8 columns">
+                <div className="row">
+                  <div className="large-12 columns">
+                    <h1>NAME</h1>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="large-12 columns">
+                    <h1>SUBGROUP(S)</h1>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="large-12 columns">
+                    <h1>TITLE (if any)</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
         </div>
       </header>
+
       <section>
-        <div className="container">
-          {this.state.message}
-          {this.renderNoBadges(userBadges.no)}
-          <hr />
-          {this.renderReviewBadges(userBadges.review)}
-          <hr />
-          {this.renderYesBadges(userBadges.yes)}
+        <div className="row">
+          <div className="large-4 columns">
+            <ul className="small-block-grid-4">
+              {this.renderNoBadges(userBadges.no)}
+              {this.renderReviewBadges(userBadges.review)}
+              {this.renderYesBadges(userBadges.yes)}
+            </ul>
+          </div>
         </div>
       </section>
 
     </main>;
   },
+  renderBadge: function renderBadge (badge) {
+    return <li key={badge.id}>
+      <a href={'/badge/' + badge.id}><img src={'http://placehold.it/200x150&text=' + badge.status} /></a>
+    </li>;
+  },
   renderNoBadges: function renderNoBadges (no) {
+    var self = this;
     return _.map(no, function (badge) {
-      return <div key={badge.id}>
-        <h6>{badge.id}</h6>
-        <h6>{badge.badge_id}</h6>
-        <h6>{badge.reviewer_id}</h6>
-        <h6>{badge.status}</h6>
-        <h6>{badge.time_created}</h6>
-        <h6>{badge.time_updated}</h6>
-        <h6>{badge.user_id}</h6>
-      </div>;
+      return self.renderBadge(badge);
     });
   },
   renderReviewBadges: function renderReviewBadges (review) {
+    var self = this;
     return _.map(review, function (badge) {
-      return <div key={badge.id}>
-        <h6>{badge.id}</h6>
-        <h6>{badge.badge_id}</h6>
-        <h6>{badge.reviewer_id}</h6>
-        <h6>{badge.status}</h6>
-        <h6>{badge.time_created}</h6>
-        <h6>{badge.time_updated}</h6>
-        <h6>{badge.user_id}</h6>
-      </div>;
+      return self.renderBadge(badge);
     });
   },
   renderYesBadges: function renderYesBadges (yes) {
+    var self = this;
     return _.map(yes, function (badge) {
-      return <div key={badge.id}>
-        <h6>{badge.id}</h6>
-        <h6>{badge.badge_id}</h6>
-        <h6>{badge.reviewer_id}</h6>
-        <h6>{badge.status}</h6>
-        <h6>{badge.time_created}</h6>
-        <h6>{badge.time_updated}</h6>
-        <h6>{badge.user_id}</h6>
-      </div>;
+      return self.renderBadge(badge);
     });
   },
   componentDidMount: function componentDidMount () {
