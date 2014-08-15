@@ -178,8 +178,6 @@ var Profile = React.createClass({
         return;
       }
 
-      console.log(response.badge_relations);
-
       profileState().set({
         badge_relations: response.badge_relations,
         loaded: EntityStates.LOADED,
