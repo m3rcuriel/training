@@ -17,12 +17,13 @@ var E404 = require('../components/404.js');
 
 // unauthenticated
 var Login = require('../components/login.js');
-var Logout = require('../components/logout.js');
-var Settings = require('../components/settings.js');
 var Register = require('../components/register.js');
 
 // authenticated
 var Profile = require('../components/profile.js');
+var Badges = require('../components/badges.js');
+var Logout = require('../components/logout.js');
+var Settings = require('../components/settings.js');
 
 // Router if not logged in
 //
@@ -32,8 +33,8 @@ var UnauthenticatedRouter = React.createClass({
     return <CaptureClicks>
       <Locations path={this.props.path}>
         <Location path="/register" handler={Layout(Register)} />
-        <Location path="/logout" handler={Layout(Logout)} />
         <Location path="/login" handler={Layout(Login)} />
+        <Location path="/logout" handler={Layout(Logout)} />
         <NotFound handler={Layout(Login)} />
       </Locations>
     </CaptureClicks>;
@@ -48,6 +49,7 @@ var AuthenticatedRouter = React.createClass({
       <Locations path={this.props.path}>
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
+        <Location path="/badges*" handler={Layout(Badges)} />
         <Location path="/logout" handler={Layout(Logout)} />
         <NotFound handler={Layout(E404)} />
       </Locations>
