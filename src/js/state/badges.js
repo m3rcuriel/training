@@ -5,7 +5,7 @@ var Cortex = require('cortexjs');
 var EntityStates = require('../lib/entity-states.js');
 
 var defaultValue = {
-  badges: [],
+  badges: null,
   loaded: EntityStates.NOT_LOADED
 };
 

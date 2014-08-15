@@ -36,17 +36,6 @@ var Auth = {
         applicationState().auth.user.set(res.body.user);
         applicationState().auth.token.set(res.body.token);
 
-        badges().loaded.set(EntityStates.LOADING);
-        Badges.all(function all (response) {
-          if (response.status !== 200) {
-            return;
-          }
-          badges().set({
-            badges: response,
-            loaded: EntityStates.LOADED,
-          })
-        })
-
         persistAuthentication();
         if (callback) callback(res.body);
       }));
