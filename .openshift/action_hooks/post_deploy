@@ -1,5 +1,3 @@
-ps ax # find and `kill -15` the `node` process
-
 oldProcess=`ps ax | fgrep node | awk '{print $1}' | sed -n 1p`
 kill -15 $oldProcess
 sleep 1
