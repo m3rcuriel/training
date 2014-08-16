@@ -10,7 +10,7 @@ JSX ?= jsx
 
 # Variables
 NODE_ENV ?= development
-API_BASE ?= http://api.oflogan.com
+API_BASE ?= https://api.oflogan.com
 
 
 # Paths
