@@ -23,7 +23,7 @@ var Profile = React.createClass({
     var user = applicationState().auth.user.val();
     var candidateBadges = allBadges().badges.val();
 
-    return <main>
+    return <main className="profile">
       <div className="row">
         <div className="large-8 columns">
           <h1>{user.first_name + ' ' + user.last_name}</h1>
@@ -38,36 +38,40 @@ var Profile = React.createClass({
           <h2>BADGES</h2>
           <h4 className="subheader">Outreach:</h4>
           <ul className="small-block-grid-4">
-            {this.renderBadgesByCategory(userBadges, 'Software', candidateBadges)}
+            {this.renderBadgesByCategory(userBadges, 'Outreach', candidateBadges)}
           </ul>
           <br />
           <h4 className="subheader">Mechanical:</h4>
           <ul className="small-block-grid-4">
-            {/*lis with imgs*/}
+            {this.renderBadgesByCategory(userBadges, 'Mechanical', candidateBadges)}
           </ul>
           <br />
           <h4 className="subheader">Electrical:</h4>
           <ul className="small-block-grid-4">
-            {/*lis with imgs*/}
+            {this.renderBadgesByCategory(userBadges, 'Electrical', candidateBadges)}
           </ul>
           <br />
           <h4 className="subheader">Software:</h4>
           <ul className="small-block-grid-4">
-            {/*lis with imgs*/}
+            {this.renderBadgesByCategory(userBadges, 'Software', candidateBadges)}
           </ul>
           <br />
           <h4 className="subheader">Public Relations:</h4>
           <ul className="small-block-grid-4">
-            {/*lis with imgs*/}
+            {this.renderBadgesByCategory(userBadges, 'PR', candidateBadges)}
           </ul>
           <br />
-          <h4 className="subheader">Juggling:</h4>
+          <h4 className="subheader">Other:</h4>
           <ul className="small-block-grid-4">
-            {/*lis with imgs*/}
+            {this.renderBadgesByCategory(userBadges, 'Other', candidateBadges)}
           </ul>
         </div>
         <div className="large-4 columns">
-          <img src={gravatar.url(user.email, {s: '250', r: 'pg'}, true)} /><hr />
+          <a href="https://gravatar.com">
+            <img src={gravatar.url(user.email, {s: '303', r: 'pg'}, true)}
+              className="profile-pic"></img>
+          </a>
+          <hr />
           <div className="row">
             <div className="large-8 columns">
               <h5 style={{color: 'orange'}}>Outreach</h5>
@@ -78,7 +82,7 @@ var Profile = React.createClass({
               <h5 style={{color: 'purple'}}>  Printed Circuit Boards</h5>
               <h5 style={{color: 'green'}}>Software</h5>
               <h5 style={{color: 'blue'}}>Public Relations</h5>
-              <h5 style={{color: 'red'}}>Juggling</h5>
+              <h5 style={{color: 'red'}}>Other</h5>
             </div>
             <div className="large-4 columns">
               <h5 style={{color: 'orange'}}>4</h5>

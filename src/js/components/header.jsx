@@ -13,6 +13,33 @@ var SignedInUser = React.createClass({
   },
 });
 
+var LoggedInBar = React.createClass({
+  render: function render () {
+    return <div className="button-bar right">
+      <ul className="button-group">
+        <li><a href="/" className="button">Home</a></li>
+        <li><a href="/activity" className="button">Activity</a></li>
+        <li><a href="/badges" className="button">Badges Info</a></li>
+      </ul>
+      <ul className="button-group">
+        <li><a href="/logout" className="button alert">Logout</a></li>
+      </ul>
+    </div>;
+  }
+});
+
+var LoggedOutBar = React.createClass({
+  render: function render () {
+    return <div className="button-bar right">
+      <ul className="button-group">
+        <li><a href="/badges" className="button">Badges</a></li>
+      </ul>
+      <ul className="button-group">
+        <li><a href="/" className="button alert">Login</a></li>
+      </ul>
+    </div>;
+  }
+});
 
 var Header = React.createClass({
 
@@ -22,16 +49,12 @@ var Header = React.createClass({
 
     return <header>
       <div className="row">
-        <div className="large-6 columns">
-          <img className="logo" src="static/assets/logo.png" />
+        <div className="large-5 columns">
+          <img className="logo" src="static/assets/logo.png" width={400} />
         </div>
-        <div className="large-6 columns">
-          <ul className="button-group right">
-            <li><a href="#" className="button">Home</a></li>
-            <li><a href="#" className="button">Notifications</a></li>
-            <li><a href="#" className="button">Badge Info</a></li>
-          </ul>
-        </div>
+        {this.props.signedIn
+          ? <LoggedInBar />
+          : <LoggedOutBar />}
       </div>
       <br /><br />
     </header>;
