@@ -12,8 +12,9 @@ gem install sass --no-ri --no-rdoc
 mkdir _dist
 mkdir _dist/static
 make server NODE_ENV=production &
-until curl 127.0.0.1:$OPENSHIFT_NODEJS_PORT
+
+while [ ! -f go.txt ]; then
 do
+  echo "Waiting for go.txt to be created."
   sleep 10
-  echo "Waiting for server to start"
 done

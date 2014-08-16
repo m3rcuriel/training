@@ -59,3 +59,12 @@ ex.listen(process.env.OPENSHIFT_NODEJS_PORT || 5000
         , process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
 
 console.log('Server up and running, listening on port 5000.');
+
+if (process.env.OPENSHIFT_NODEJS_PORT) {
+    var fs = require('fs');
+    var stream = fs.createWriteStream('go.txt');
+    stream.once('open', function (fd) {
+        stream.write('First row\n');
+        stream.end();
+    });
+}
