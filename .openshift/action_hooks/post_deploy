@@ -1,0 +1,15 @@
+ps ax # find and `kill -15` the `node` process
+
+oldProcess=`ps ax | fgrep node | awk '{print $1}' | sed -n 1p`
+kill -15 $oldProcess
+sleep 1
+kill -2 $oldProcess
+sleep 1
+kill -9 $oldProcess
+sleep 1
+
+cd app-root/repo
+npm install react-tools browserify envify uglifyjs uglify-js
+mkdir _dist
+mkdir _dist/static
+make server NODE_ENV=production &

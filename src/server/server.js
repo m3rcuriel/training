@@ -15,7 +15,7 @@ ex.disable('etag');
 ex.use(function(req, res, next) {
     if (process.env.OPENSHIFT_NODEJS_PORT
         && req.headers['x-forwarded-proto'] === 'http') {
-        res.redirect('https://' + req.headers.host + req.path);
+        return res.redirect('https://' + req.headers.host + req.path);
     } else if (req.path.match(/^\/static/)) {
         return next();
     }
