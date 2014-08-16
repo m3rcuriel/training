@@ -25,19 +25,6 @@ var Profile = React.createClass({
 
     return <main>
       <div className="row">
-        <div className="large-6 columns">
-          <h1>banner here</h1>
-        </div>
-        <div className="large-6 columns">
-          <ul className="button-group right">
-            <li><a href="#" className="button">Home</a></li>
-            <li><a href="#" className="button">Notifications</a></li>
-            <li><a href="#" className="button">Badge Info</a></li>
-          </ul>
-        </div>
-      </div>
-      <br /><br />
-      <div className="row">
         <div className="large-8 columns">
           <h1>{user.first_name + ' ' + user.last_name}</h1>
           <ul>

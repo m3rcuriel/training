@@ -20,7 +20,21 @@ var Header = React.createClass({
 
   render: function () {
 
-    return <header></header>;
+    return <header>
+      <div className="row">
+        <div className="large-6 columns">
+          <img className="logo" src="static/assets/logo.png" />
+        </div>
+        <div className="large-6 columns">
+          <ul className="button-group right">
+            <li><a href="#" className="button">Home</a></li>
+            <li><a href="#" className="button">Notifications</a></li>
+            <li><a href="#" className="button">Badge Info</a></li>
+          </ul>
+        </div>
+      </div>
+      <br /><br />
+    </header>;
   },
 });
 
