@@ -8,7 +8,7 @@ sleep 1
 
 cd app-root/repo
 npm install react-tools browserify envify uglifyjs uglify-js
-gem install sass
+gem install sass --no-document
 mkdir _dist
 mkdir _dist/static
-make server NODE_ENV=production &
+make server NODE_ENV=production
