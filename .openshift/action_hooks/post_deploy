@@ -12,4 +12,4 @@ gem install sass --no-document
 mkdir _dist
 mkdir _dist/static
 make server NODE_ENV=production &
-sleep 60
+sleep 60 # TODO: make this deterministic
