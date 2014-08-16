@@ -12,13 +12,8 @@ gem install sass --no-document
 mkdir _dist
 mkdir _dist/static
 make server NODE_ENV=production &
-sleep 20 # TODO: make this deterministic
-echo "------ slept 20 ------"
-sleep 20 # TODO: make this deterministic
-echo "------ slept 40 ------"
-sleep 20 # TODO: make this deterministic
-echo "------ slept 60 ------"
-sleep 20 # TODO: make this deterministic
-echo "------ slept 80 ------"
-sleep 20 # TODO: make this deterministic
-echo "------ slept 100 ------"
+until curl localhost:$OPENSHIFT_NODEJS_PORT
+do
+  sleep 5
+  echo "Waiting for server to start"
+done
