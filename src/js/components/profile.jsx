@@ -129,13 +129,13 @@ var Profile = React.createClass({
     });
 
     return <li key={badge.id}>
-      <a href={'/badges?id=' + badge.id}><img src={
+      <a href={'/badge?id=' + badge.id}><img src={
         'http://placehold.it/200x150&text=' + badge.status} /></a>
     </li>;
   },
   renderBadge: function renderBadge (badge, status) {
     return <li key={badge.id}>
-      <a href={'/badges?id=' + badge.id}><img src={
+      <a href={'/badge?id=' + badge.id}><img src={
         'http://placehold.it/200x150&text=' + status} /></a>
     </li>;
   },
