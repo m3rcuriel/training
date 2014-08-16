@@ -14,6 +14,7 @@ var NotFound = ReactRouter.NotFound;
 var Layout = require('../components/layout.js');
 var AuthGate = require('../components/auth-gate.js');
 var E404 = require('../components/404.js');
+var Badge = require('../components/badge.js');
 
 // unauthenticated
 var Login = require('../components/login.js');
@@ -34,6 +35,7 @@ var UnauthenticatedRouter = React.createClass({
         <Location path="/register" handler={Layout(Register)} />
         <Location path="/login" handler={Layout(Login)} />
         <Location path="/logout" handler={Layout(Logout)} />
+        <Location path="/badge*" handler={Layout(Badge)} />
         <NotFound handler={Layout(Login)} />
       </Locations>
     </CaptureClicks>;
@@ -49,6 +51,7 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/logout" handler={Layout(Logout)} />
+        <Location path="/badge*" handler={Layout(Badge)} />
         <NotFound handler={Layout(E404)} />
       </Locations>
     </CaptureClicks>;
