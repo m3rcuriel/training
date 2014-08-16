@@ -13,7 +13,10 @@ var setResponse = require('../js/lib/redirect.js').setResponse;
 ex.disable('etag');
 
 ex.use(function(req, res, next) {
-    if (req.path.match(/^\/static/)) {
+    if (process.env.OPENSHIFT_NODEJS_PORT
+        && req.headers['x-forwarded-proto'] == 'http') {
+        res.redirect('https://' + req.headers.host + req.path);
+    } else if (req.path.match(/^\/static/)) {
         return next();
     }
     try {
