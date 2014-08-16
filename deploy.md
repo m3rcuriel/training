@@ -1,6 +1,8 @@
 ```bash
-npm install jsx browserify envify sass # is sass needed?
-watch make server # until it's done
+cd app-root/repo
+rm -rf node_modules
+npm install
+npm install react-tools browserify envify sass uglifyjs uglify-js # is sass needed?
 gem install sass
 make server
 ```
