@@ -13,7 +13,7 @@ mkdir _dist
 mkdir _dist/static
 make server NODE_ENV=production &
 
-while [ ! -f go.txt ]; then
+while [ ! -f go.txt ]
 do
   echo "Waiting for go.txt to be created."
   sleep 10
