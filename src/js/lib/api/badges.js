@@ -23,6 +23,12 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
+  badge: function (id, callback) {
+    API.request.get('/badges/' + id)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  }
 };
 
 module.exports = Badge;
