@@ -24,7 +24,7 @@ var Badge = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <img src={'static/assets/badges/' + badge.id + '.jpg'} />
+            <img src={'static/assets/badges/' + badge.category + '/' + badge.name + '.jpg'} />
             <br /><br />
             <div className="row">
               <hr />
@@ -93,10 +93,6 @@ var Badge = React.createClass({
         badge: response.badge,
         loaded: EntityStates.LOADED,
       });
-
-
-
-      console.log(response.badge);
     });
   },
   componentDidMount: function componentDidMount () {
