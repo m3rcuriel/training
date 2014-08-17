@@ -1,13 +1,10 @@
 /** @jsx React.DOM */
 
-var applicationState = require('../state/application.js');
 var Badges = require('../lib/api/badges.js');
 var desiredBadge = require('../state/badge.js');
 var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
-var query = require('../lib/query.js');
-var querystring = require('querystring');
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -71,7 +68,7 @@ var Badge = React.createClass({
       </div>
     </main>;
   },
-  loadBadge: function loadAllBadges () {
+  loadBadge: function loadBadge () {
     if (desiredBadge().badge.id === this.props.id
       && desiredBadge().loaded.val() === EntityStates.LOADED) {
       return false;
