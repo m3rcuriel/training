@@ -24,6 +24,7 @@ var Register = require('../components/register.js');
 var Profile = require('../components/profile.js');
 var Logout = require('../components/logout.js');
 var Settings = require('../components/settings.js');
+var NewBadge = require('../components/new-badge.js');
 
 // Router if not logged in
 //
@@ -51,6 +52,7 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/logout" handler={Layout(Logout)} />
+        <Location path="/badge/new" handler={Layout(NewBadge)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <NotFound handler={Layout(E404)} />
       </Locations>

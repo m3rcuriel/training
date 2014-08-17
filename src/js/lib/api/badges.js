@@ -28,7 +28,15 @@ var Badge = {
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
-  }
+  },
+  create: function (data, callback) {
+    var payload = API.encode(data);
+    API.request.post('/badges')
+      .send(payload)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
 
 module.exports = Badge;
