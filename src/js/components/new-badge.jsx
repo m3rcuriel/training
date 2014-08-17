@@ -11,6 +11,7 @@ var NewBadgeState = {
   LOADING: 1,
   LOADED: 2,
   FAILED: 3,
+  SUCCESS: 4
 };
 
 var Badge = React.createClass({
@@ -130,7 +131,7 @@ var Badge = React.createClass({
         self.setState({state: NewBadgeState.FAILED, message: response.message});
         self.refs.name.getDOMNode().focus();
       } else {
-        self.setState({state: NewBadgeState.success, message: 'Badge created.'});
+        self.setState({state: NewBadgeState.SUCCESS, message: 'Badge created.'});
       }
     });
     return false;

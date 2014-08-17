@@ -28,12 +28,15 @@ var Profile = React.createClass({
         <div className="large-8 columns">
           <h1>{user.first_name + ' ' + user.last_name}</h1>
           <ul>
-            <li><h3 className="subheader">{user.title ? user.title : null}</h3></li>
-            <li><h3 className="subheader">{
-              (user.technical_group ? user.technical_group : null) +
-              (user.nontechnical_group ? (' / ' + user.nontechnical_group) : null)
-            }</h3>
-            </li></ul>
+            {user.title
+              ? <li><h3 className="subheader">{user.title}</h3></li>
+              : null}
+            {user.technical_group || user.nontechnical_group
+              ? <li><h3 className="subheader">{
+                (user.technical_group ? user.technical_group : null) +
+                (user.nontechnical_group ? (' / ' + user.nontechnical_group) : null)}</h3></li>
+              : null}
+          </ul>
           <hr />
           <h2>BADGES</h2>
           <h4 className="subheader">Outreach:</h4>
