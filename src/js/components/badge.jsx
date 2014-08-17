@@ -7,6 +7,7 @@ var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var query = require('../lib/query.js');
+var querystring = require('querystring');
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -24,7 +25,7 @@ var Badge = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <img src={'static/assets/badges/' + badge.category + '/' + badge.name + '.jpg'} />
+            <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '.jpg'} />
             <br /><br />
             <div className="row">
               <hr />
@@ -70,21 +71,14 @@ var Badge = React.createClass({
       </div>
     </main>;
   },
-  renderBadge: function renderBadge (badge, status) {
-    return <li key={badge.id}>
-      <a href={'/badges?id=' + badge.id}><img src={
-        'http://placehold.it/200x150&text=' + status} /></a>
-    </li>;
-  },
   loadBadge: function loadAllBadges () {
-    if (desiredBadge().loaded.val() === EntityStates.LOADED) {
+    if (desiredBadge().badge.id === this.props.id
+      && desiredBadge().loaded.val() === EntityStates.LOADED) {
       return false;
     }
     desiredBadge().loaded.set(EntityStates.LOADING);
 
-    var id = query().id;
-    var self = this;
-    Badges.badge(id, function all (response) {
+    Badges.badge(this.props.id, function all (response) {
       if (response.status !== 200) {
         return;
       }

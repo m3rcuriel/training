@@ -135,27 +135,9 @@ var Profile = React.createClass({
   },
   renderBadge: function renderBadge (badge, status) {
     return <li key={badge.id}>
-      <a href={'/badge?id=' + badge.id}><img src={
+      <a href={'/badge/' + badge.id}><img src={
         'http://placehold.it/200x150&text=' + status} /></a>
     </li>;
-  },
-  renderNoBadges: function renderNoBadges (no) {
-    var self = this;
-    return _.map(no, function (badge) {
-      return self.renderBadge(badge);
-    });
-  },
-  renderReviewBadges: function renderReviewBadges (review) {
-    var self = this;
-    return _.map(review, function (badge) {
-      return self.renderBadge(badge);
-    });
-  },
-  renderYesBadges: function renderYesBadges (yes) {
-    var self = this;
-    return _.map(yes, function (badge) {
-      return self.renderBadge(badge);
-    });
   },
   loadUserBadges: function loadUserBadges () {
     if (profileState().loaded.val() === EntityStates.LOADED) {

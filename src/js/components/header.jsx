@@ -17,7 +17,6 @@ var LoggedInBar = React.createClass({
   render: function render () {
     return <div className="button-bar right">
       <ul className="button-group">
-        <li><a href="/" className="button">Home</a></li>
         <li><a href="/activity" className="button">Activity</a></li>
         <li><a href="/badges" className="button">Badges Info</a></li>
       </ul>
@@ -50,7 +49,9 @@ var Header = React.createClass({
     return <header>
       <div className="row">
         <div className="large-5 columns">
-          <img className="logo" src="static/assets/logo.png" width={400} />
+          <a href="/">
+            <img className="logo" src="/static/assets/logo.png" width={400} />
+          </a>
         </div>
         {this.props.signedIn
           ? <LoggedInBar />

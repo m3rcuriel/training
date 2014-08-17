@@ -35,7 +35,7 @@ var UnauthenticatedRouter = React.createClass({
         <Location path="/register" handler={Layout(Register)} />
         <Location path="/login" handler={Layout(Login)} />
         <Location path="/logout" handler={Layout(Logout)} />
-        <Location path="/badge*" handler={Layout(Badge)} />
+        <Location path="/badge/:id" handler={Layout(Badge)} />
         <NotFound handler={Layout(Login)} />
       </Locations>
     </CaptureClicks>;
@@ -51,7 +51,7 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/logout" handler={Layout(Logout)} />
-        <Location path="/badge*" handler={Layout(Badge)} />
+        <Location path="/badge/:id" handler={Layout(Badge)} />
         <NotFound handler={Layout(E404)} />
       </Locations>
     </CaptureClicks>;
