@@ -103,6 +103,7 @@ var Profile = React.createClass({
   },
   renderBadgesByCategory: function renderBadgesByCategory (targetBadges, category, candidateBadges) {
     category = category.toLowerCase();
+    targetBadges = _.sortBy(targetBadges, 'status').reverse();
 
     var self = this;
     return _.map(targetBadges, function (targetBadge) {
@@ -135,8 +136,9 @@ var Profile = React.createClass({
   },
   renderBadge: function renderBadge (badge, status) {
     return <li key={badge.id}>
-      <a href={'/badge/' + badge.id}><img src={
-        'http://placehold.it/200x150&text=' + status} /></a>
+      <a href={'/badge/' + badge.id}><img
+        src={'http://placehold.it/200x150&text=' + badge.name}
+        className={'badge ' + status} /></a>
     </li>;
   },
   loadUserBadges: function loadUserBadges () {
