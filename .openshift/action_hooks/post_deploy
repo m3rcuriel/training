@@ -18,3 +18,8 @@ do
   echo "Waiting for go.txt to be created."
   sleep 10
 done
+
+cd _dist/static
+curl -X POST -s --data-urlencode 'input@style.css' http://cssminifier.com/raw > style.min.css
+rm style.css
+mv style.min.css style.css
