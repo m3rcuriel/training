@@ -55,10 +55,11 @@ ex.use(function(req, res, next) {
 
 ex.use(express.static(process.env.DIST));
 
-ex.listen(process.env.OPENSHIFT_NODEJS_PORT || 5000
-        , process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
+var port = process.env.OPENSHIFT_NODEJS_PORT || 5000 ;
+var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+ex.listen(port, ip);
 
-console.log('Server up and running, listening on port 5000.');
+console.log('Server up and running, listening on port ' + port + '.');
 
 if (process.env.OPENSHIFT_NODEJS_PORT) {
     var fs = require('fs');
