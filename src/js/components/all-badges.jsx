@@ -38,15 +38,15 @@ var Badge = React.createClass({
     var self = this;
 
     return _.map(categories, function (category) {
-      if (!allBadges().val().shouldRender[category]) {
+      if (!allBadges().val().shouldRender || !allBadges().val().shouldRender[category]) {
         return <div key={Math.random()}>
-          <div><a onClick={self.expandCategory}><h2>{category}</h2></a></div>
+          <div><a onClick={self.expandCategory}><h2>{category} ...</h2></a></div>
           <hr />
         </div>;
       }
 
       return <div key={Math.random()}>
-        <div><a onClick={self.expandCategory}><h2>{category}</h2></a></div>
+        <div><a onClick={self.expandCategory}><h2>{category}:</h2></a></div>
         <div>
           <h3 className="subheader">Main:</h3>
           <ul className="small-block-grid-8 thumbnail-list">

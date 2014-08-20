@@ -162,10 +162,8 @@ var Profile = React.createClass({
         return;
       }
 
-      allBadges().set({
-        badges: response.all,
-        loaded: EntityStates.LOADED,
-      });
+      allBadges().badges.set(response.all);
+      allBadges().loaded.set(EntityStates.LOADED);
     });
   },
   componentDidMount: function componentDidMount () {
