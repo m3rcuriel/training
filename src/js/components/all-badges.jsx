@@ -31,19 +31,37 @@ var Badge = React.createClass({
       </div>
     </main>;
   },
+  componentDidMount: function componentDidMount () {
+    this.loadBadges();
+  },
   renderCategories: function renderCategories (badges, categories) {
     var self = this;
 
     return _.map(categories, function (category) {
+      if (!allBadges().val().shouldRender[category]) {
+        return <div key={Math.random()}>
+          <div><a onClick={self.expandCategory}><h2>{category}</h2></a></div>
+          <hr />
+        </div>;
+      }
+
       return <div key={Math.random()}>
-        <div><h2>{category}:</h2></div>
-        <h3 className="subheader">Main:</h3>
-        <ul className="small-block-grid-8 thumbnail-list">
-          {self.renderBadgesByCategory(badges, category)}
-        </ul>
+        <div><a onClick={self.expandCategory}><h2>{category}</h2></a></div>
+        <div>
+          <h3 className="subheader">Main:</h3>
+          <ul className="small-block-grid-8 thumbnail-list">
+            {self.renderBadgesByCategory(badges, category)}
+          </ul>
+        </div>
         <hr />
-      </div>
+      </div>;
     });
+  },
+  expandCategory: function expandCategory (e) {
+    var category = e.target.innerHTML;
+    categoryShouldRender = allBadges().shouldRender[category];
+
+    categoryShouldRender.set(!categoryShouldRender.val());
   },
   renderBadge: function renderBadge (badge) {
     var badgeImgPath = '/static/assets/badges/'
@@ -90,11 +108,16 @@ var Badge = React.createClass({
       allBadges().set({
         badges: badges,
         loaded: EntityStates.LOADED,
+        shouldRender: {
+          Outreach: false,
+          Mechanical: false,
+          Electrical: false,
+          Software: false,
+          PR: false,
+          Other: false
+        }
       });
     });
-  },
-  componentDidMount: function componentDidMount () {
-    this.loadBadges();
   },
 });
 
