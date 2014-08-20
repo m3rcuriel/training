@@ -1,0 +1,5 @@
+cd app-root/repo
+npm install react-tools browserify envify uglifyjs uglify-js
+gem install sass --no-ri --no-rdoc
+mkdir _dist
+mkdir _dist/static
