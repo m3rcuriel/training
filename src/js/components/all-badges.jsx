@@ -16,45 +16,34 @@ var Badge = React.createClass({
     }
 
     var badges = allBadges().badges.val();
+    var categories = [
+      'Outreach',
+      'Mechanical',
+      'Electrical',
+      'Software',
+      'PR',
+      'Other'
+    ];
 
     return <main className="badges">
       <div className="row">
-          <div id="out"><h2>Outreach:</h2></div>
-          <ul className="small-block-grid-8 thumbnail-list">
-            {this.renderBadgesByCategory(badges, 'Outreach')}
-          </ul>
-          <hr />
-          <div id="mch"><h2>Mechanical:</h2></div>
-          <h3 className="subheader">Main:</h3>
-          <ul className="small-block-grid-8 thumbnail-list">
-            {this.renderBadgesByCategory(badges, 'Mechanical')}
-          </ul>
-          <hr />
-          <div id="sft"><h2>Software:</h2></div>
-          <h3 className="subheader">Main:</h3>
-          <ul className="small-block-grid-8 thumbnail-list">
-            {this.renderBadgesByCategory(badges, 'Software')}
-          </ul>
-          <hr />
-          <div id="elc"><h2>Electrical:</h2></div>
-          <h3 className="subheader">Main:</h3>
-          <ul className="small-block-grid-8 thumbnail-list">
-            {this.renderBadgesByCategory(badges, 'Electrical')}
-          </ul>
-          <hr />
-          <div id="pr"><h2>Public Relations:</h2></div>
-          <h3 className="subheader">Main:</h3>
-          <ul className="small-block-grid-8 thumbnail-list">
-            {this.renderBadgesByCategory(badges, 'PR')}
-          </ul>
-          <hr />
-          <div id="pr"><h2>Other:</h2></div>
-          <h3 className="subheader">Main:</h3>
-          <ul className="small-block-grid-8 thumbnail-list">
-            {this.renderBadgesByCategory(badges, 'Other')}
-          </ul>
+        {this.renderCategories(badges, categories)}
       </div>
     </main>;
+  },
+  renderCategories: function renderCategories (badges, categories) {
+    var self = this;
+
+    return _.map(categories, function (category) {
+      return <div key={Math.random()}>
+        <div><h2>{category}:</h2></div>
+        <h3 className="subheader">Main:</h3>
+        <ul className="small-block-grid-8 thumbnail-list">
+          {self.renderBadgesByCategory(badges, category)}
+        </ul>
+        <hr />
+      </div>
+    });
   },
   renderBadge: function renderBadge (badge) {
     var badgeImgPath = '/static/assets/badges/'
