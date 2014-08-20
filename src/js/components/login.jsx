@@ -11,50 +11,38 @@ var LoginState = {
 var Login = React.createClass({
   render: function() {
     return <main className="login">
-      <header>
-        <div className="container">
-          <h1 className="primary-color">Login.</h1>
-        </div>
-      </header>
-      <section>
-        <div className="container">
-          <h2>Welcome back.</h2>
-
-          <form className="form-horizontal login" onSubmit={this.submit}>
-
-            {this.state.state == LoginState.FAILED
-              ? <div style={{background: 'red'}}>
-                {this.state.message}
-              </div>
-            : null}
-
-            <div className="form-group">
-              <label htmlFor="first_name">Hi again</label>
-              <div className="field-container">
-                <input type="email" name="email"
-                  placeholder="you@example.com" ref="email" />
-              </div>
+      <div className="small-6 large-centered columns">
+        <br />
+        <br />
+        <h1>Welcome Back.</h1>
+        <form onSubmit={this.submit}>
+          {this.state.state == LoginState.FAILED
+            ? <div style={{background: 'red'}}>
+              {this.state.message}
             </div>
+          : null}
 
-            <div className="form-group">
-              <label htmlFor="last_name">What's the</label>
-              <div className="field-container">
-                <input type="password" name="password"
-                  placeholder="password" ref="password" />
-              </div>
+          <div>
+            <label htmlFor="email">Hi again</label>
+            <div>
+              <input type="email" name="email"
+                placeholder="you@example.com" ref="email" />
             </div>
+          </div>
 
-            <div className="buttons form-group">
-              <small><em><a href="/forgot-password" className="forgot-password">
-                    forgot password
-              </a></em></small>
-              <input type="submit" className={'secondary' +
-                (this.state.state === LoginState.LOADING ? ' disabled' : '')} value="Login" />
+          <div>
+            <label htmlFor="password">What's the</label>
+            <div>
+              <input type="password" name="password"
+                placeholder="password" ref="password" />
             </div>
+          </div>
 
-          </form>
-        </div>
-      </section>
+          <input type="submit" className={'button' + (this.state.state === LoginState.LOADING ? ' disabled' : '')} value="Login" />
+        </form>
+        <hr />
+        <p><b>If you do not have an account and are a team member, please contact Logan.</b></p>
+      </div>
     </main>;
   },
   componentDidMount: function () {
