@@ -5,6 +5,7 @@ var desiredBadge = require('../state/badge.js');
 var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
+var allBadges = require('../state/badges.js');
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -69,7 +70,26 @@ var Badge = React.createClass({
     </main>;
   },
   loadBadge: function loadBadge () {
-    if (desiredBadge().badge.id === this.props.id
+    var self = this;
+
+    var cachedBadge;
+    if (allBadges().badges.val()) {
+      cachedBadge = _.find(allBadges().badges.val(), function (badge) {
+        return badge.id.toS() === self.props.id;
+      });
+
+      if (cachedBadge) {
+        desiredBadge().set({
+          badge: cachedBadge,
+          loaded: EntityStates.LOADED,
+        });
+
+        return;
+      }
+    }
+
+    if (desiredBadge().badge.id
+      && desiredBadge().badge.id.toS() === this.props.id
       && desiredBadge().loaded.val() === EntityStates.LOADED) {
       return false;
     }
