@@ -6,7 +6,15 @@ var EntityStates = require('../lib/entity-states.js');
 
 var defaultValue = {
   badges: null,
-  loaded: EntityStates.NOT_LOADED
+  loaded: EntityStates.NOT_LOADED,
+  shouldRender: {
+    Outreach: null,
+    Mechanical: null,
+    Electrical: null,
+    Software: null,
+    PR: null,
+    Other: null
+  },
 };
 
 Context.initialize('badgesState', function () {
