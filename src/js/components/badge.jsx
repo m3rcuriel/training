@@ -22,7 +22,7 @@ var Badge = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '.jpg'} />
+            <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
             <br /><br />
             <div className="row">
               <hr />

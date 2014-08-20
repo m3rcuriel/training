@@ -1,0 +1,25 @@
+main.badges {
+  a.cover {
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(255,255,255,0);
+    text-align: center;
+    transition: all 0.5s linear;
+  }
+
+  .thumbnail-list a:hover .cover {
+    background-color: rgba(0,0,0,.8);
+    color: rgba(255,255,255,1);
+    transition: all .1s linear;
+  }
+
+  .thumbnail-list a:hover h5 {
+    color: gray;
+  }
+
+  li.badge {
+    margin-bottom: -20px;
+  }
+}

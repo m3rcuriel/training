@@ -124,23 +124,11 @@ var Profile = React.createClass({
       }
     });
   },
-  renderBadgeRelation: function renderBadgeRelation (targetBadge) {
-    candidateBadges = allBadges().badges.val();
-    badge = _.find(candidateBadges, function (candidateBadge) {
-      if (candidateBadge.id === targetBadge.id) {
-        return candidateBadge;
-      }
-    });
-
-    return <li key={badge.id}>
-      <a href={'/badge?id=' + badge.id}><img src={
-        'http://placehold.it/200x150&text=' + badge.status} /></a>
-    </li>;
-  },
   renderBadge: function renderBadge (badge, status) {
     return <li key={badge.id}>
       <a href={'/badge/' + badge.id}><img
-        src={'http://placehold.it/200x150&text=' + badge.name}
+        src={'/static/assets/badges/'
+          + badge.category + '/' + badge.name + '/medium.jpg'}
         className={'badge ' + status} /></a>
     </li>;
   },
@@ -187,4 +175,3 @@ var Profile = React.createClass({
 });
 
 module.exports = Profile;
-
