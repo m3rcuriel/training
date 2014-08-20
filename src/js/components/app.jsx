@@ -15,6 +15,7 @@ var Layout = require('../components/layout.js');
 var AuthGate = require('../components/auth-gate.js');
 var E404 = require('../components/404.js');
 var Badge = require('../components/badge.js');
+var Badges = require('../components/all-badges.js');
 
 // unauthenticated
 var Login = require('../components/login.js');
@@ -37,6 +38,7 @@ var UnauthenticatedRouter = React.createClass({
         <Location path="/login" handler={Layout(Login)} />
         <Location path="/logout" handler={Layout(Logout)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
+        <Location path="/badges" handler={Layout(Badges)} />
         <NotFound handler={Layout(Login)} />
       </Locations>
     </CaptureClicks>;
@@ -54,6 +56,7 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/logout" handler={Layout(Logout)} />
         <Location path="/badge/new" handler={Layout(NewBadge)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
+        <Location path="/badges" handler={Layout(Badges)} />
         <NotFound handler={Layout(E404)} />
       </Locations>
     </CaptureClicks>;
