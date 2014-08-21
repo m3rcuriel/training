@@ -6,6 +6,7 @@ var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var allBadges = require('../state/badges.js');
+var applicationState = require('../state/application.js');
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -38,6 +39,11 @@ var Badge = React.createClass({
                 <p>Mr. Dobervich<br />Danny</p>
               </div>
               <hr />
+              {applicationState().auth.user.permissions.val() === 'mentor'
+                || applicationState().auth.user.permissions.val() === 'lead'
+                ? <a className="button" href={'/badge/' + badge.id + '/edit'}
+                  >Edit badge</a>
+                : null}
             </div>
           </div>
           <div className="large-8 column">

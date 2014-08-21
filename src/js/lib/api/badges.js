@@ -3,9 +3,9 @@ var API = require('./base.js');
 // Badge API.
 //
 var Badge = {
-  update: function (delta, callback) {
+  update: function (id, delta, callback) {
     var payload = API.encode(delta);
-    API.request.patch('/account')
+    API.request.patch('/badges/' + id)
       .send(payload)
       .end(API.end(function (res) {
         if (callback) callback(res.body);
