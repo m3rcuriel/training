@@ -29,7 +29,7 @@ var Badge = React.createClass({
     return <main className="badges">
       <div className="row">
         <input type="text" name="search" ref="search" placeholder="Search here..."
-          onChange={this.updateSearch} />
+          onChange={this.updateSearch} autoFocus />
         {this.renderSearch(badges)}
         {this.renderCategories(badges, categories)}
       </div>
