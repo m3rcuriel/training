@@ -5,6 +5,7 @@ var allBadges = require('../state/badges.js');
 var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
+var fuzzy = require('fuzzy');
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -27,12 +28,51 @@ var Badge = React.createClass({
 
     return <main className="badges">
       <div className="row">
+        <input type="text" name="search" ref="search" placeholder="Search here..."
+          onChange={this.updateSearch} />
+        {this.renderSearch(badges)}
         {this.renderCategories(badges, categories)}
       </div>
     </main>;
   },
+  getInitialState: function () {
+    return {
+      searchString: ''
+    };
+  },
   componentDidMount: function componentDidMount () {
     this.loadBadges();
+  },
+  updateSearch: function updateSearch (e) {
+    this.setState({searchString: e.target.value});
+  },
+  renderSearch: function renderSearch (badges) {
+    var searchString = this.state.searchString;
+    if (!searchString) {
+      return <div></div>;
+    }
+
+    var options = {
+      extract: function (badge) {
+        return badge.name + ' ' + badge.subcategory;
+      }
+    };
+
+    var results = fuzzy.filter(searchString, badges, options);
+
+    var self = this;
+    var badgeList = _.map(results, function (badge) {
+      return self.renderBadge(badge.original, true);
+    });
+
+    return <div>
+      <div>
+        <ul className="small-block-grid-8 thumbnail-list">
+          {badgeList}
+        </ul>
+      </div>
+      <hr />
+    </div>;
   },
   renderCategories: function renderCategories (badges, categories) {
     var self = this;
@@ -63,11 +103,11 @@ var Badge = React.createClass({
 
     categoryShouldRender.set(!categoryShouldRender.val());
   },
-  renderBadge: function renderBadge (badge) {
+  renderBadge: function renderBadge (badge, search) {
     var badgeImgPath = '/static/assets/badges/'
       + badge.category + '/' + badge.name + '/small.jpg';
 
-    return <li key={badge.id} className="badge">
+    return <li key={badge.id + (search ? '-search' : null)} className="badge">
       <a href={'/badge/' + badge.id} className="cover">
         <img alt="thumbnail" src={badgeImgPath} />
         <div className="cover">
