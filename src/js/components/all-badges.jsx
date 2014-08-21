@@ -54,7 +54,7 @@ var Badge = React.createClass({
 
     var options = {
       extract: function (badge) {
-        return badge.name + ' ' + badge.subcategory;
+        return badge.subcategory + ' ' + badge.name + ' ' + badge.subcategory;
       }
     };
 
