@@ -26,17 +26,14 @@ var Profile = React.createClass({
     return <main className="profile">
       <div className="row">
         <div className="large-8 columns">
-          <h1>{user.first_name + ' ' + user.last_name}</h1>
-          <ul>
-            {user.title
-              ? <li><h3 className="subheader">{user.title}</h3></li>
-              : null}
-            {user.technical_group || user.nontechnical_group
-              ? <li><h3 className="subheader">{
-                (user.technical_group ? user.technical_group : null) +
-                (user.nontechnical_group ? (' / ' + user.nontechnical_group) : null)}</h3></li>
-              : null}
-          </ul>
+          <h1>{user.first_name} {user.last_name}
+            <small>{user.title ? '  ' + user.title : null}</small>
+          </h1>
+          {user.technical_group
+            ? <h3>{user.technical_group}
+                {user.nontechnical_group ? ' / ' + user.nontechnical_group : null}
+              </h3>
+            : null}
           <hr />
           <h2>BADGES</h2>
           <h4 className="subheader">Outreach:</h4>
@@ -74,6 +71,9 @@ var Profile = React.createClass({
             <img src={gravatar.url(user.email, {s: '303', r: 'pg'}, true)}
               className="profile-pic"></img>
           </a>
+          <br />
+          <br />
+          <h4 className="subheader">Username: {user.username}</h4>
           <hr />
           <div className="row">
             <div className="large-8 columns">
