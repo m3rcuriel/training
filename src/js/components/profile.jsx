@@ -110,6 +110,9 @@ var Profile = React.createClass({
 
     var self = this;
     return _.map(targetBadges, function (targetBadge) {
+      if (targetBadge.status === 'no') {
+        return null;
+      }
 
       badge = _.find(candidateBadges, function (candidateBadge) {
         if (candidateBadge.id.toS() === targetBadge.badge_id.toS()) {
@@ -125,9 +128,6 @@ var Profile = React.createClass({
     });
   },
   renderBadge: function renderBadge (badge, status) {
-    if (status === 'no') {
-      return null;
-    }
     return <li key={badge.id}>
       <a href={'/badge/' + badge.id}><img
         src={'/static/assets/badges/'
