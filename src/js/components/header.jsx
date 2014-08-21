@@ -1,6 +1,12 @@
 /** @jsx React.DOM */
 
 var applicationState = require('../state/application.js');
+var isNode = require('../lib/is-node.js');
+var redirect = require('../lib/redirect.js');
+
+var deleteCookie = function deleteCookie(name) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 
 // This component simply evaluates to the currently signed in user's name.
 //
@@ -21,10 +27,18 @@ var LoggedInBar = React.createClass({
         <li><a href="/badges" className="button">Badges Info</a></li>
       </ul>
       <ul className="button-group">
-        <li><a href="/logout" className="button alert">Logout</a></li>
+        <li><a className="button alert" onClick={this.logout}>Logout</a></li>
       </ul>
     </div>;
-  }
+  },
+  logout: function logout () {
+    if (isNode()) {
+      return;
+    }
+
+    deleteCookie('auth');
+    redirect('/');
+  },
 });
 
 var LoggedOutBar = React.createClass({

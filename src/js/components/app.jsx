@@ -23,7 +23,6 @@ var Register = require('../components/register.js');
 
 // authenticated
 var Profile = require('../components/profile.js');
-var Logout = require('../components/logout.js');
 var Settings = require('../components/settings.js');
 var NewBadge = require('../components/new-badge.js');
 
@@ -36,7 +35,6 @@ var UnauthenticatedRouter = React.createClass({
       <Locations path={this.props.path}>
         <Location path="/register" handler={Layout(Register)} />
         <Location path="/login" handler={Layout(Login)} />
-        <Location path="/logout" handler={Layout(Logout)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <Location path="/badges" handler={Layout(Badges)} />
         <NotFound handler={Layout(Login)} />
@@ -53,7 +51,6 @@ var AuthenticatedRouter = React.createClass({
       <Locations path={this.props.path}>
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
-        <Location path="/logout" handler={Layout(Logout)} />
         <Location path="/badge/new" handler={Layout(NewBadge)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <Location path="/badges" handler={Layout(Badges)} />
