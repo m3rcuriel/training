@@ -125,6 +125,9 @@ var Profile = React.createClass({
     });
   },
   renderBadge: function renderBadge (badge, status) {
+    if (status === 'no') {
+      return null;
+    }
     return <li key={badge.id}>
       <a href={'/badge/' + badge.id}><img
         src={'/static/assets/badges/'
