@@ -42,7 +42,7 @@ var Badge = React.createClass({
               <div className="large-6 column">
                 <input type="text" name="category" ref="category" style={{color: 'red'}}
                   placeholder="Main badge category" defaultValue={badge.category} />
-                <input type="number" name="level" ref="level"
+                <input type="number" name="level" ref="level" max={8} min={1}
                   defaultValue={badge.level} />
                 <p>Mr. Dobervich<br />Danny</p>
               </div>
