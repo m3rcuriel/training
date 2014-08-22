@@ -64,7 +64,7 @@ var Header = React.createClass({
       <div className="row">
         <div className="large-5 columns">
           <a href="/">
-            <img className="logo" src="/static/assets/logo.png" width={400} />
+            <img className="logo" src="/static/assets/logo.jpg" width={400} />
           </a>
         </div>
         {this.props.signedIn
