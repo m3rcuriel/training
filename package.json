@@ -25,10 +25,10 @@
     "uglifyjs": "^2.3.6",
     "uglify-js": "^2.4.15"
   },
-  "main": "_build/server/server.js",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DIST=_dist BUILD=_build node _build/server/server.js"
   },
   "repository": {
     "type": "git"
