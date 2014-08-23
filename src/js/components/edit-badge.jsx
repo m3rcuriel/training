@@ -116,7 +116,7 @@ var Badge = React.createClass({
     if (this.state.state === EditState.LOADING) {
       return false;
     }
-    this.setState({state: EditState.LOADING});
+    this.setState({state: EditState.LOADING, message: 'Submitting changes...'});
 
     var name = this.refs.name.getDOMNode().value.trim();
     var subcategory = this.refs.subcategory.getDOMNode().value.trim();
