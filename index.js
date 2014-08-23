@@ -1,1 +1,1 @@
-require('_build/server/server.js');
+require('../repo/_build/server/server.js');
