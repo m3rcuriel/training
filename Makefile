@@ -97,6 +97,7 @@ css: $(DIST)/static/style.css
 server: all server-only
 server-only:
 	@echo "Running server."
+	@if [ "$(OPENSHIFT_CLOUD_DOMAIN)" != "rhcloud.com" ] ; then terminal-notifier -title 'Build completed' -message 'Reload page.' ; fi
 	@DIST=$(DIST) BUILD=$(BUILD) node $(BUILD)/server/server.js
 
 dev:
