@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bignumber.js": "^1.4.1",
+    "browserify": "^5.10.1",
     "cookie": "^0.1.2",
     "cookies": "^0.4.1",
     "cortexjs": "^0.6.0",
@@ -18,12 +19,11 @@
     "react": "^0.10.0",
     "react-async": "^0.9.4",
     "react-router-component": "^0.19.0",
-    "superagent": "^0.18.0",
     "react-tools": "^0.11.1",
-    "browserify": "^5.10.1",
-    "envify": "^1.2.1",
-    "uglifyjs": "^2.3.6",
-    "uglify-js": "^2.4.15"
+    "superagent": "^0.18.0",
+    "toobusy": "^0.2.4",
+    "uglify-js": "^2.4.15",
+    "uglifyjs": "^2.3.6"
   },
   "devDependencies": {},
   "scripts": {

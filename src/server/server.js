@@ -1,5 +1,6 @@
 var express = require('express');
 var ex = express();
+var toobusy = require('toobusy');
 
 var url = require('url');
 
@@ -13,6 +14,8 @@ var setResponse = require('../js/lib/redirect.js').setResponse;
 ex.disable('etag');
 
 ex.use(function(req, res, next) {
+    if (toobusy()) res.send(503, "I'm busy right now, sorry.");
+
     if (process.env.OPENSHIFT_NODEJS_PORT
         && req.headers['x-forwarded-proto'] === 'http') {
         return res.redirect('https://' + req.headers.host + req.path);
