@@ -53,7 +53,11 @@ ex.use(function(req, res, next) {
     }
 });
 
-ex.use(express.static(process.env.DIST));
+if (process.env.OPENSHIFT_NODEJS_PORT) {
+    var dist = '_dist';
+}
+
+ex.use(express.static(dist || process.env.DIST));
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || 5000 ;
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
