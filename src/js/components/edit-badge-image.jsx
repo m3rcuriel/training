@@ -6,6 +6,7 @@ var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var allBadges = require('../state/badges.js');
+var s3 = require('../lib/s3.js');
 
 var EditState = {
   EDITING: 1,
@@ -26,7 +27,15 @@ var EditBadgeImage = React.createClass({
     var badge = desiredBadge().badge.val();
 
     return <main className="badge">
-      <form onSubmit={this.submit}>
+      <form action="https://3501-training-2014-us-west-2.s3.amazonaws.com/"
+        method="post" encType="multipart/form-data">
+        <input type="hidden" name="key" value={'badges/' + badge.id} />
+        <input type="hidden" name="AWSAccessKeyId" value="AKIAIAR6QZVGGDKEGGWA" />
+        <input type="hidden" name="acl" value="private" />
+        <input type="hidden" name="policy" value={this.state.policy} />
+        <input type="hidden" name="signature" value={this.state.signature} />
+        <input type="hidden" name="Content-Type" value="image/jpeg" />
+
         <div className="row">
           <br /><br />
           <div className="large-6 column">
@@ -49,6 +58,14 @@ var EditBadgeImage = React.createClass({
   },
   componentDidMount: function componentDidMount () {
     this.loadBadge();
+
+    var self = this;
+    s3.signature(function (signature) {
+      self.setState({signature: signature});
+    });
+    s3.policy(function (policy) {
+      self.setState({policy: policy});
+    });
   },
   submit: function submit () {
     if (this.state.state === EditState.LOADING) {
