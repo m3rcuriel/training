@@ -14,7 +14,7 @@ var EditState = {
   SUCCESS: 4,
 };
 
-var Badge = React.createClass({
+var EditBadge = React.createClass({
   mixins: [CortexReactivityMixin],
   reactToCortices: [desiredBadge()],
 
@@ -30,7 +30,9 @@ var Badge = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
+            <a href={'/badge/' + badge.id + '/edit/image'}>
+              <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
+            </a>
             <br /><br />
             <div className="row">
               <hr />
@@ -205,4 +207,4 @@ var Badge = React.createClass({
   },
 });
 
-module.exports = Badge;
+module.exports = EditBadge;
