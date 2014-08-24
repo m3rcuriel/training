@@ -4,9 +4,11 @@ This is the code that powers the frontend of the training site for team 3501 Fir
 
 ### Usage
 
-Install dependencies using `npm`:
+Install dependencies:
 
     npm install
+    npm install -g react-tools
+    gem install watchr
 
 Then, develop with one command:
 
