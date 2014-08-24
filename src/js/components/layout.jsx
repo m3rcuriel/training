@@ -3,7 +3,6 @@
 var Header = require('../components/header.js');
 var Footer = require('../components/footer.js');
 var applicationState = require('../state/application.js');
-var isNode = require('../lib/is-node.js');
 
 var LayoutWrapper = function (body) {
 
@@ -16,7 +15,6 @@ var LayoutWrapper = function (body) {
         applicationState().auth.token.val().length > 0
 
       return <div>
-        {isNode() ? null : require('../lib/google-analytics.js')}
         <Header signedIn={signedIn} />
         {body(this.props)}
         <Footer signedIn={signedIn} />
