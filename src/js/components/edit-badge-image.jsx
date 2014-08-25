@@ -53,7 +53,9 @@ var EditBadgeImage = React.createClass({
   getInitialState: function () {
     return {
       state: EditState.EDITING,
-      message: ""
+      message: '',
+      policy: '',
+      signature: ''
     };
   },
   componentDidMount: function componentDidMount () {
