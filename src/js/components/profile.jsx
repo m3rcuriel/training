@@ -121,11 +121,13 @@ var Profile = React.createClass({
     });
   },
   renderBadge: function renderBadge (badge, status) {
+    var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
+      + '.amazonaws.com/badges/' + badge.id + '.jpg';
+
     return <li key={badge.id}>
-      <a href={'/badge/' + badge.id}><img width={300}
-        src={'/static/assets/badges/'
-          + badge.category + '/' + badge.name + '/small.jpg'}
-        className={'badge ' + status} /></a>
+      <a href={'/badge/' + badge.id}>
+        <img width={300} src={pathToBadge} className={'badge ' + status} />
+      </a>
     </li>;
   },
   loadUserBadges: function loadUserBadges () {

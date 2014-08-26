@@ -24,6 +24,8 @@ var EditBadge = React.createClass({
     }
 
     var badge = desiredBadge().badge.val();
+    var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
+      + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
     return <main className="badge">
       <form onSubmit={this.submit}>
@@ -32,7 +34,7 @@ var EditBadge = React.createClass({
           <div className="large-4 column">
             <a href={'/badge/' + badge.id + '/edit/image'}>
               <img width={300}
-                src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
+                src={pathToBadge} />
             </a>
             <br /><br />
             <div className="row">

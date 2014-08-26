@@ -18,14 +18,16 @@ var Badge = React.createClass({
     }
 
     var badge = desiredBadge().badge.val();
-    var pathToBadge = 'assets.oflogan.com/badges/' + badge.id;
+    var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
+      + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
     return <main className="badge">
       <div>
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
+            <img width={300}
+              src={pathToBadge} />
             <br /><br />
             <div className="row">
               <hr />

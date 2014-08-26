@@ -104,12 +104,12 @@ var Badge = React.createClass({
     categoryShouldRender.set(!categoryShouldRender.val());
   },
   renderBadge: function renderBadge (badge, search) {
-    var badgeImgPath = '/static/assets/badges/'
-      + badge.category + '/' + badge.name + '/small.jpg';
+    var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
+      + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
     return <li key={badge.id + (search ? '-search' : null)} className="badge">
       <a href={'/badge/' + badge.id} className="cover">
-        <img alt="thumbnail" src={badgeImgPath} width={150} />
+        <img alt="thumbnail" src={pathToBadge} width={150} />
         <div className="cover">
           <h5>{badge.name}</h5>
           <p>{badge.subcategory} {badge.level}</p>
