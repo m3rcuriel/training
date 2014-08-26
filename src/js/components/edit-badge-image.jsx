@@ -30,6 +30,8 @@ var EditBadgeImage = React.createClass({
     return <main className="badge">
       <form action="https://3501-training-2014-us-west-2.s3.amazonaws.com/"
         method="post" encType="multipart/form-data">
+        <input type="hidden" name="success_action_redirect"
+          value={'https://app.oflogan.com/badge/' + badge.id + '/edit'} />
         <input type="hidden" name="key" value={'badges/' + badge.id + '.jpg'} />
         <input type="hidden" name="AWSAccessKeyId" value={this.state.access_key_id} />
         <input type="hidden" name="policy" value={this.state.policy} />
@@ -47,12 +49,11 @@ var EditBadgeImage = React.createClass({
               className={'button alert' + (this.state.state === EditState.LOADING ? ' disabled' : '')} />
           </div>
           <div className="large-6 column">
-            <p><b>Note 1:</b> Please upload images at 300x300px. Other sizes are ok,
-              but we want to keep load times down and 300x300 is the largest
+            <p><b>Note 1:</b> Please upload images at 300x300px. Other sizes are
+              ok, but we want to keep load times down and 300x300 is the largest
               size used on the website.</p>
-            <p><b>Note 2:</b> Any new image will overwrite the old image completely
-              and immediately once you submit.</p>
-            <h4><b>Note 3:</b> Reload this page now otherwise uploading won't work. :P</h4>
+            <p><b>Note 2:</b> Any new image will overwrite the old image
+              completely and immediately once you submit.</p>
           </div>
         </div>
       </form>
