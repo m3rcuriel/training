@@ -37,6 +37,12 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
+  s3_creds: function (callback) {
+    API.request.get('/badges/s3-creds')
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
 
 module.exports = Badge;

@@ -29,12 +29,10 @@ var EditBadgeImage = React.createClass({
     return <main className="badge">
       <form action="https://3501-training-2014-us-west-2.s3.amazonaws.com/"
         method="post" encType="multipart/form-data">
-        <input type="hidden" name="key" value={'badges/' + badge.id} />
-        <input type="hidden" name="AWSAccessKeyId" value="AKIAIAR6QZVGGDKEGGWA" />
-        <input type="hidden" name="acl" value="private" />
+        <input type="hidden" name="key" value={'tcho.jpg'} />
+        <input type="hidden" name="AWSAccessKeyId" value={this.state.access_key_id} />
         <input type="hidden" name="policy" value={this.state.policy} />
         <input type="hidden" name="signature" value={this.state.signature} />
-        <input type="hidden" name="Content-Type" value="image/jpeg" />
 
         <div className="row">
           <br /><br />
@@ -52,21 +50,20 @@ var EditBadgeImage = React.createClass({
   },
   getInitialState: function () {
     return {
-      state: EditState.EDITING,
-      message: '',
-      policy: '',
-      signature: ''
+      state: EditState.EDITING
     };
   },
   componentDidMount: function componentDidMount () {
     this.loadBadge();
 
     var self = this;
-    s3.signature(function (signature) {
-      self.setState({signature: signature});
-    });
-    s3.policy(function (policy) {
-      self.setState({policy: policy});
+    Badges.s3_creds(function (response) {
+
+      self.setState({
+        policy: response.policy,
+        signature: response.signature,
+        access_key_id: response.AWSAccessKeyId
+      });
     });
   },
   submit: function submit () {
