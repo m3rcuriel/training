@@ -29,7 +29,7 @@ var EditBadgeImage = React.createClass({
     return <main className="badge">
       <form action="https://3501-training-2014-us-west-2.s3.amazonaws.com/"
         method="post" encType="multipart/form-data">
-        <input type="hidden" name="key" value={'tcho.jpg'} />
+        <input type="hidden" name="key" value={'badges/' + badge.id + '.jpg'} />
         <input type="hidden" name="AWSAccessKeyId" value={this.state.access_key_id} />
         <input type="hidden" name="policy" value={this.state.policy} />
         <input type="hidden" name="signature" value={this.state.signature} />
@@ -37,7 +37,8 @@ var EditBadgeImage = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-6 column">
-            <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
+            <img width={300}
+              src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
             <br />
             <hr />
             <input type="file" name="file" ref="file" />

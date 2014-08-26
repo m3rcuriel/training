@@ -31,18 +31,19 @@ var EditBadge = React.createClass({
           <br /><br />
           <div className="large-4 column">
             <a href={'/badge/' + badge.id + '/edit/image'}>
-              <img src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
+              <img width={300}
+                src={'/static/assets/badges/' + badge.category + '/' + badge.name + '/medium.jpg'} />
             </a>
             <br /><br />
             <div className="row">
               <hr />
               <div className="large-6 column">
-                <p style={{color: 'red'}}>Category:</p>
+                <p>Category:</p>
                 <p>Level:</p>
                 <p>Verifier(s):</p>
               </div>
               <div className="large-6 column">
-                <input type="text" name="category" ref="category" style={{color: 'red'}}
+                <input type="text" name="category" ref="category"
                   placeholder="Main badge category" defaultValue={badge.category} />
                 <input type="number" name="level" ref="level" max={8} min={1}
                   defaultValue={badge.level} />
@@ -54,8 +55,8 @@ var EditBadge = React.createClass({
           <div className="large-8 column">
             <div className="row"><h1>
               <div className="large-4 columns">
-                <label style={{color: 'red'}}>Name
-                  <input type="text" name="name" ref="name" style={{color: 'red'}}
+                <label>Name
+                  <input type="text" name="name" ref="name"
                     defaultValue={badge.name} placeholder="Badge name" />
                 </label>
               </div>

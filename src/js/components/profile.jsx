@@ -122,7 +122,7 @@ var Profile = React.createClass({
   },
   renderBadge: function renderBadge (badge, status) {
     return <li key={badge.id}>
-      <a href={'/badge/' + badge.id}><img
+      <a href={'/badge/' + badge.id}><img width={300}
         src={'/static/assets/badges/'
           + badge.category + '/' + badge.name + '/small.jpg'}
         className={'badge ' + status} /></a>

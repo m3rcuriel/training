@@ -18,6 +18,7 @@ var Badge = React.createClass({
     }
 
     var badge = desiredBadge().badge.val();
+    var pathToBadge = 'assets.oflogan.com/badges/' + badge.id;
 
     return <main className="badge">
       <div>
