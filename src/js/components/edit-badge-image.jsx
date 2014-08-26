@@ -39,7 +39,7 @@ var EditBadgeImage = React.createClass({
 
         <div className="row">
           <br /><br />
-          <div className="large-6 column">
+          <div className="large-4 column">
             <img width={300}
               src={pathToBadge} />
             <br />
@@ -48,7 +48,7 @@ var EditBadgeImage = React.createClass({
             <input type="submit" value="Submit new image"
               className={'button alert' + (this.state.state === EditState.LOADING ? ' disabled' : '')} />
           </div>
-          <div className="large-6 column">
+          <div className="large-8 column">
             <p><b>Note 1:</b> Please upload images at 300x300px. Other sizes are
               ok, but we want to keep load times down and 300x300 is the largest
               size used on the website.</p>
