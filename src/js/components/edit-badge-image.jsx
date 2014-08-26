@@ -46,6 +46,13 @@ var EditBadgeImage = React.createClass({
             <input type="submit" value="Submit new image"
               className={'button alert' + (this.state.state === EditState.LOADING ? ' disabled' : '')} />
           </div>
+          <div className="large-6 column">
+            <p><b>Note 1:</b> Please upload images at 300x300px. Other sizes are ok,
+              but we want to keep load times down and 300x300 is the largest
+              size used on the website.</p>
+            <p><b>Note 2:</b> Any new image will overwrite the old image completely
+              and immediately once you submit.</p>
+          </div>
         </div>
       </form>
     </main>;
