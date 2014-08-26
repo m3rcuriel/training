@@ -6,7 +6,6 @@ var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var allBadges = require('../state/badges.js');
-var s3 = require('../lib/s3.js');
 
 var EditState = {
   EDITING: 1,
