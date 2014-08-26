@@ -30,8 +30,6 @@ var EditBadgeImage = React.createClass({
     return <main className="badge">
       <form action="https://3501-training-2014-us-west-2.s3.amazonaws.com/"
         method="post" encType="multipart/form-data">
-        <input type="hidden" name="success_action_redirect"
-          value={'https://app.oflogan.com/badge/' + badge.id + '/edit'} />
         <input type="hidden" name="key" value={'badges/' + badge.id + '.jpg'} />
         <input type="hidden" name="AWSAccessKeyId" value={this.state.access_key_id} />
         <input type="hidden" name="policy" value={this.state.policy} />
