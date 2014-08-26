@@ -52,6 +52,7 @@ var EditBadgeImage = React.createClass({
               size used on the website.</p>
             <p><b>Note 2:</b> Any new image will overwrite the old image completely
               and immediately once you submit.</p>
+            <h4><b>Note 3:</b> Reload this page now otherwise uploading won't work. :P</h4>
           </div>
         </div>
       </form>
