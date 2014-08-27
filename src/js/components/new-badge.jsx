@@ -10,7 +10,7 @@ var NewBadgeState = {
   SUCCESS: 4,
 };
 
-var EditBadge = React.createClass({
+var NewBadge = React.createClass({
   render: function render () {
     return <main className="badge">
       <form onSubmit={this.submit}>
@@ -134,4 +134,4 @@ var EditBadge = React.createClass({
   },
 });
 
-module.exports = EditBadge;
+module.exports = NewBadge;
