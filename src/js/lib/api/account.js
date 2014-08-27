@@ -12,4 +12,10 @@ var Account = module.exports = {
         if (callback) callback(res.body);
       }));
   },
+  all: function (callback) {
+    API.request.get('/account/all')
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
