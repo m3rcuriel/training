@@ -22,17 +22,27 @@ var SignedInUser = React.createClass({
 var LoggedInBar = React.createClass({
   render: function render () {
     var user = applicationState().auth.user.val();
+    var authorized = user.permissions === 'mentor' || user.permissions === 'lead';
 
-    return <div className="button-bar right">
-      <ul className="button-group">
-        {user.permissions === 'mentor' || user.permissions === 'lead'
-          ? <li><a href="/badge/new" className="button">Create badge</a></li>
+    return <div className="row">
+      <div className="button-bar left">
+        {authorized
+          ? <ul className="button-group">
+              <li><a href="/user/new" className="button success">Add User</a></li>
+              <li><a href="/badge/new" className="button success">Create Badge</a></li>
+            </ul>
           : null}
-        <li><a href="/badges" className="button">All Badges</a></li>
-      </ul>
-      <ul className="button-group">
-        <li><a className="button alert" onClick={this.logout}>Logout</a></li>
-      </ul>
+        <ul className="button-group">
+          <li><a className="button" href="/users">All Users</a></li>
+          <li><a className="button" href="/badges">All Badges</a></li>
+          <li><a className="button success" href="/">Home</a></li>
+        </ul>
+      </div>
+      <div className="button-bar right">
+        <ul className="button-group">
+          <li><a className="button alert" onClick={this.logout}>Logout</a></li>
+        </ul>
+      </div>
     </div>;
   },
   logout: function logout () {
@@ -47,13 +57,21 @@ var LoggedInBar = React.createClass({
 
 var LoggedOutBar = React.createClass({
   render: function render () {
-    return <div className="button-bar right">
-      <ul className="button-group">
-        <li><a href="/badges" className="button">Badges</a></li>
-      </ul>
-      <ul className="button-group">
-        <li><a href="/" className="button alert">Login</a></li>
-      </ul>
+    return <div className="row">
+      <div className="large-5 columns">
+        <a href="/">
+          <img className="logo" src="/static/assets/logo.jpg" width={400} />
+        </a>
+      </div>
+      <div className="button-bar right">
+        <ul className="button-group">
+          <li><a href="/" className="button success">Home</a></li>
+          <li><a href="/badges" className="button">All Badges</a></li>
+        </ul>
+        <ul className="button-group">
+          <li><a href="/" className="button alert">Login</a></li>
+        </ul>
+      </div>
     </div>;
   }
 });
@@ -65,16 +83,9 @@ var Header = React.createClass({
   render: function () {
 
     return <header>
-      <div className="row">
-        <div className="large-5 columns">
-          <a href="/">
-            <img className="logo" src="/static/assets/logo.jpg" width={400} />
-          </a>
-        </div>
-        {this.props.signedIn
-          ? <LoggedInBar />
-          : <LoggedOutBar />}
-      </div>
+      {this.props.signedIn
+        ? <LoggedInBar />
+        : <LoggedOutBar />}
       <br /><br />
     </header>;
   },
