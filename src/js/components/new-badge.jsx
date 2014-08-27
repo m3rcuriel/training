@@ -1,141 +1,137 @@
 /** @jsx React.DOM */
 
-var applicationState = require('../state/application.js');
 var Badges = require('../lib/api/badges.js');
-var EntityStates = require('../lib/entity-states.js');
-var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var redirect = require('../lib/redirect.js');
 
 var NewBadgeState = {
-  EDITING: 0,
-  LOADING: 1,
-  LOADED: 2,
+  EDITING: 1,
+  LOADING: 2,
   FAILED: 3,
-  SUCCESS: 4
+  SUCCESS: 4,
 };
 
-var Badge = React.createClass({
-  render: function () {
-    return <main className="login">
-      <header>
-        <div className="container">
-          <h1 className="primary-color">New badge.</h1>
+var EditBadge = React.createClass({
+  render: function render () {
+    return <main className="badge">
+      <form onSubmit={this.submit}>
+        <div className="row">
+          <br /><br />
+          <div className="large-4 column">
+            <img width={300}
+              src={"http://placehold.it/300x300&text=badge+image"} />
+            <br /><br />
+            <div className="row">
+              <hr />
+              <div className="large-6 column">
+                <p>Category:</p>
+                <p>Level:</p>
+                <p>Verifier(s):</p>
+              </div>
+              <div className="large-6 column">
+                <input type="text" name="category" ref="category"
+                  placeholder="Badge category" />
+                <input type="number" name="level" ref="level" max={8} min={1}
+                  placeholder={1} />
+                <p>Mr. Dobervich<br />Danny</p>
+              </div>
+            </div>
+          </div>
+          <div className="large-8 column">
+            <div className="row"><h1>
+              <div className="large-4 columns">
+                <label>Name
+                  <input type="text" name="name" ref="name"
+                    placeholder="Badge name" />
+                </label>
+              </div>
+              <div className="large-4 columns end">
+                <small>
+                  <label>Subcategory
+                    <input type="text" name="subcategory" ref="subcategory"
+                      placeholder="Badge subcategory" />
+                  </label>
+                </small>
+              </div>
+            </h1></div>
+
+            <h3 className="subheader">Requirements:</h3>
+            <textarea placeholder="What is this badge about? What do I have to do?"
+              rows="4" ref="description"></textarea>
+            <h3 className="subheader">Learning methods:</h3>
+            <textarea placeholder="What do I do if I want to learn this? What is the assessment?"
+              rows="4" ref="learning_method"></textarea>
+            <br />
+            <div className="row">
+              <div className="large-6 columns">
+                <h3 className="subheader">Resources:</h3>
+                <ul>
+                  <li><a href="http://maps.google.com">Google Maps</a>
+                  </li><li><a href="http://http://www.starbucks.com/store-locator">Starbucks Store Locator</a>
+                  </li><li><a href="https://chaseonline.chase.com/">Chase Bank Account</a>
+                  </li></ul>
+              </div>
+              <div className="large-6 columns">
+                <input type="submit" className={
+                  'button alert' + (this.state.state === NewBadgeState.LOADING ? ' disabled' : '')}
+                  value="Next: add image" />
+                <br />
+                {this.state.message}
+              </div>
+            </div>
+          </div>
         </div>
-      </header>
-      <section>
-        <div className="container">
-          <h4>{this.state.message}</h4>
-          <form className="form-horizontal login" onSubmit={this.submit}>
-
-            <div className="form-group">
-              <label htmlFor="first_name">Name</label>
-              <div className="field-container">
-                <input type="name" name="name"
-                  placeholder="name" ref="name" />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="first_name">Description</label>
-              <div className="field-container">
-                <input type="description" name="description"
-                  placeholder="description" ref="description" />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="last_name">Learning method</label>
-              <div className="field-container">
-                <input type="learning_method" name="learning_method"
-                  placeholder="learning_method" ref="learning_method" />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="first_name">Assessment</label>
-              <div className="field-container">
-                <input type="assessment" name="assessment"
-                  placeholder="assessment" ref="assessment" />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="last_name">Category</label>
-              <div className="field-container">
-                <input type="category" name="category"
-                  placeholder="category" ref="category" />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="first_name">Subcategory</label>
-              <div className="field-container">
-                <input type="subcategory" name="subcategory"
-                  placeholder="subcategory" ref="subcategory" />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="last_name">Level</label>
-              <div className="field-container">
-                <input type="level" name="level" type="number" min={0} max={12}
-                  placeholder="level" ref="level" />
-              </div>
-            </div>
-
-            <div className="buttons form-group">
-              <input type="submit" className={'secondary' +
-                (this.state.state === NewBadgeState.LOADING ? ' disabled' : '')} value="Go ahead." />
-            </div>
-
-          </form>
-        </div>
-      </section>
+      </form>
     </main>;
   },
-  getInitialState: function() {
-    return {state: NewBadgeState.EDITING, message: 'Go ahead.'};
+  getInitialState: function () {
+    return {
+      state: NewBadgeState.EDITING,
+      message: ''
+    };
   },
-  submit: function () {
+  submit: function submit () {
     if (this.state.state === NewBadgeState.LOADING) {
       return false;
     }
-    this.setState({state: NewBadgeState.LOADING});
+    this.setState({state: NewBadgeState.LOADING, message: 'Submitting badge...'});
 
     var name = this.refs.name.getDOMNode().value.trim();
+    var subcategory = this.refs.subcategory.getDOMNode().value.trim();
+    var category = this.refs.category.getDOMNode().value.trim();
+    var level = parseInt(this.refs.level.getDOMNode().value);
     var description = this.refs.description.getDOMNode().value.trim();
     var learningMethod = this.refs.learning_method.getDOMNode().value.trim();
-    var assessment = this.refs.assessment.getDOMNode().value.trim();
-    var category = this.refs.category.getDOMNode().value.trim();
-    var subcategory = this.refs.subcategory.getDOMNode().value.trim();
-    var level = parseInt(this.refs.level.getDOMNode().value.trim());
-
-    if (!name || !description || !learningMethod || !assessment || !category
-      || !subcategory || !level) {
+    if (!name || !subcategory || !category
+      || !level || !description || !learningMethod) {
+      this.setState({
+        state: NewBadgeState.EDITING,
+        message: 'Make sure all the fields are filled in.'
+      });
       return false;
     }
 
     var data = {
       name: name,
+      subcategory: subcategory,
+      category: category,
+      level: parseInt(level),
       description: description,
       learning_method: learningMethod,
-      assessment: assessment,
-      category: category,
-      subcategory: subcategory,
-      level: level
     };
 
     var self = this;
     Badges.create(data, function (response) {
+      var savedBadge = response.badge;
+
       if (response.status !== 200) {
         self.setState({state: NewBadgeState.FAILED, message: response.message});
-        self.refs.name.getDOMNode().focus();
       } else {
-        self.setState({state: NewBadgeState.SUCCESS, message: 'Badge created.'});
+        self.setState({state: NewBadgeState.SUCCESS, message: "Badge saved."});
+        redirect('/badge/' + savedBadge.id + '/edit/image?state=new');
       }
     });
     return false;
   },
 });
 
-module.exports = Badge;
+module.exports = EditBadge;

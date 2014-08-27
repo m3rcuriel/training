@@ -6,6 +6,7 @@ var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var allBadges = require('../state/badges.js');
+var query = require('../lib/query.js');
 
 var EditState = {
   EDITING: 1,
@@ -45,9 +46,13 @@ var EditBadgeImage = React.createClass({
             <input type="submit" value="Submit new image"
               className={'button alert' +
                 (this.state.state === EditState.LOADING ? ' disabled' : '')} />
-            <a href={'/badge/' + badge.id + '/edit'} className="button">
-              Back to editing
-            </a>
+            {query().state === 'new'
+              ? <a href={'/badge/' + badge.id} className="button">
+                  View final badge
+                </a>
+              : <a href={'/badge/' + badge.id + '/edit'} className="button">
+                  Back to editing
+                </a>}
           </div>
           <div className="large-8 column">
             <p><b>Note 1:</b> Please upload images at 300x300px. Other sizes are
@@ -91,8 +96,8 @@ var EditBadgeImage = React.createClass({
     }
     this.setState({
       state: EditState.LOADING,
-      message: "We can't know whether or not your upload completed due to the "
-        + "way it is sent. It's probably done if you used the recommended size."
+      message: "We can't know whether or not your upload completed due to the way"
+        + " it is sent. It's probably done if you used the recommended image size."
     });
   },
   loadBadge: function loadBadge () {
