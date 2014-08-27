@@ -21,10 +21,14 @@ var SignedInUser = React.createClass({
 
 var LoggedInBar = React.createClass({
   render: function render () {
+    var user = applicationState().auth.user.val();
+
     return <div className="button-bar right">
       <ul className="button-group">
-        <li><a href="/activity" className="button">Activity</a></li>
-        <li><a href="/badges" className="button">Badges Info</a></li>
+        {user.permissions === 'mentor' || user.permissions === 'lead'
+          ? <li><a href="/badge/new" className="button">Create badge</a></li>
+          : null}
+        <li><a href="/badges" className="button">All Badges</a></li>
       </ul>
       <ul className="button-group">
         <li><a className="button alert" onClick={this.logout}>Logout</a></li>

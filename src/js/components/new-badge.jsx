@@ -18,7 +18,7 @@ var EditBadge = React.createClass({
           <br /><br />
           <div className="large-4 column">
             <img width={300}
-              src={"http://placehold.it/300x300&text=badge+image"} />
+              src={'http://placehold.it/300x300&text=badge+image'} />
             <br /><br />
             <div className="row">
               <hr />
@@ -41,7 +41,7 @@ var EditBadge = React.createClass({
               <div className="large-4 columns">
                 <label>Name
                   <input type="text" name="name" ref="name"
-                    placeholder="Badge name" />
+                    placeholder="Badge name" autoFocus />
                 </label>
               </div>
               <div className="large-4 columns end">
