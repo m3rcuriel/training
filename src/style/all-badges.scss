@@ -1,4 +1,4 @@
-main.badges main.users {
+main.badges, main.users {
   a.cover {
     top: 0; right: 0;
     bottom: 0; left: 0;
@@ -19,7 +19,7 @@ main.badges main.users {
     color: gray;
   }
 
-  li.badge {
+  li {
     margin-bottom: -20px;
   }
 }
