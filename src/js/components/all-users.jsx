@@ -87,7 +87,7 @@ var AllUsers = React.createClass({
         <img src={gravatar.url(user.email, {s: '150', r: 'pg'}, true)}
           className="profile-pic"></img>
         <div className="cover">
-          <h5>{user.first_name + user.last_name}</h5>
+          <h5>{user.first_name}</h5>
           <p>{user.technical_group}</p>
         </div>
       </a>
