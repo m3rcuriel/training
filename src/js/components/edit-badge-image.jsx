@@ -10,8 +10,6 @@ var allBadges = require('../state/badges.js');
 var EditState = {
   EDITING: 1,
   LOADING: 2,
-  FAILED: 3,
-  SUCCESS: 4,
 };
 
 var EditBadgeImage = React.createClass({
@@ -29,7 +27,7 @@ var EditBadgeImage = React.createClass({
 
     return <main className="badge">
       <form action="https://3501-training-2014-us-west-2.s3.amazonaws.com/"
-        method="post" encType="multipart/form-data">
+        method="post" encType="multipart/form-data" onSubmit={this.submit}>
         <input type="hidden" name="key" value={'badges/' + badge.id + '.jpg'} />
         <input type="hidden" name="AWSAccessKeyId" value={this.state.access_key_id} />
         <input type="hidden" name="policy" value={this.state.policy} />
@@ -43,8 +41,13 @@ var EditBadgeImage = React.createClass({
             <br />
             <hr />
             <input type="file" name="file" ref="file" />
+
             <input type="submit" value="Submit new image"
-              className={'button alert' + (this.state.state === EditState.LOADING ? ' disabled' : '')} />
+              className={'button alert' +
+                (this.state.state === EditState.LOADING ? ' disabled' : '')} />
+            <a href={'/badge/' + badge.id + '/edit'} className="button">
+              Back to editing
+            </a>
           </div>
           <div className="large-8 column">
             <p><b>Note 1:</b> Please upload images at 300x300px. Other sizes are
@@ -52,6 +55,12 @@ var EditBadgeImage = React.createClass({
               size used on the website.</p>
             <p><b>Note 2:</b> Any new image will overwrite the old image
               completely and immediately once you submit.</p>
+            {this.state.message
+              ? <div>
+                  <hr />
+                  <p><b>Note 3:</b>{this.state.message}</p>
+                </div>
+              : null}
           </div>
         </div>
       </form>
@@ -59,7 +68,8 @@ var EditBadgeImage = React.createClass({
   },
   getInitialState: function () {
     return {
-      state: EditState.EDITING
+      state: EditState.EDITING,
+      message: '',
     };
   },
   componentDidMount: function componentDidMount () {
@@ -79,11 +89,11 @@ var EditBadgeImage = React.createClass({
     if (this.state.state === EditState.LOADING) {
       return false;
     }
-    this.setState({state: EditState.LOADING, message: 'Submitting changes...'});
-
-    var currentBadge = desiredBadge().badge.val();
-
-    return false;
+    this.setState({
+      state: EditState.LOADING,
+      message: "We can't know whether or not your upload completed due to the "
+        + "way it is sent. It's probably done if you used the recommended size."
+    });
   },
   loadBadge: function loadBadge () {
     var self = this;
