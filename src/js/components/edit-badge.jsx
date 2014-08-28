@@ -99,8 +99,13 @@ var EditBadge = React.createClass({
               <div className="large-4 columns">
                 <input type="submit" className={'button alert' + (this.state.state === EditState.LOADING ? ' disabled' : '')} value="Submit changes" />
               </div>
-              <div className="large-4 columns end">
+              <div className="large-4 columns">
                 {this.state.message}
+              </div>
+              <div className="large-4 columns">
+                <p><i>All content parsed as <a
+                  href="http://daringfireball.net/projects/markdown/syntax">Markdown.
+                </a></i></p>
               </div>
             </div>
           </div>

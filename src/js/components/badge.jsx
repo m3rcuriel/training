@@ -1,12 +1,17 @@
 /** @jsx React.DOM */
 
 var Badges = require('../lib/api/badges.js');
-var desiredBadge = require('../state/badge.js');
 var EntityStates = require('../lib/entity-states.js');
+
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
+
+var desiredBadge = require('../state/badge.js');
 var allBadges = require('../state/badges.js');
 var applicationState = require('../state/application.js');
+
+var pagedown = require('pagedown');
+var converter = new pagedown.getSanitizingConverter();
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -20,6 +25,8 @@ var Badge = React.createClass({
     var badge = desiredBadge().badge.val();
     var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
+    var description = converter.makeHtml(badge.description);
+    var learningMethod = converter.makeHtml(badge.learning_method);
 
     return <main className="badge">
       <div>
@@ -54,9 +61,9 @@ var Badge = React.createClass({
               } series</small></h1></div>
             <br />
             <h3 className="subheader">Requirements:</h3>
-            <p>{badge.description}</p>
+            <span dangerouslySetInnerHTML={{__html: description}} />
             <h3 className="subheader">Learning methods:</h3>
-            <p>{badge.learning_method}</p>
+            <span dangerouslySetInnerHTML={{__html: learningMethod}} />
             <br />
             <div className="row">
               <div className="large-6 columns">
