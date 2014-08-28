@@ -25,9 +25,12 @@ var Badge = React.createClass({
     var badge = desiredBadge().badge.val();
     var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
+
     var description = converter.makeHtml(badge.description || '');
     var learningMethod = converter.makeHtml(badge.learning_method || '');
     var resources = converter.makeHtml(badge.resources || '');
+
+    var permissions = applicationState().auth.user.permissions.val();
 
     return <main className="badge">
       <div>
@@ -50,10 +53,13 @@ var Badge = React.createClass({
                 <p>Mr. Dobervich<br />Danny</p>
               </div>
               <hr />
-              {applicationState().auth.user.permissions.val() === 'mentor'
-                || applicationState().auth.user.permissions.val() === 'lead'
+              {permissions === 'mentor' || permissions === 'lead'
                 ? <a className="button" href={'/badge/' + badge.id + '/edit'}
                   >Edit badge</a>
+                : null}
+              {permissions === 'mentor'
+                ? <a className="button" href={'/badge/' + badge.id + '/assign'}
+                  >Assign badge</a>
                 : null}
             </div>
           </div>

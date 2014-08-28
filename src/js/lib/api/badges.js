@@ -17,6 +17,18 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
+  link_badge: function (userId, badgeId, callback) {
+    var payload = API.encode({
+      user_id: userId,
+      badge_id: badgeId,
+    });
+
+    API.request.patch('/badges/user')
+      .send(payload)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
   specific_user_badges: function (id, callback) {
     API.request.get('/badges/user/' + id)
       .end(API.end(function (res) {
