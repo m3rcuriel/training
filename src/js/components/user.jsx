@@ -133,7 +133,8 @@ var Profile = React.createClass({
     </li>;
   },
   loadUser: function loadUser () {
-    if (userState().loaded_user.val() === EntityStates.LOADED) {
+    if (userState().loaded_user.val() === EntityStates.LOADED
+      && this.props.id === userState().user.id.val().toS()) {
       return false;
     }
     userState().loaded_user.set(EntityStates.LOADING);
