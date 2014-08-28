@@ -148,7 +148,7 @@ var EditBadge = React.createClass({
     if (description !== currentBadge.description)
       delta.description = description;
     if (learningMethod !== currentBadge.learning_method)
-      delta.learningMethod = learningMethod;
+      delta.learning_method = learningMethod;
 
     if (_.size(delta) === 0) {
       this.setState({
