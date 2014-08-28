@@ -18,4 +18,10 @@ var Account = module.exports = {
         if (callback) callback(res.body);
       }));
   },
+  get: function (id, callback) {
+    API.request.get('/account/' + id)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };

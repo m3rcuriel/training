@@ -17,6 +17,12 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
+  specific_user_badges: function (id, callback) {
+    API.request.get('/badges/user/' + id)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
   all: function (callback) {
     API.request.get('/badges/all')
       .end(API.end(function (res) {
