@@ -26,6 +26,7 @@ var Register = require('../components/register.js');
 var Profile = require('../components/profile.js');
 var Settings = require('../components/settings.js');
 var NewBadge = require('../components/new-badge.js');
+var AssignBadge = require('../components/assign-badge.js');
 var EditBadge = require('../components/edit-badge.js');
 var EditBadgeImage = require('../components/edit-badge-image.js');
 var Users = require('../components/all-users.js');
@@ -57,6 +58,7 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/badge/new" handler={Layout(NewBadge)} />
+        <Location path="/badge/:id/assign" handler={Layout(AssignBadge)} />
         <Location path="/badge/:id/edit" handler={Layout(EditBadge)} />
         <Location path="/badge/:id/edit/image" handler={Layout(EditBadgeImage)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
