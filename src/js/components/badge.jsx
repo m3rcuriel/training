@@ -25,8 +25,9 @@ var Badge = React.createClass({
     var badge = desiredBadge().badge.val();
     var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
-    var description = converter.makeHtml(badge.description);
-    var learningMethod = converter.makeHtml(badge.learning_method);
+    var description = converter.makeHtml(badge.description || '');
+    var learningMethod = converter.makeHtml(badge.learning_method || '');
+    var resources = converter.makeHtml(badge.resources || '');
 
     return <main className="badge">
       <div>
@@ -68,11 +69,7 @@ var Badge = React.createClass({
             <div className="row">
               <div className="large-6 columns">
                 <h3 className="subheader">Resources:</h3>
-                <ul>
-                  <li><a href="http://maps.google.com">Google Maps</a>
-                  </li><li><a href="http://http://www.starbucks.com/store-locator">Starbucks Store Locator</a>
-                  </li><li><a href="https://chaseonline.chase.com/">Chase Bank Account</a>
-                  </li></ul>
+                <span dangerouslySetInnerHTML={{__html: resources}} />
               </div>
               <div className="large-6 columns">
                 <h3 className="subheader">Need help? </h3>

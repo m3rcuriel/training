@@ -74,19 +74,16 @@ var EditBadge = React.createClass({
 
             <h3 className="subheader">Requirements:</h3>
             <textarea defaultValue={badge.description} rows="4"
-              ref="description"></textarea>
+              ref="description" />
             <h3 className="subheader">Learning methods:</h3>
             <textarea defaultValue={badge.learning_method} rows="4"
-              ref="learning_method"></textarea>
+              ref="learning_method" />
             <br />
             <div className="row">
               <div className="large-6 columns">
                 <h3 className="subheader">Resources:</h3>
-                <ul>
-                  <li><a href="http://maps.google.com">Google Maps</a>
-                  </li><li><a href="http://http://www.starbucks.com/store-locator">Starbucks Store Locator</a>
-                  </li><li><a href="https://chaseonline.chase.com/">Chase Bank Account</a>
-                  </li></ul>
+                <textarea defaultValue={badge.resources} rows="3"
+                  ref="resources" />
               </div>
               <div className="large-6 columns">
                 <h3 className="subheader">Need help? </h3>
@@ -97,7 +94,9 @@ var EditBadge = React.createClass({
             <hr />
             <div className="row">
               <div className="large-4 columns">
-                <input type="submit" className={'button alert' + (this.state.state === EditState.LOADING ? ' disabled' : '')} value="Submit changes" />
+                <input type="submit" className={'button alert'
+                  + (this.state.state === EditState.LOADING ? ' disabled' : '')}
+                  value="Submit changes" />
               </div>
               <div className="large-4 columns">
                 {this.state.message}
@@ -134,7 +133,8 @@ var EditBadge = React.createClass({
     var level = parseInt(this.refs.level.getDOMNode().value);
     var description = this.refs.description.getDOMNode().value.trim();
     var learningMethod = this.refs.learning_method.getDOMNode().value.trim();
-    if (!name || !subcategory || !category
+    var resources = this.refs.resources.getDOMNode().value.trim();
+    if (!name || !subcategory || !category || !resources
       || !level || !description || !learningMethod) {
       return false;
     }
@@ -154,6 +154,8 @@ var EditBadge = React.createClass({
       delta.description = description;
     if (learningMethod !== currentBadge.learning_method)
       delta.learning_method = learningMethod;
+    if (resources !== currentBadge.resources)
+      delta.resources = resources;
 
     if (_.size(delta) === 0) {
       this.setState({

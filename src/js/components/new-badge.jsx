@@ -56,26 +56,28 @@ var NewBadge = React.createClass({
 
             <h3 className="subheader">Requirements:</h3>
             <textarea placeholder="What is this badge about? What do I have to do?"
-              rows="4" ref="description"></textarea>
+              rows="4" ref="description" />
             <h3 className="subheader">Learning methods:</h3>
             <textarea placeholder="What do I do if I want to learn this? What is the assessment?"
-              rows="4" ref="learning_method"></textarea>
+              rows="4" ref="learning_method" />
             <br />
             <div className="row">
               <div className="large-6 columns">
                 <h3 className="subheader">Resources:</h3>
-                <ul>
-                  <li><a href="http://maps.google.com">Google Maps</a>
-                  </li><li><a href="http://http://www.starbucks.com/store-locator">Starbucks Store Locator</a>
-                  </li><li><a href="https://chaseonline.chase.com/">Chase Bank Account</a>
-                  </li></ul>
+                <textarea placeholder="Where can I go to learn this?"
+                  rows="3" ref="resources" />
               </div>
-              <div className="large-6 columns">
+              <div className="large-6 text-center columns">
+                <br />
                 <input type="submit" className={
                   'button alert' + (this.state.state === NewBadgeState.LOADING ? ' disabled' : '')}
                   value="Next: add image" />
                 <br />
                 {this.state.message}
+                <br />
+                <p><i>All content parsed as <a
+                  href="http://daringfireball.net/projects/markdown/syntax">Markdown.
+                </a></i></p>
               </div>
             </div>
           </div>
@@ -101,7 +103,8 @@ var NewBadge = React.createClass({
     var level = parseInt(this.refs.level.getDOMNode().value);
     var description = this.refs.description.getDOMNode().value.trim();
     var learningMethod = this.refs.learning_method.getDOMNode().value.trim();
-    if (!name || !subcategory || !category
+    var resources = this.refs.resources.getDOMNode().value.trim();
+    if (!name || !subcategory || !category || !resources
       || !level || !description || !learningMethod) {
       this.setState({
         state: NewBadgeState.EDITING,
@@ -117,6 +120,7 @@ var NewBadge = React.createClass({
       level: parseInt(level),
       description: description,
       learning_method: learningMethod,
+      resources: resources,
     };
 
     var self = this;
