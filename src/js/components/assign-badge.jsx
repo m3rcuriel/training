@@ -48,6 +48,7 @@ var AssignBadge = React.createClass({
                 placeholder="Type a name here..." onChange={this.updateSearch} />
               <input type="submit" name="submit" ref="submit" className="button"
                 value="Add user" />
+              <p>The user in the first spot will be added when you press enter.</p>
             </form>
             {this.renderSearch(users)}
           </div>
@@ -55,16 +56,31 @@ var AssignBadge = React.createClass({
       </div>
     </main>;
   },
+  getInitialState: function () {
+    return {
+      message: '',
+      searchString: '',
+    };
+  },
+  componentDidMount: function componentDidMount () {
+    this.loadBadge();
+    this.loadUsers();
+  },
   addUser: function addUser () {
     this.setState({message: 'Linking user with badge...'});
     var firstUser = assignBadge().first_user.val();
+
+    if (!firstUser || !this.refs.add.getDOMNode().value.trim()) {
+      this.setState({message: 'Please input a valid name first.'});
+      return false;
+    }
 
     var self = this;
     Badges.link_badge(firstUser.id.toS(), assignBadge().badge.id.val().toS(),
       function (response) {
         if (response.status !== 200) {
           self.setState({message: 'Something went wrong when linking the badge.'});
-          return;
+          return false;
         }
 
         self.setState({message: 'User linked.'});
@@ -174,16 +190,6 @@ var AssignBadge = React.createClass({
       assignBadge().badge.set(response.badge);
       assignBadge().loaded.set(EntityStates.LOADED);
     });
-  },
-  getInitialState: function () {
-    return {
-      message: '',
-      searchString: '',
-    };
-  },
-  componentDidMount: function componentDidMount () {
-    this.loadBadge();
-    this.loadUsers();
   },
 });
 
