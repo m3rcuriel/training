@@ -136,6 +136,10 @@ var EditBadge = React.createClass({
     var resources = this.refs.resources.getDOMNode().value.trim();
     if (!name || !subcategory || !category || !resources
       || !level || !description || !learningMethod) {
+      this.setState({
+        state: EditState.EDITING,
+        message: 'Make sure all fields are filled in.'
+      });
       return false;
     }
 
