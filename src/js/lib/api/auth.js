@@ -40,16 +40,10 @@ var Auth = {
         if (callback) callback(res.body);
       }));
   },
-  register: function (first_name, last_name, email, username, password, callback) {
-    var payload = API.encode({
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      username: username,
-      password: password,
-    });
+  register: function (data, callback) {
+    data = API.encode(data);
     API.request.post('/account')
-      .send(payload)
+      .send(data)
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
