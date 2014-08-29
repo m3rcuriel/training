@@ -54,12 +54,12 @@ var Badge = React.createClass({
               </div>
               <hr />
               {permissions === 'mentor' || permissions === 'lead'
-                ? <a className="button" href={'/badge/' + badge.id + '/edit'}
-                  >Edit badge</a>
-                : null}
-              {permissions === 'mentor'
-                ? <a className="button" href={'/badge/' + badge.id + '/assign'}
-                  >Assign badge</a>
+                ? <div>
+                  <a className="button" href={'/badge/' + badge.id + '/edit'}
+                    >Edit badge</a>
+                  <a className="button" href={'/badge/' + badge.id + '/assign'}
+                    >Assign badge</a>
+                </div>
                 : null}
             </div>
           </div>

@@ -86,7 +86,11 @@ var AssignBadge = React.createClass({
           return false;
         }
 
-        self.setState({message: 'User linked.'});
+        var permissions = applicationState().auth.user.val().permissions;
+        permissions === 'mentor'
+          ? self.setState({message: firstUser.first_name + ' linked.'})
+          : self.setState({message: 'Badge added to review queue for '
+            + firstUser.first_name + '.'});
       }
     );
 
