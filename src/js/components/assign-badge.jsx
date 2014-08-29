@@ -36,6 +36,9 @@ var AssignBadge = React.createClass({
           <br /><br />
           <div className="large-4 column">
             <img width={300} src={pathToBadge} />
+            <br />
+            <hr />
+            <a href={'/badge/' + badge.id} className="button" >Back to badge</a>
           </div>
           <div className="large-8 column">
             <div className="row">
@@ -46,8 +49,8 @@ var AssignBadge = React.createClass({
             <form onSubmit={this.addUser}>
               <input type="text" name="add" ref="add" autoFocus
                 placeholder="Type a name here..." onChange={this.updateSearch} />
-              <input type="submit" name="submit" ref="submit" className="button"
-                value="Add user" />
+              <input type="submit" name="submit" ref="submit"
+                className="button alert" value="Add user" />
               <p>The user in the first spot will be added when you press enter.</p>
             </form>
             {this.renderSearch(users)}
