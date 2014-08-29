@@ -46,12 +46,11 @@ var LoggedInBar = React.createClass({
     </div>;
   },
   logout: function logout () {
-    if (isNode()) {
-      return;
-    }
-
-    deleteCookie('auth');
     redirect('/');
+
+    if (!isNode()) {
+      deleteCookie('auth');
+    }
   },
 });
 
