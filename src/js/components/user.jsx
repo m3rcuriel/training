@@ -16,14 +16,16 @@ var Profile = React.createClass({
   render: function () {
     console.log(userState().val());
     if (allBadges().loaded.val() !== EntityStates.LOADED
-        || userState().loaded_badge_relations.val() !== EntityStates.LOADED
-        || userState().loaded_user.val() !== EntityStates.LOADED) {
+      || !allBadges().categories.val()
+      || userState().loaded_badge_relations.val() !== EntityStates.LOADED
+      || userState().loaded_user.val() !== EntityStates.LOADED) {
       return <LoadingPage />;
     }
 
     var userBadges = userState().badge_relations.val();
     var user = userState().user.val();
     var candidateBadges = allBadges().badges.val();
+    var categories = allBadges().categories.val();
 
     return <main className="user">
       <div className="row">
@@ -38,35 +40,7 @@ var Profile = React.createClass({
             : null}
           <hr />
           <h2>BADGES</h2>
-          <h4 className="subheader">Outreach:</h4>
-          <ul className="small-block-grid-6">
-            {this.renderBadgesByCategory(userBadges, 'Outreach', candidateBadges)}
-          </ul>
-          <br />
-          <h4 className="subheader">Mechanical:</h4>
-          <ul className="small-block-grid-6">
-            {this.renderBadgesByCategory(userBadges, 'Mechanical', candidateBadges)}
-          </ul>
-          <br />
-          <h4 className="subheader">Electrical:</h4>
-          <ul className="small-block-grid-6">
-            {this.renderBadgesByCategory(userBadges, 'Electrical', candidateBadges)}
-          </ul>
-          <br />
-          <h4 className="subheader">Software:</h4>
-          <ul className="small-block-grid-6">
-            {this.renderBadgesByCategory(userBadges, 'Software', candidateBadges)}
-          </ul>
-          <br />
-          <h4 className="subheader">PR:</h4>
-          <ul className="small-block-grid-6">
-            {this.renderBadgesByCategory(userBadges, 'PR', candidateBadges)}
-          </ul>
-          <br />
-          <h4 className="subheader">Other:</h4>
-          <ul className="small-block-grid-6">
-            {this.renderBadgesByCategory(userBadges, 'Other', candidateBadges)}
-          </ul>
+          {this.renderCategories(userBadges, categories, candidateBadges)}
         </div>
         <div className="large-4 columns">
           <a href="https://gravatar.com">
@@ -98,6 +72,18 @@ var Profile = React.createClass({
         </div>
       </div>
     </main>;
+  },
+  renderCategories: function renderCategories (targetBadges, categories, candidateBadges) {
+    var self = this;
+    return _.map(categories, function (category) {
+      return <div key={Math.random()}>
+        <h4 className="subheader">{category}:</h4>
+        <ul className="small-block-grid-6">
+          {self.renderBadgesByCategory(targetBadges, category, candidateBadges)}
+        </ul>
+        <br />
+      </div>
+    });
   },
   renderBadgesByCategory: function renderBadgesByCategory (targetBadges, category, candidateBadges) {
     category = category.toLowerCase();
@@ -181,10 +167,25 @@ var Profile = React.createClass({
       allBadges().loaded.set(EntityStates.LOADED);
     });
   },
+  loadCategories: function loadCategories () {
+    if (allBadges().categories.val()) {
+      return false;
+    }
+
+    Badges.categories(function (response) {
+      if (response.status !== 200) {
+        return;
+      }
+
+      var categories = response.categories;
+      allBadges().categories.set(categories);
+    });
+  },
   componentDidMount: function componentDidMount () {
     this.loadUserBadges();
     this.loadUser();
     this.loadAllBadges();
+    this.loadCategories();
   },
 });
 

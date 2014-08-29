@@ -12,19 +12,13 @@ var Badge = React.createClass({
   reactToCortices: [allBadges()],
 
   render: function () {
-    if (allBadges().loaded.val() !== EntityStates.LOADED) {
+    if (allBadges().loaded.val() !== EntityStates.LOADED
+      || !allBadges().categories.val()) {
       return <LoadingPage />;
     }
 
     var badges = allBadges().badges.val();
-    var categories = [
-      'Outreach',
-      'Mechanical',
-      'Electrical',
-      'Software',
-      'PR',
-      'Other'
-    ];
+    var categories = allBadges().categories.val();
 
     return <main className="badges">
       <div className="row">
@@ -42,6 +36,7 @@ var Badge = React.createClass({
   },
   componentDidMount: function componentDidMount () {
     this.loadBadges();
+    this.loadCategories();
   },
   updateSearch: function updateSearch (e) {
     this.setState({searchString: e.target.value});
@@ -99,9 +94,12 @@ var Badge = React.createClass({
   },
   expandCategory: function expandCategory (e) {
     var category = e.target.innerHTML;
-    categoryShouldRender = allBadges().shouldRender[category];
 
-    categoryShouldRender.set(!categoryShouldRender.val());
+    var data = allBadges().shouldRender.val();
+    data[category] = !data[category];
+
+    allBadges().shouldRender.set(data);
+    this.forceUpdate();
   },
   renderBadge: function renderBadge (badge, search) {
     var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
@@ -145,17 +143,27 @@ var Badge = React.createClass({
         return [badge.subcategory, badge.level];
       });
 
-      allBadges().set({
-        badges: badges,
-        loaded: EntityStates.LOADED,
-        shouldRender: {
-          Outreach: false,
-          Mechanical: false,
-          Electrical: false,
-          Software: false,
-          PR: false,
-          Other: false
-        }
+      allBadges().badges.set(badges);
+      allBadges().loaded.set(EntityStates.LOADED);
+    });
+  },
+  loadCategories: function loadCategories () {
+    if (allBadges().categories.val()) {
+      return false;
+    }
+
+    Badges.categories(function (response) {
+      if (response.status !== 200) {
+        return;
+      }
+
+      var categories = response.categories;
+      allBadges().categories.set(categories);
+      allBadges().shouldRender.set({});
+      _.forEach(categories, function (category) {
+        var data = allBadges().shouldRender.val();
+        data[category] = false;
+        allBadges().shouldRender.set(data);
       });
     });
   },

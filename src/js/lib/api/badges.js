@@ -61,6 +61,12 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
+  categories: function (callback) {
+    API.request.get('/badges/categories')
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
 
 module.exports = Badge;
