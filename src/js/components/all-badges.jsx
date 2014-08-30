@@ -158,19 +158,22 @@ var Badge = React.createClass({
   },
 
   loadCategories: function loadCategories () {
-    if (allBadges().categories.val()) {
-      if (allBadges().shouldRender.val()) {
-        return false;
-      }
-
-      var categories = allBadges().categories.val();
-
+    var setShouldRender = function (categories) {
       allBadges().shouldRender.set({});
       _.forEach(categories, function (category) {
         var data = allBadges().shouldRender.val();
         data[category] = false;
         allBadges().shouldRender.set(data);
       });
+    }
+
+    if (allBadges().categories.val()) {
+      if (allBadges().shouldRender.val()) {
+        return false;
+      }
+
+      var categories = allBadges().categories.val();
+      setShouldRender(categories);
     }
 
     Badges.categories(function (response) {
@@ -180,13 +183,7 @@ var Badge = React.createClass({
 
       var categories = response.categories;
       allBadges().categories.set(categories);
-
-      allBadges().shouldRender.set({});
-      _.forEach(categories, function (category) {
-        var data = allBadges().shouldRender.val();
-        data[category] = false;
-        allBadges().shouldRender.set(data);
-      });
+      setShouldRender(categories);
     });
   },
 });
