@@ -29,18 +29,22 @@ var Badge = React.createClass({
       </div>
     </main>;
   },
+
   getInitialState: function () {
     return {
       searchString: ''
     };
   },
+
   componentDidMount: function componentDidMount () {
     this.loadBadges();
     this.loadCategories();
   },
+
   updateSearch: function updateSearch (e) {
     this.setState({searchString: e.target.value});
   },
+
   renderSearch: function renderSearch (badges) {
     var searchString = this.state.searchString;
     if (!searchString) {
@@ -69,6 +73,7 @@ var Badge = React.createClass({
       <hr />
     </div>;
   },
+
   renderCategories: function renderCategories (badges, categories) {
     var self = this;
 
@@ -92,6 +97,7 @@ var Badge = React.createClass({
       </div>;
     });
   },
+
   expandCategory: function expandCategory (e) {
     var category = e.target.innerHTML;
 
@@ -101,6 +107,7 @@ var Badge = React.createClass({
     allBadges().shouldRender.set(data);
     this.forceUpdate();
   },
+
   renderBadge: function renderBadge (badge, search) {
     var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
@@ -115,6 +122,7 @@ var Badge = React.createClass({
       </a>
     </li>;
   },
+
   renderBadgesByCategory: function renderBadgesByCategory (badges, category) {
     category = category.toLowerCase();
 
@@ -127,6 +135,7 @@ var Badge = React.createClass({
 
     return badges;
   },
+
   loadBadges: function loadBadges () {
     if (allBadges().loaded.val() === EntityStates.LOADED) {
       return false;
@@ -147,9 +156,21 @@ var Badge = React.createClass({
       allBadges().loaded.set(EntityStates.LOADED);
     });
   },
+
   loadCategories: function loadCategories () {
     if (allBadges().categories.val()) {
-      return false;
+      if (allBadges().shouldRender.val()) {
+        return false;
+      }
+
+      var categories = allBadges().categories.val();
+
+      allBadges().shouldRender.set({});
+      _.forEach(categories, function (category) {
+        var data = allBadges().shouldRender.val();
+        data[category] = false;
+        allBadges().shouldRender.set(data);
+      });
     }
 
     Badges.categories(function (response) {
@@ -159,6 +180,7 @@ var Badge = React.createClass({
 
       var categories = response.categories;
       allBadges().categories.set(categories);
+
       allBadges().shouldRender.set({});
       _.forEach(categories, function (category) {
         var data = allBadges().shouldRender.val();
