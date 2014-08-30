@@ -14,11 +14,11 @@ var Profile = React.createClass({
   reactToCortices: [userState(), allBadges()],
 
   render: function () {
-    console.log(userState().val());
     if (allBadges().loaded.val() !== EntityStates.LOADED
       || !allBadges().categories.val()
       || userState().loaded_badge_relations.val() !== EntityStates.LOADED
-      || userState().loaded_user.val() !== EntityStates.LOADED) {
+      || userState().loaded_user.val() !== EntityStates.LOADED
+      || !userState().categories_count.val()) {
       return <LoadingPage />;
     }
 
@@ -26,6 +26,7 @@ var Profile = React.createClass({
     var user = userState().user.val();
     var candidateBadges = allBadges().badges.val();
     var categories = allBadges().categories.val();
+    var categoriesCount = userState().categories_count.val();
 
     return <main className="user">
       <div className="row">
@@ -53,26 +54,17 @@ var Profile = React.createClass({
           <hr />
           <div className="row">
             <div className="large-8 columns">
-              <h5 style={{color: 'orange'}}>Outreach</h5>
-              <h5 style={{color: 'orange'}}>Mechanical</h5>
-              <h5 style={{color: 'purple'}}>Electrical</h5>
-              <h5 style={{color: 'green'}}>Software</h5>
-              <h5 style={{color: 'blue'}}>PR</h5>
-              <h5 style={{color: 'red'}}>Other</h5>
+              {this.renderCategoryLabels(categories)}
             </div>
             <div className="large-4 columns">
-              <h5 style={{color: 'orange'}}>4</h5>
-              <h5 style={{color: 'orange'}}>4++</h5>
-              <h5 style={{color: 'purple'}}>2+</h5>
-              <h5 style={{color: 'green'}}>0</h5>
-              <h5 style={{color: 'blue'}}>1</h5>
-              <h5 style={{color: 'red'}}>3</h5>
+              {this.renderCategoryCount(categories, categoriesCount)}
             </div>
           </div>
         </div>
       </div>
     </main>;
   },
+
   renderCategories: function renderCategories (targetBadges, categories, candidateBadges) {
     var self = this;
     return _.map(categories, function (category) {
@@ -85,6 +77,7 @@ var Profile = React.createClass({
       </div>
     });
   },
+
   renderBadgesByCategory: function renderBadgesByCategory (targetBadges, category, candidateBadges) {
     category = category.toLowerCase();
     targetBadges = _.sortBy(targetBadges, 'status').reverse();
@@ -108,6 +101,7 @@ var Profile = React.createClass({
       }
     });
   },
+
   renderBadge: function renderBadge (badge, status) {
     var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
@@ -118,6 +112,19 @@ var Profile = React.createClass({
       </a>
     </li>;
   },
+
+  renderCategoryLabels: function renderCategoryLabels (categories) {
+    return _.map(categories, function (category) {
+      return <h5 key={Math.random()} style={{color: 'blue'}}>{category}</h5>;
+    });
+  },
+
+  renderCategoryCount: function renderCategoryCount (categories, categoriesCount) {
+    return _.map(categories, function (category) {
+      return <h5 key={Math.random()} style={{color: 'red'}}>{categoriesCount[category]}</h5>;
+    });
+  },
+
   loadUser: function loadUser () {
     if (userState().loaded_user.val() === EntityStates.LOADED
       && this.props.id === userState().user.id.val().toS()) {
@@ -135,6 +142,7 @@ var Profile = React.createClass({
       userState().loaded_user.set(EntityStates.LOADED);
     });
   },
+
   loadUserBadges: function loadUserBadges () {
     if (userState().loaded_badge_relations.val() === EntityStates.LOADED) {
       return false;
@@ -151,6 +159,7 @@ var Profile = React.createClass({
       userState().loaded_badge_relations.set(EntityStates.LOADED);
     });
   },
+
   loadAllBadges: function loadAllBadges () {
     if (allBadges().loaded.val() === EntityStates.LOADED) {
       return false;
@@ -167,6 +176,7 @@ var Profile = React.createClass({
       allBadges().loaded.set(EntityStates.LOADED);
     });
   },
+
   loadCategories: function loadCategories () {
     if (allBadges().categories.val()) {
       return false;
@@ -181,11 +191,27 @@ var Profile = React.createClass({
       allBadges().categories.set(categories);
     });
   },
+
+  loadCategoryCounts: function loadCategoryCounts () {
+    if (userState().categories_count.val()) {
+      return false;
+    }
+
+    Badges.count_user_categories(this.props.id, function (response) {
+      if (response.status !== 200) {
+        return;
+      }
+
+      userState().categories_count.set(response.category_counts);
+    });
+  },
+
   componentDidMount: function componentDidMount () {
     this.loadUserBadges();
     this.loadUser();
     this.loadAllBadges();
     this.loadCategories();
+    this.loadCategoryCounts();
   },
 });
 
