@@ -7,6 +7,8 @@ var userState = require('../state/user.js');
 var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
+var Categories = require('../components/categories.js');
+var CategoryCount = require('../components/category-count.js');
 var gravatar = require('gravatar');
 
 var Profile = React.createClass({
@@ -22,7 +24,7 @@ var Profile = React.createClass({
       return <LoadingPage />;
     }
 
-    var userBadges = userState().badge_relations.val();
+    var targetBadges = userState().badge_relations.val();
     var user = userState().user.val();
     var candidateBadges = allBadges().badges.val();
     var categories = allBadges().categories.val();
@@ -41,7 +43,7 @@ var Profile = React.createClass({
             : null}
           <hr />
           <h2>BADGES</h2>
-          {this.renderCategories(userBadges, categories, candidateBadges)}
+          <Categories targetBadges={targetBadges} categories={categories} candidateBadges={candidateBadges} />
         </div>
         <div className="large-4 columns">
           <a href="https://gravatar.com">
@@ -52,77 +54,10 @@ var Profile = React.createClass({
           <br />
           <h4 className="subheader">Username: {user.username}</h4>
           <hr />
-          <div className="row">
-            <div className="large-8 columns">
-              {this.renderCategoryLabels(categories)}
-            </div>
-            <div className="large-4 columns">
-              {this.renderCategoryCount(categories, categoriesCount)}
-            </div>
-          </div>
+          <CategoryCount categories={categories} categoriesCount={categoriesCount} />
         </div>
       </div>
     </main>;
-  },
-
-  renderCategories: function renderCategories (targetBadges, categories, candidateBadges) {
-    var self = this;
-    return _.map(categories, function (category) {
-      return <div key={Math.random()}>
-        <h4 className="subheader">{category}:</h4>
-        <ul className="small-block-grid-6">
-          {self.renderBadgesByCategory(targetBadges, category, candidateBadges)}
-        </ul>
-        <br />
-      </div>
-    });
-  },
-
-  renderBadgesByCategory: function renderBadgesByCategory (targetBadges, category, candidateBadges) {
-    category = category.toLowerCase();
-    targetBadges = _.sortBy(targetBadges, 'status').reverse();
-
-    var self = this;
-    return _.map(targetBadges, function (targetBadge) {
-      if (targetBadge.status === 'no') {
-        return null;
-      }
-
-      badge = _.find(candidateBadges, function (candidateBadge) {
-        if (candidateBadge.id.toS() === targetBadge.badge_id.toS()) {
-          return candidateBadge;
-        }
-      });
-
-      if (badge.category && badge.category.toLowerCase() === category) {
-        return self.renderBadge(badge, targetBadge.status);
-      } else {
-        return;
-      }
-    });
-  },
-
-  renderBadge: function renderBadge (badge, status) {
-    var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
-      + '.amazonaws.com/badges/' + badge.id + '.jpg';
-
-    return <li key={badge.id}>
-      <a href={'/badge/' + badge.id}>
-        <img width={300} src={pathToBadge} className={'badge ' + status} />
-      </a>
-    </li>;
-  },
-
-  renderCategoryLabels: function renderCategoryLabels (categories) {
-    return _.map(categories, function (category) {
-      return <h5 key={Math.random()} style={{color: 'blue'}}>{category}</h5>;
-    });
-  },
-
-  renderCategoryCount: function renderCategoryCount (categories, categoriesCount) {
-    return _.map(categories, function (category) {
-      return <h5 key={Math.random()} style={{color: 'red'}}>{categoriesCount[category]}</h5>;
-    });
   },
 
   loadUser: function loadUser () {
