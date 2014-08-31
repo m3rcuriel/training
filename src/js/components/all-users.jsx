@@ -36,17 +36,21 @@ var AllUsers = React.createClass({
       </div>
     </main>;
   },
+
   getInitialState: function () {
     return {
       searchString: ''
     };
   },
+
   componentDidMount: function componentDidMount () {
     this.loadUsers();
   },
+
   updateSearch: function updateSearch (e) {
     this.setState({searchString: e.target.value});
   },
+
   renderSearch: function renderSearch (users) {
     var searchString = this.state.searchString;
     if (!searchString) {
@@ -75,12 +79,14 @@ var AllUsers = React.createClass({
       <hr />
     </div>;
   },
+
   renderUsers: function renderUsers (users) {
     var self = this;
     return _.map(users, function (user) {
       return self.renderUser(user);
     });
   },
+
   renderUser: function renderUser (user, search) {
     return <li key={user.id + (search ? '-search' : null)} className="user">
       <a href={'/user/' + user.id} className="cover">
@@ -88,11 +94,12 @@ var AllUsers = React.createClass({
           className="profile-pic"></img>
         <div className="cover">
           <h5>{user.first_name}</h5>
-          <p>{user.technical_group}</p>
+          <p>{user.title || user.technical_group}</p>
         </div>
       </a>
     </li>;
   },
+
   loadUsers: function loadUsers () {
     if (allUsers().loaded.val() === EntityStates.LOADED) {
       return false;
