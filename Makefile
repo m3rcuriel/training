@@ -78,7 +78,7 @@ $(DIST)/static/assets/%: src/assets/%
 	@cp $^ $@
 
 node_modules: package.json
-	npm install
+	npm install --loglevel error
 
 
 # Targets
