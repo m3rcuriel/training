@@ -26,14 +26,15 @@ var NewBadge = React.createClass({
               <div className="large-6 column">
                 <p>Category:</p>
                 <p>Level:</p>
-                <p>Verifier(s):</p>
+                <p>Verifiers:</p>
               </div>
               <div className="large-6 column">
                 <input type="text" name="category" ref="category"
                   placeholder="Badge category" />
                 <input type="number" name="level" ref="level" max={8} min={1}
                   placeholder={1} />
-                <p>Mr. Dobervich<br />Danny</p>
+                <textarea placeholder="Who can check this badge off?" rows="2"
+                  ref="verifiers" />
               </div>
             </div>
           </div>
@@ -105,7 +106,8 @@ var NewBadge = React.createClass({
     var description = this.refs.description.getDOMNode().value.trim();
     var learningMethod = this.refs.learning_method.getDOMNode().value.trim();
     var resources = this.refs.resources.getDOMNode().value.trim();
-    if (!name || !subcategory || !category || !resources
+    var verifiers = this.refs.verifiers.getDOMNode().value.trim();
+    if (!name || !subcategory || !category || !resources || !verifiers
       || !level || !description || !learningMethod) {
       this.setState({
         state: NewBadgeState.EDITING,
@@ -122,6 +124,7 @@ var NewBadge = React.createClass({
       description: description,
       learning_method: learningMethod,
       resources: resources,
+      verifiers: verifiers
     };
 
     var self = this;

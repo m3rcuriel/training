@@ -50,7 +50,7 @@ var Badge = React.createClass({
               <div className="large-6 column">
                 <p>{badge.category}</p>
                 <p>{badge.level}</p>
-                <p>Mr. Dobervich<br />Danny</p>
+                <p>{badge.verifiers}</p>
               </div>
               <hr />
               {permissions === 'mentor' || permissions === 'lead'

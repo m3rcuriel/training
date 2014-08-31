@@ -49,7 +49,8 @@ var EditBadge = React.createClass({
                   placeholder="Main badge category" defaultValue={badge.category} />
                 <input type="number" name="level" ref="level" max={8} min={1}
                   defaultValue={badge.level} />
-                <p>Mr. Dobervich<br />Danny</p>
+                <textarea placeholder="Who can check this badge off?" rows="2"
+                  ref="verifiers" defaultValue={badge.verifiers} />
               </div>
               <a className="button" href={'/badge/' + badge.id} >Stop editing</a>
             </div>
@@ -134,7 +135,8 @@ var EditBadge = React.createClass({
     var description = this.refs.description.getDOMNode().value.trim();
     var learningMethod = this.refs.learning_method.getDOMNode().value.trim();
     var resources = this.refs.resources.getDOMNode().value.trim();
-    if (!name || !subcategory || !category || !resources
+    var verifiers = this.refs.verifiers.getDOMNode().value.trim();
+    if (!name || !subcategory || !category || !resources || !verifiers
       || !level || !description || !learningMethod) {
       this.setState({
         state: EditState.EDITING,
@@ -160,6 +162,8 @@ var EditBadge = React.createClass({
       delta.learning_method = learningMethod;
     if (resources !== currentBadge.resources)
       delta.resources = resources;
+    if (verifiers !== currentBadge.verifiers)
+      delta.verifiers = verifiers;
 
     if (_.size(delta) === 0) {
       this.setState({
