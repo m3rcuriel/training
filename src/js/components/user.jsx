@@ -1,16 +1,18 @@
 /** @jsx React.DOM */
 
-var Badges = require('../lib/api/badges.js');
-var Account = require('../lib/api/account.js');
-var allBadges = require('../state/badges.js');
-var userState = require('../state/user.js');
-var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var Categories = require('../components/categories.js');
 var CategoryCount = require('../components/category-count.js');
+
+var allBadges = require('../state/badges.js');
+var userState = require('../state/user.js');
+
+var Account = require('../lib/api/account.js');
+var EntityStates = require('../lib/entity-states.js');
 var loadBadges = require('../lib/load/badges.js');
 var loadCategories = require('../lib/load/categories.js');
+
 var gravatar = require('gravatar');
 
 var Profile = React.createClass({
