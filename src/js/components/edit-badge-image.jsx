@@ -23,7 +23,7 @@ var EditBadgeImage = React.createClass({
     }
 
     var badge = desiredBadge().badge.val();
-    var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
+    var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
     return <main className="badge">
@@ -119,8 +119,8 @@ var EditBadgeImage = React.createClass({
       }
     }
 
-    if (desiredBadge().badge.id
-      && desiredBadge().badge.id.toS() === this.props.id
+    if (desiredBadge().badge.val().id
+      && desiredBadge().badge.val().id.toS() === this.props.id
       && desiredBadge().loaded.val() === EntityStates.LOADED) {
       return false;
     }

@@ -109,7 +109,7 @@ var Badge = React.createClass({
   },
 
   renderBadge: function renderBadge (badge, search) {
-    var pathToBadge = 'http://3501-training-2014-us-west-2.s3-website-us-west-2'
+    var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
     return <li key={badge.id + (search ? '-search' : null)} className="badge">
