@@ -9,6 +9,8 @@ var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var Categories = require('../components/categories.js');
 var CategoryCount = require('../components/category-count.js');
+var loadBadges = require('../lib/load/badges.js');
+var loadCategories = require('../lib/load/categories.js');
 var gravatar = require('gravatar');
 
 var Profile = React.createClass({
@@ -18,7 +20,7 @@ var Profile = React.createClass({
   render: function () {
     if (allBadges().loaded.val() !== EntityStates.LOADED
       || !allBadges().categories.val()
-      || profileState().loaded.val() !== EntityStates.LOADED
+      || !profileState().badge_relations.val()
       || !profileState().categories_count.val()) {
       return <LoadingPage />;
     }
@@ -59,74 +61,11 @@ var Profile = React.createClass({
     </main>;
   },
 
-  loadUserBadges: function loadUserBadges () {
-    if (profileState().loaded.val() === EntityStates.LOADED) {
-      return false;
-    }
-    profileState().loaded.set(EntityStates.LOADING);
-
-    var self = this;
-    Badges.user_badges(function userBadges (response) {
-      if (response.status !== 200) {
-        return;
-      }
-
-      profileState().badge_relations.set(response.badge_relations);
-      profileState().loaded.set(EntityStates.LOADED);
-    });
-  },
-
-  loadAllBadges: function loadAllBadges () {
-    if (allBadges().loaded.val() === EntityStates.LOADED) {
-      return false;
-    }
-    allBadges().loaded.set(EntityStates.LOADING);
-
-    var self = this;
-    Badges.all(function all (response) {
-      if (response.status !== 200) {
-        return;
-      }
-
-      allBadges().badges.set(response.all);
-      allBadges().loaded.set(EntityStates.LOADED);
-    });
-  },
-
   componentDidMount: function componentDidMount () {
-    this.loadUserBadges();
-    this.loadAllBadges();
-    this.loadCategories();
-    this.loadCategoryCounts();
-  },
-
-  loadCategoryCounts: function loadCategoryCounts () {
-    if (profileState().categories_count.val()) {
-      return false;
-    }
-
-    Badges.count_categories(function (response) {
-      if (response.status !== 200) {
-        return;
-      }
-
-      profileState().categories_count.set(response.category_counts);
-    });
-  },
-
-  loadCategories: function loadCategories () {
-    if (allBadges().categories.val()) {
-      return false;
-    }
-
-    Badges.categories(function (response) {
-      if (response.status !== 200) {
-        return;
-      }
-
-      var categories = response.categories;
-      allBadges().categories.set(categories);
-    });
+    loadBadges.user(profileState);
+    loadBadges.all();
+    loadCategories.categories();
+    loadCategories.counts(profileState);
   },
 });
 

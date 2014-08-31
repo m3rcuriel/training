@@ -6,10 +6,9 @@ var EntityStates = require('../lib/entity-states.js');
 
 var defaultValue = {
   user: null,
+  loaded: EntityStates.NOT_LOADED,
   badge_relations: null,
   categories_count: null,
-  loaded_user: EntityStates.NOT_LOADED,
-  loaded_badge_relations: EntityStates.NOT_LOADED,
 };
 
 Context.initialize('userState', function () {

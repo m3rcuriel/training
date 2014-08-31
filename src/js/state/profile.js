@@ -5,9 +5,8 @@ var Cortex = require('cortexjs');
 var EntityStates = require('../lib/entity-states.js');
 
 var defaultValue = {
-  badge_relations: [],
+  badge_relations: null,
   categories_count: null,
-  loaded: EntityStates.NOT_LOADED,
 };
 
 Context.initialize('profileState', function () {

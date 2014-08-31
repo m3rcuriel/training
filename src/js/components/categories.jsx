@@ -38,7 +38,6 @@ var Categories = React.createClass({
       });
 
       if (badge.category && badge.category.toLowerCase() === category) {
-        console.log('nice');
         return self.renderBadge(badge, targetBadge.status);
       } else {
         return;
