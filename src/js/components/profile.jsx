@@ -25,13 +25,16 @@ var Profile = React.createClass({
     if (allBadges().loaded.val() !== EntityStates.LOADED
       || !allBadges().categories.val()
       || !profileState().badge_relations.val()
-      || !profileState().categories_count.val()
-      || !profileState().students.val()) {
+      || !profileState().categories_count.val()) {
+      return <LoadingPage />;
+    }
+
+    var user = applicationState().auth.user.val();
+    if (user.permissions === 'mentor' && !profileState().students.val()) {
       return <LoadingPage />;
     }
 
     var targetBadges = profileState().badge_relations.val();
-    var user = applicationState().auth.user.val();
     var candidateBadges = allBadges().badges.val();
     var categories = allBadges().categories.val();
     var categoriesCount = profileState().categories_count.val();
