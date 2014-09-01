@@ -8,10 +8,12 @@ var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 var Categories = require('../components/categories.js');
 var CategoryCount = require('../components/category-count.js');
+var ReviewQueue = require('../components/review-queue.js');
 
 var loadBadges = require('../lib/load/badges.js');
 var loadCategories = require('../lib/load/categories.js');
 var EntityStates = require('../lib/entity-states.js');
+var Badges = require('../lib/api/badges.js');
 
 var gravatar = require('gravatar');
 
@@ -23,7 +25,8 @@ var Profile = React.createClass({
     if (allBadges().loaded.val() !== EntityStates.LOADED
       || !allBadges().categories.val()
       || !profileState().badge_relations.val()
-      || !profileState().categories_count.val()) {
+      || !profileState().categories_count.val()
+      || !profileState().students.val()) {
       return <LoadingPage />;
     }
 
@@ -32,6 +35,7 @@ var Profile = React.createClass({
     var candidateBadges = allBadges().badges.val();
     var categories = allBadges().categories.val();
     var categoriesCount = profileState().categories_count.val();
+    var studentHash = profileState().students.val();
 
     return <main className="profile">
       <div className="row">
@@ -45,8 +49,11 @@ var Profile = React.createClass({
               </h3>
             : null}
           <hr />
-          <h2>BADGES</h2>
-          <Categories targetBadges={targetBadges} categories={categories} candidateBadges={candidateBadges} />
+          <h2>{user.permissions === 'mentor' ? 'REVIEW QUEUE' : 'BADGES'}</h2>
+          {user.permissions === 'mentor'
+            ? <ReviewQueue studentHash={studentHash} />
+            : <Categories targetBadges={targetBadges} categories={categories} candidateBadges={candidateBadges} />
+          }
         </div>
         <div className="large-4 columns">
           <a href="https://gravatar.com">
@@ -68,6 +75,20 @@ var Profile = React.createClass({
     loadBadges.all();
     loadCategories.categories();
     loadCategories.counts(profileState);
+
+    applicationState().auth.user.val().permissions === 'mentor'
+      ? this.loadStudents()
+      : null;
+  },
+
+  loadStudents: function loadStudents () {
+    Badges.review_queue(function (response) {
+      if (response.status !== 200) {
+        return;
+      }
+
+      profileState().students.set(response.all);
+    });
   },
 });
 

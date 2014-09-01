@@ -79,6 +79,12 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
+  review_queue: function (callback) {
+    API.request.get('/badges/user/all')
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
 
 module.exports = Badge;
