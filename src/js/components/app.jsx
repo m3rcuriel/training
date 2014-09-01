@@ -56,7 +56,7 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/badge/new" handler={Layout(NewBadge)} />
-        <Location path="/badge/:id/assign" handler={Layout(AssignBadge)} />
+        <Location path="/badge/:id/assign*" handler={Layout(AssignBadge)} />
         <Location path="/badge/:id/edit" handler={Layout(EditBadge)} />
         <Location path="/badge/:id/edit/image" handler={Layout(EditBadgeImage)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />

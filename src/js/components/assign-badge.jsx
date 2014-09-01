@@ -3,6 +3,7 @@
 var Badges = require('../lib/api/badges.js');
 var Account = require('../lib/api/account.js');
 var EntityStates = require('../lib/entity-states.js');
+var query = require('../lib/query.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
@@ -48,7 +49,8 @@ var AssignBadge = React.createClass({
             <br />
             <form onSubmit={this.addUser}>
               <input type="text" name="add" ref="add" autoFocus
-                placeholder="Type a name here..." onChange={this.updateSearch} />
+                defaultValue={this.state.searchString} onChange={this.updateSearch}
+                placeholder="Type a name here..." />
               <input type="submit" name="submit" ref="submit"
                 className="button alert" value="Add user" />
               <p>The user in the first spot will be added when you press enter.</p>
@@ -59,16 +61,20 @@ var AssignBadge = React.createClass({
       </div>
     </main>;
   },
+
   getInitialState: function () {
+    query.refresh();
     return {
       message: '',
-      searchString: '',
+      searchString: query().search || '',
     };
   },
+
   componentDidMount: function componentDidMount () {
     this.loadBadge();
     this.loadUsers();
   },
+
   addUser: function addUser () {
     this.setState({message: 'Linking user with badge...'});
     var firstUser = assignBadge().first_user.val();
@@ -96,9 +102,11 @@ var AssignBadge = React.createClass({
 
     return false;
   },
+
   updateSearch: function updateSearch (e) {
     this.setState({searchString: e.target.value});
   },
+
   renderSearch: function renderSearch (users) {
     var searchString = this.state.searchString;
     if (!searchString) {
@@ -131,6 +139,7 @@ var AssignBadge = React.createClass({
       </ul>
     </div>;
   },
+
   renderUser: function renderUser (user, search) {
     return <li key={user.id + (search ? '-search' : null)} className="user">
       <a href={'/user/' + user.id} className="cover">
@@ -143,6 +152,7 @@ var AssignBadge = React.createClass({
       </a>
     </li>;
   },
+
   loadUsers: function loadUsers () {
     if (allUsers().loaded.val() === EntityStates.LOADED) {
       return false;
@@ -165,6 +175,7 @@ var AssignBadge = React.createClass({
       });
     });
   },
+
   loadBadge: function loadBadge () {
     var self = this;
 
