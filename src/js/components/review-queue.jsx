@@ -11,12 +11,14 @@ var ReviewQueue = React.createClass({
   renderStudents: function renderStudents (studentHash) {
     ret = []
     for (var student in studentHash) {
-      ret.push(<div key={Math.random()}>
-        <h4 className="subheader">{student}:</h4>
-        <ul className="small-block-grid-6">
-          {this.renderBadges(studentHash[student])}
-        </ul>
-      </div>);
+      ret.push(studentHash[student].length >= 1
+        ? <div key={Math.random()}>
+          <h4 className="subheader">{student}:</h4>
+          <ul className="small-block-grid-6">
+            {this.renderBadges(studentHash[student])}
+          </ul>
+        </div>
+        : null);
     }
 
     return ret;
