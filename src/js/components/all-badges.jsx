@@ -88,7 +88,7 @@ var Badge = React.createClass({
       return <div key={Math.random()}>
         <div><a onClick={self.expandCategory}><h2>{category}:</h2></a></div>
         <div>
-          <h3 className="subheader">Main:</h3>
+          <a href={'/category/' + category} ><h3 className="subheader">See all {category}</h3></a>
           <ul className="small-block-grid-8 thumbnail-list">
             {self.renderBadgesByCategory(badges, category)}
           </ul>

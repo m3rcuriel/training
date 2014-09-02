@@ -17,6 +17,7 @@ var AuthGate = require('../components/auth-gate.js');
 var E404 = require('../components/404.js');
 var Badge = require('../components/badge.js');
 var Badges = require('../components/all-badges.js');
+var Category = require('../components/category.js');
 
 // unauthenticated
 var Login = require('../components/login.js');
@@ -61,6 +62,7 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/badge/:id/edit/image" handler={Layout(EditBadgeImage)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <Location path="/badges" handler={Layout(Badges)} />
+        <Location path="/category/:category" handler={Layout(Category)} />
         <Location path="/user/new" handler={Layout(NewUser)} />
         <Location path="/user/:id" handler={Layout(User)} />
         <Location path="/users" handler={Layout(Users)} />
