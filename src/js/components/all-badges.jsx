@@ -66,7 +66,7 @@ var Badge = React.createClass({
 
     return <div>
       <div>
-        <ul className="small-block-grid-8 thumbnail-list">
+        <ul className="small-block-grid-6 thumbnail-list">
           {badgeList}
         </ul>
       </div>
@@ -89,7 +89,7 @@ var Badge = React.createClass({
         <div><a onClick={self.expandCategory}><h2>{category}:</h2></a></div>
         <div>
           <a href={'/category/' + category} ><h3 className="subheader">See all {category}</h3></a>
-          <ul className="small-block-grid-8 thumbnail-list">
+          <ul className="small-block-grid-6 thumbnail-list">
             {self.renderBadgesByCategory(badges, category)}
           </ul>
         </div>
