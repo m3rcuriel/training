@@ -12,7 +12,7 @@ var LayoutWrapper = function (body) {
 
       var signedIn = applicationState().auth.token &&
         applicationState().auth.token.val() !== null &&
-        applicationState().auth.token.val().length > 0
+        applicationState().auth.token.val().length > 0;
 
       return <div>
         <Header signedIn={signedIn} />

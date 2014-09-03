@@ -1,18 +1,19 @@
 /** @jsx React.DOM */
 
+var applicationState = require('../state/application.js');
+
 var E404 = React.createClass({
   render: function() {
+    var userFirstName = applicationState().auth.user.first_name.val();
+
     return <main className="login">
-      <header>
-        <div className="container">
-          <h1 className="primary-color">404!</h1>
-        </div>
-      </header>
-      <section>
-        <div className="container">
-          <h2>This is not a real page.</h2>
-        </div>
-      </section>
+      <div className="row">
+        <br />
+        <h1>404 – Page Not Found.</h1>
+        <br /><br />
+        <h3>You done bad, {userFirstName || 'friend'}. Real bad.</h3>
+        <h5 className="subheader">(Click on the back button to check yourself. Before you wreck yourself.)</h5>
+      </div>
     </main>;
   },
 });
