@@ -11,8 +11,8 @@
  * @stevenschobert |  www.stevenschobert.com
  */
 
-$size: 2;
-div.loading-page {
+$size: 3;
+div.loading-page-circle {
   height: 600px;
 
   .container-loading {
@@ -28,7 +28,7 @@ div.loading-page {
   }
 }
 
-div.loading-element {
+div.loading-element-circle {
   height: auto;
 
   .container-loading {
@@ -37,7 +37,7 @@ div.loading-element {
   }
 }
 
-div.loading-page, div.loading-element {
+div.loading-page-circle, div.loading-element-circle {
   background-color: white;
   width: auto;
   margin: 0;
