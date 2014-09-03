@@ -45,7 +45,7 @@ var Badge = React.createClass({
               <div className="large-6 column">
                 <p>Category:</p>
                 <p>Level:</p>
-                <p>Verifier(s):</p>
+                <p>Verifiers:</p>
               </div>
               <div className="large-6 column">
                 <p>{badge.category}</p>
