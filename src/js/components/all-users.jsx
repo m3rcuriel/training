@@ -113,7 +113,7 @@ var AllUsers = React.createClass({
 
       var users = response.users;
       users = _.sortBy(users, function (user) {
-        return [user.name];
+        return [user.first_name, user.last_name];
       });
 
       allUsers().set({
