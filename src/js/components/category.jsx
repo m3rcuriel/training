@@ -6,6 +6,9 @@ var EntityStates = require('../lib/entity-states.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
 
+var pagedown = require('pagedown');
+var converter = new pagedown.getSanitizingConverter();
+
 var Category = React.createClass({
   mixins: [CortexReactivityMixin],
   reactToCortices: [allBadges()],
@@ -38,13 +41,14 @@ var Category = React.createClass({
   renderBadge: function renderBadge (badge, search) {
     var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
+    var description = converter.makeHtml(badge.description.substring(0, 140) + '...');
 
     return <li key={badge.id + (search ? '-search' : null)} className="badge">
       <a href={'/badge/' + badge.id} className="cover">
         <img alt="thumbnail" src={pathToBadge} width={235} />
         <div className="cover">
           <h5><b>{badge.name} – {badge.subcategory} {badge.level}:</b></h5>
-          <h5 className="subheader">{badge.description.substring(0, 140)}...</h5>
+          <h5 className="subheader" dangerouslySetInnerHTML={{__html: description}}></h5>
         </div>
       </a>
     </li>;
