@@ -119,7 +119,8 @@ var EditBadgeImage = React.createClass({
       }
     }
 
-    if (desiredBadge().badge.val().id
+    if (desiredBadge().badge.val()
+      && desiredBadge().badge.val().id
       && desiredBadge().badge.val().id.toS() === this.props.id
       && desiredBadge().loaded.val() === EntityStates.LOADED) {
       return false;
