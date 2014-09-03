@@ -39,6 +39,7 @@ ex.use(function(req, res, next) {
             var html = '<!DOCTYPE html>\
                 <html>\
                 <head>\
+                    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css" />\
                     <title>3501 Training</title>\
                     <meta charset="utf-8" />\
                     <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" charset="utf-8" />\
