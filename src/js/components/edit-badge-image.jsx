@@ -63,7 +63,7 @@ var EditBadgeImage = React.createClass({
             {this.state.message
               ? <div>
                   <hr />
-                  <p><b>Note 3:</b>{this.state.message}</p>
+                  <p><b>Note 3:</b> {this.state.message}</p>
                 </div>
               : null}
           </div>
