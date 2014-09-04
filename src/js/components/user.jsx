@@ -72,7 +72,8 @@ var Profile = React.createClass({
     userState().loaded.set(EntityStates.LOADING);
 
     var self = this;
-    Account.get({username: this.props.username}, function (response) {
+    Account.get(this.props.username, function (response) {
+      console.log(response);
       if (response.status !== 200) {
         return;
       }

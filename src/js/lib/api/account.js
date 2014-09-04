@@ -20,13 +20,17 @@ var Account = module.exports = {
       }));
   },
 
-  // `data` should be a hash, either {id: 324...} or {username: some_user}
-  get: function (data, callback) {
-    var payload = API.encode(data);
-    API.request.get('/account')
-      .send(payload)
+  get_by_id: function (id, callback) {
+    API.request.get('/account/id/' + id)
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
   },
+
+  get: function (username, callback) {
+    API.request.get('/account/' + username)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  }
 };
