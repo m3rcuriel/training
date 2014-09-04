@@ -66,13 +66,13 @@ var Profile = React.createClass({
 
   loadUser: function loadUser () {
     if (userState().loaded.val() === EntityStates.LOADED
-      && this.props.id === userState().user.id.val().toS()) {
+      && this.props.username === userState().user.username.val()) {
       return false;
     }
     userState().loaded.set(EntityStates.LOADING);
 
     var self = this;
-    Account.get(this.props.id, function (response) {
+    Account.get({username: this.props.username}, function (response) {
       if (response.status !== 200) {
         return;
       }

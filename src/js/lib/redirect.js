@@ -1,7 +1,8 @@
 var Context = require('../lib/context.js');
+var isNode = require('../lib/is-node.js');
 
 var redirect = function redirect (path) {
-  if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+  if (!isNode()) {
     window.location = path;
   } else {
     redirectResponse.redirect(path);

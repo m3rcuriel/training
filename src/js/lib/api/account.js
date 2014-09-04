@@ -12,14 +12,19 @@ var Account = module.exports = {
         if (callback) callback(res.body);
       }));
   },
+
   all: function (callback) {
     API.request.get('/account/all')
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
   },
-  get: function (id, callback) {
-    API.request.get('/account/' + id)
+
+  // `data` should be a hash, either {id: 324...} or {username: some_user}
+  get: function (data, callback) {
+    var payload = API.encode(data);
+    API.request.get('/account')
+      .send(payload)
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));

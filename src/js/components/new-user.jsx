@@ -149,7 +149,7 @@ var NewUser = React.createClass({
         self.setState({state: NewUserState.FAILED, message: response.message});
       } else {
         self.setState({state: NewUserState.SUCCESS, message: "New user saved."});
-        redirect('/user/' + savedUser.id);
+        redirect('/user/' + savedUser.username);
       }
     });
     return false;
