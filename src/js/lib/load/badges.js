@@ -20,10 +20,6 @@ var loadAllBadges = function loadAllBadges () {
 }
 
 loadUserBadges: function loadUserBadges (state) {
-  if (state().badge_relations.val()) {
-    return false;
-  }
-
   var self = this;
   Badges.user_badges(function userBadges (response) {
     if (response.status !== 200) {

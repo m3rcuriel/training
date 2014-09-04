@@ -2,10 +2,6 @@ var Badges = require('../../lib/api/badges.js');
 var allBadges = require('../../state/badges.js');
 
 loadCategoryCounts: function loadCategoryCounts (state) {
-  if (state().categories_count.val()) {
-    return false;
-  }
-
   Badges.count_categories(function (response) {
     if (response.status !== 200) {
       return;
