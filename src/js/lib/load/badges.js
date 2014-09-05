@@ -8,7 +8,6 @@ var loadAllBadges = function loadAllBadges () {
   }
   allBadges().loaded.set(EntityStates.LOADING);
 
-  var self = this;
   Badges.all(function all (response) {
     if (response.status !== 200) {
       return;
@@ -20,8 +19,7 @@ var loadAllBadges = function loadAllBadges () {
 }
 
 var loadUserBadges = function loadUserBadges (state) {
-  var self = this;
-  Badges.user_badges(function userBadges (response) {
+  Badges.user_badges(function (response) {
     if (response.status !== 200) {
       return;
     }

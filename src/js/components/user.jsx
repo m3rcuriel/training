@@ -73,7 +73,6 @@ var Profile = React.createClass({
 
     var self = this;
     Account.get(this.props.username, function (response) {
-      console.log(response);
       if (response.status !== 200) {
         return;
       }
