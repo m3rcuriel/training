@@ -50,10 +50,8 @@ var Profile = React.createClass({
           <Categories targetBadges={targetBadges} categories={categories} candidateBadges={candidateBadges} />
         </div>
         <div className="large-4 columns">
-          <a href="https://gravatar.com">
-            <Image src={gravatar.url(user.email, {s: '303', r: 'pg'}, true)}
-              className="profile-pic" aspectRatio={1} />
-          </a>
+          <Image src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, true)}
+            className="profile-pic" aspectRatio={1} />
           <br />
           <br />
           <h4 className="subheader">Username: {user.username}</h4>
