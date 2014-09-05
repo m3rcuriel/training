@@ -12,30 +12,6 @@
  */
 
 $size: 3;
-div.loading-page-circle {
-  height: 600px;
-
-  .container-loading {
-    top: 50%;
-    height: 400px;
-    margin-left: round(28.333px * $size - 278.333px);
-    margin-top: -50px;
-    width: 500px;
-  }
-  .loader {
-    height: 10px;
-    margin-top: 38px;
-  }
-}
-
-div.loading-element-circle {
-  height: auto;
-
-  .container-loading {
-    height: auto;
-    width: auto;
-  }
-}
 
 div.loading-page-circle, div.loading-element-circle {
   background-color: white;
@@ -93,6 +69,33 @@ div.loading-page-circle, div.loading-element-circle {
     -ms-animation: dotloader 2.5s 0.6s infinite;
     -o-animation: dotloader 2.5s 0.6s infinite;
     animation: dotloader 2.5s 0.6s infinite;
+  }
+}
+
+div.loading-page-circle {
+  height: 600px;
+
+  .container-loading {
+    top: 50%;
+    height: 400px;
+    margin-left: round(28.333px * $size - 278.333px);
+    margin-top: -50px;
+    width: 500px;
+  }
+  .loader {
+    height: 10px;
+    margin-top: 38px;
+  }
+}
+
+div.loading-element-circle {
+  height: 300px;
+
+  .container-loading {
+    top: 150px;
+    height: auto;
+    width: auto;
+    left: 66%;
   }
 }
 
