@@ -7,6 +7,7 @@ _ = require('lodash');
 // App source code
 var App = require('./components/app.js');
 
+Image = require('react-image-component');
 var isNode = require('./lib/is-node.js');
 
 if (!isNode()) {

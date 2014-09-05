@@ -51,7 +51,8 @@ var Categories = React.createClass({
 
     return <li key={badge.id}>
       <a href={'/badge/' + badge.id}>
-        <img width={300} src={pathToBadge} className={'badge ' + status} />
+        <Image width={300} src={pathToBadge} className={'badge ' + status}
+          aspectRatio={1} />
       </a>
     </li>;
   },

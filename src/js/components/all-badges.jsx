@@ -114,7 +114,7 @@ var Badge = React.createClass({
 
     return <li key={badge.id + (search ? '-search' : null)} className="badge">
       <a href={'/badge/' + badge.id} className="cover">
-        <img alt="thumbnail" src={pathToBadge} width={150} />
+        <Image src={pathToBadge} width={150} aspectRatio={1} />
         <div className="cover">
           <h5>{badge.name}</h5>
           <p>{badge.subcategory} {badge.level}</p>

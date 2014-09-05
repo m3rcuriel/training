@@ -45,7 +45,7 @@ var Category = React.createClass({
 
     return <li key={badge.id + (search ? '-search' : null)} className="badge">
       <a href={'/badge/' + badge.id} className="cover">
-        <img alt="thumbnail" src={pathToBadge} width={235} />
+        <Image src={pathToBadge} width={235} aspectRatio={1} />
         <div className="cover">
           <h5><b>{badge.name} – {badge.subcategory} {badge.level}:</b></h5>
           <h5 className="subheader" dangerouslySetInnerHTML={{__html: description}}></h5>

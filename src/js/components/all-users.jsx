@@ -90,8 +90,8 @@ var AllUsers = React.createClass({
   renderUser: function renderUser (user, search) {
     return <li key={user.id + (search ? '-search' : null)} className="user">
       <a href={'/user/' + user.username} className="cover">
-        <img src={gravatar.url(user.email, {s: '150', r: 'pg'}, true)}
-          className="profile-pic"></img>
+        <Image src={gravatar.url(user.email, {s: '150', r: 'pg'}, true)}
+          className="profile-pic" />
         <div className="cover">
           <h5>{user.first_name}</h5>
           <p>{user.title || user.technical_group}</p>

@@ -36,7 +36,7 @@ var AssignBadge = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <img width={300} src={pathToBadge} />
+            <Image aspectRatio={1} width={300} src={pathToBadge} />
             <br />
             <hr />
             <a href={'/badge/' + badge.id} className="button" >Back to badge</a>
@@ -143,8 +143,8 @@ var AssignBadge = React.createClass({
   renderUser: function renderUser (user, search) {
     return <li key={user.id + (search ? '-search' : null)} className="user">
       <a href={'/user/' + user.id} className="cover">
-        <img src={gravatar.url(user.email, {s: '150', r: 'pg'}, true)}
-          className="profile-pic"></img>
+        <Image src={gravatar.url(user.email, {s: '150', r: 'pg'}, true)}
+          className="profile-pic" aspectRatio={1} />
         <div className="cover">
           <h5>{user.first_name}</h5>
           <p>{user.technical_group}</p>

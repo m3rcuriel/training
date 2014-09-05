@@ -17,7 +17,7 @@ var NewBadge = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <img width={300}
+            <Image width={300} aspectRatio={1}
               src={'https://3501-training-2014-us-west-2.s3.amazonaws.com'
                 + '/badge_placeholder.gif'} />
             <br /><br />

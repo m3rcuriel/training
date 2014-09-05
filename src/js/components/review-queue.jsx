@@ -38,7 +38,7 @@ var ReviewQueue = React.createClass({
 
     return <li key={badgeId}>
       <Link href={'/badge/' + badgeId + '/assign?search=' + student} >
-        <img width={300} src={pathToBadge} className="badge" />
+        <Image width={300} src={pathToBadge} className="badge" aspectRatio={1} />
       </Link>
     </li>;
   },
