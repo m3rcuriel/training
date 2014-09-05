@@ -3,7 +3,9 @@ var profileState = require('../state/profile.js');
 var applicationState = require('../state/application.js');
 
 var interval = function interval () {
-  if (!applicationState().auth.user.val()) {
+  // if not logged in or not on profile page
+  if (!applicationState().auth.user.val()
+    || window.location.pathname !== '/') {
     return false;
   }
 

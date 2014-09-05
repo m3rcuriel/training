@@ -7,7 +7,9 @@ _ = require('lodash');
 // App source code
 var App = require('./components/app.js');
 
-if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+var isNode = require('./lib/is-node.js');
+
+if (!isNode()) {
   require('./lib/authentication.js').authenticate();
   require('./lib/refresh-badges.js').subscribe();
 
