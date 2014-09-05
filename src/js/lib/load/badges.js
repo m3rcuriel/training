@@ -18,23 +18,31 @@ var loadAllBadges = function loadAllBadges () {
   });
 }
 
-var loadUserBadges = function loadUserBadges (state) {
+var loadUserBadges = function loadUserBadges (state, isSubscribed) {
   Badges.user_badges(function (response) {
     if (response.status !== 200) {
       return;
     }
 
-    state().badge_relations.set(response.badge_relations);
+    // if subscribed and needs refresh, XOR not subscribed...
+    if ((isSubscribed && !_.isEqual(state().badge_relations.val(), response.all))
+      || !isSubscribed) {
+      state().badge_relations.set(response.badge_relations);
+    }
   });
 }
 
-var loadStudents = function loadStudents (state) {
+var loadStudents = function loadStudents (state, isSubscribed) {
   Badges.review_queue(function (response) {
     if (response.status !== 200) {
       return;
     }
 
-    state().students.set(response.all);
+    // if subscribed and needs refresh, XOR not subscribed...
+    if ((isSubscribed && !_.isEqual(state().students.val(), response.all))
+      || !isSubscribed) {
+      state().students.set(response.all);
+    }
   });
 }
 

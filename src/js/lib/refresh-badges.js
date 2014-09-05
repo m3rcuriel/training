@@ -10,8 +10,8 @@ var interval = function interval () {
   }
 
   applicationState().auth.user.permissions.val() === 'mentor'
-    ? loadBadges.students(profileState)
-    : loadBadges.user(profileState);
+    ? loadBadges.students(profileState, true)
+    : loadBadges.user(profileState, true);
 };
 
 
