@@ -9,6 +9,7 @@ var App = require('./components/app.js');
 
 if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   require('./lib/authentication.js').authenticate();
+  require('./lib/refresh-badges.js').subscribe();
 
   // NOTE: before the app can render, we must wait for it to initialize
   var immediate = (typeof setImmediate === 'function')

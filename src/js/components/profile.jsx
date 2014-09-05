@@ -80,18 +80,8 @@ var Profile = React.createClass({
     loadCategories.counts(profileState);
 
     applicationState().auth.user.val().permissions === 'mentor'
-      ? this.loadStudents()
+      ? loadBadges.students(profileState)
       : null;
-  },
-
-  loadStudents: function loadStudents () {
-    Badges.review_queue(function (response) {
-      if (response.status !== 200) {
-        return;
-      }
-
-      profileState().students.set(response.all);
-    });
   },
 });
 

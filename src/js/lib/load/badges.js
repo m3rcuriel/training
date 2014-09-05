@@ -19,7 +19,7 @@ var loadAllBadges = function loadAllBadges () {
   });
 }
 
-loadUserBadges: function loadUserBadges (state) {
+var loadUserBadges = function loadUserBadges (state) {
   var self = this;
   Badges.user_badges(function userBadges (response) {
     if (response.status !== 200) {
@@ -30,5 +30,17 @@ loadUserBadges: function loadUserBadges (state) {
   });
 }
 
+var loadStudents = function loadStudents (state) {
+  Badges.review_queue(function (response) {
+    if (response.status !== 200) {
+      return;
+    }
+
+    state().students.set(response.all);
+  });
+}
+
+
 module.exports.all = loadAllBadges;
 module.exports.user = loadUserBadges;
+module.exports.students = loadStudents;
