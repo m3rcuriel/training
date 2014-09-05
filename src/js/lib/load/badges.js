@@ -25,7 +25,7 @@ var loadUserBadges = function loadUserBadges (state, isSubscribed) {
     }
 
     // if subscribed and needs refresh, XOR not subscribed...
-    if ((isSubscribed && !_.isEqual(state().badge_relations.val(), response.all))
+    if ((isSubscribed && !_.isEqual(state().badge_relations.val(), response.badge_relations))
       || !isSubscribed) {
       state().badge_relations.set(response.badge_relations);
     }
