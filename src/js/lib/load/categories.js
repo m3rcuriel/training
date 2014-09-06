@@ -1,7 +1,7 @@
 var Badges = require('../../lib/api/badges.js');
 var allBadges = require('../../state/badges.js');
 
-loadCategoryCounts: function loadCategoryCounts (state) {
+loadCategoryCounts = function loadCategoryCounts (state) {
   Badges.count_categories(function (response) {
     if (response.status !== 200) {
       return;
@@ -11,7 +11,17 @@ loadCategoryCounts: function loadCategoryCounts (state) {
   });
 }
 
-loadCategories: function loadCategories () {
+countUserCategories = function countUserCategories (username, state) {
+  Badges.count_user_categories(username, function (response) {
+    if (response.status !== 200) {
+      return;
+    }
+
+    state().categories_count.set(response.category_counts);
+  });
+}
+
+loadCategories = function loadCategories () {
   if (allBadges().categories.val()) {
     return false;
   }
@@ -27,4 +37,5 @@ loadCategories: function loadCategories () {
 }
 
 module.exports.counts = loadCategoryCounts;
+module.exports.specific_counts = countUserCategories;
 module.exports.categories = loadCategories;

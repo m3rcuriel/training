@@ -73,8 +73,8 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
-  count_user_categories: function (id, callback) {
-    API.request.get('/badges/user/' + id + '/category-count')
+  count_user_categories: function (username, callback) {
+    API.request.get('/badges/user/' + username + '/category-count')
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
