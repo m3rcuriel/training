@@ -81,7 +81,7 @@ var Profile = React.createClass({
   },
 
   componentDidMount: function componentDidMount () {
-    loadBadges.user(userState);
+    loadBadges.specific_user(this.props.username, userState);
     loadBadges.all();
     loadCategories.categories();
     loadCategories.counts(userState);

@@ -29,8 +29,8 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
-  specific_user_badges: function (id, callback) {
-    API.request.get('/badges/user/' + id)
+  specific_user_badges: function (username, callback) {
+    API.request.get('/badges/user/' + username)
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));

@@ -18,7 +18,7 @@ var loadAllBadges = function loadAllBadges () {
   });
 }
 
-var loadUserBadges = function loadUserBadges (state, isSubscribed) {
+var loadProfileBadges = function loadProfileBadges (state, isSubscribed) {
   Badges.user_badges(function (response) {
     if (response.status !== 200) {
       return;
@@ -29,6 +29,16 @@ var loadUserBadges = function loadUserBadges (state, isSubscribed) {
       || !isSubscribed) {
       state().badge_relations.set(response.badge_relations);
     }
+  });
+}
+
+var loadUserBadges = function loadUserBadges (id, state) {
+  Badges.specific_user_badges(id, function (response) {
+    if (response.status !== 200) {
+      return;
+    }
+
+    state().badge_relations.set(response.badge_relations);
   });
 }
 
@@ -48,5 +58,6 @@ var loadStudents = function loadStudents (state, isSubscribed) {
 
 
 module.exports.all = loadAllBadges;
-module.exports.user = loadUserBadges;
+module.exports.user = loadProfileBadges;
+module.exports.specific_user = loadUserBadges;
 module.exports.students = loadStudents;

@@ -41,7 +41,8 @@ var Login = React.createClass({
           <input type="submit" className={'button' + (this.state.state === LoginState.LOADING ? ' disabled' : '')} value="Login" />
         </form>
         <hr />
-        <p><b>If you do not have an account and are a team member, please contact Logan.</b></p>
+        <p><b>If you do not have an account and are a team member:</b> contact any of the leads or a mentor.</p>
+        <p>Contact Logan if you aren't able to login.</p>
       </div>
     </main>;
   },
