@@ -60,7 +60,7 @@ var LoggedOutBar = React.createClass({
       <div className="large-5 columns">
         <a href="/">
           <Image className="logo" src="/static/assets/logo.jpg" width={400}
-            aspectRatio={1} />
+            aspectRatio={7.27} />
         </a>
       </div>
       <div className="button-bar right">
