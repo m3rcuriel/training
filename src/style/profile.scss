@@ -1,8 +1,7 @@
 main.user, main.profile {
-  img.badge.review {
-    opacity: 0.4;
-  }
-  img.badge.no {
-    opacity: 0.2;
+  a.badge.review {
+    * {
+      opacity: 0.4;
+    }
   }
 }
