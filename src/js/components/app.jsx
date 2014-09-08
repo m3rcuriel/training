@@ -18,6 +18,7 @@ var E404 = require('../components/404.js');
 var Badge = require('../components/badge.js');
 var Badges = require('../components/all-badges.js');
 var Category = require('../components/category.js');
+var About = require('../components/about.js');
 
 // unauthenticated
 var Login = require('../components/login.js');
@@ -40,6 +41,7 @@ var UnauthenticatedRouter = React.createClass({
     return <CaptureClicks>
       <Locations path={this.props.path}>
         <Location path="/login" handler={Layout(Login)} />
+        <Location path="/about" handler={Layout(About)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <Location path="/badges" handler={Layout(Badges)} />
         <NotFound handler={Layout(Login)} />
@@ -55,6 +57,7 @@ var AuthenticatedRouter = React.createClass({
     return <CaptureClicks>
       <Locations path={this.props.path}>
         <Location path="/" handler={Layout(Profile)} />
+        <Location path="/about" handler={Layout(About)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/badge/new" handler={Layout(NewBadge)} />
         <Location path="/badge/:id/assign*" handler={Layout(AssignBadge)} />
