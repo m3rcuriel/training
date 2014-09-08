@@ -68,23 +68,6 @@ var NewUser = React.createClass({
               </div>
             </h1></div>
 
-            <div className="row"><h1>
-              <div className="large-4 columns">
-                <label>Password
-                  <input type="password" name="password1" ref="password1"
-                    placeholder="Secure password" />
-                </label>
-              </div>
-              <div className="large-4 columns end">
-                <small>
-                  <label>Same password
-                    <input type="password" name="password2" ref="password2"
-                      placeholder="Type it again..." />
-                  </label>
-                </small>
-              </div>
-            </h1></div>
-
             <br />
             <div className="row">
               <div className="large-6 columns end">
@@ -119,11 +102,9 @@ var NewUser = React.createClass({
     var username =          this.refs.username.getDOMNode().value.trim();
     var technicalGroup =    this.refs.technical_group.getDOMNode().value.trim();
     var nontechnicalGroup = this.refs.nontechnical_group.getDOMNode().value.trim();
-    var password1 =         this.refs.password1.getDOMNode().value.trim();
-    var password2 =         this.refs.password2.getDOMNode().value.trim();
 
-    if (!first_name || !last_name || !email || password1 !== password2 || !password1
-      || !username || !technicalGroup || !nontechnicalGroup || !password1) {
+    if (!first_name || !last_name || !email || !username || !technicalGroup
+      || !nontechnicalGroup) {
       this.setState({
         state: NewUserState.EDITING,
         message: 'Make sure all the fields are filled in.'
@@ -138,7 +119,6 @@ var NewUser = React.createClass({
       username: username,
       technical_group: technicalGroup,
       nontechnical_group: nontechnicalGroup,
-      password: password1
     };
 
     var self = this;
