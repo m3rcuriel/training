@@ -7,7 +7,7 @@ var LoadingPage = require('../components/loading-page.js');
 var pagedown = require('pagedown');
 var converter = new pagedown.getSanitizingConverter();
 
-var About = React.createClass({
+var ImportantInfo = React.createClass({
   render: function () {
     if (this.state.message === '') {
       return <LoadingPage />;
@@ -18,14 +18,14 @@ var About = React.createClass({
     return <main className="about">
       <div className="row">
         <div className="columns large-10 large-centered text-center">
-          <h2>Welcome to the Firebots training website!</h2>
+          <h2>Important Team Information</h2>
           <hr />
         </div>
 
         <div className="columns large-10 large-centered">
           <span dangerouslySetInnerHTML={{__html: message}} />
           <br />
-          <a className="button right" href="/important-info">Some important team information ➤</a>
+          <a className="button right" href="/">Go to your profile ➤</a>
           <br />
           <br />
           <br />
@@ -42,10 +42,10 @@ var About = React.createClass({
 
   componentDidMount: function () {
     var self = this;
-    Public.about(function (response) {
+    Public.important_info(function (response) {
       self.setState({message: response.message});
     });
   },
 });
 
-module.exports = About;
+module.exports = ImportantInfo;

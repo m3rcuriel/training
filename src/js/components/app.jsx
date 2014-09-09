@@ -33,6 +33,7 @@ var EditBadgeImage = require('../components/edit-badge-image.js');
 var Users = require('../components/all-users.js');
 var User = require('../components/user.js');
 var NewUser = require('../components/new-user.js');
+var ImportantInfo = require('../components/important-info.js');
 
 // Router if not logged in
 //
@@ -58,6 +59,7 @@ var AuthenticatedRouter = React.createClass({
       <Locations path={this.props.path}>
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/about" handler={Layout(About)} />
+        <Location path="/important-info" handler={Layout(ImportantInfo)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/badge/new" handler={Layout(NewBadge)} />
         <Location path="/badge/:id/assign*" handler={Layout(AssignBadge)} />
