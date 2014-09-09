@@ -53,5 +53,5 @@ var fetchUser = function fetchUser () {
 var API = require('../lib/api/base.js');
 applicationState().on('update', function () {
   API.token.value = applicationState().auth.token.val();
-  // fetchUser();
+  fetchUser();
 });
