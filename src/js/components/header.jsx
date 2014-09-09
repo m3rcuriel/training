@@ -36,6 +36,7 @@ var LoggedInBar = React.createClass({
           <li><a className="button" href="/users">All Users</a></li>
           <li><a className="button" href="/badges">All Badges</a></li>
           <li><a className="button success" href="/">Home</a></li>
+          <li><a className="button success" href="/settings">Settings</a></li>
         </ul>
       </div>
       <div className="button-bar right">
