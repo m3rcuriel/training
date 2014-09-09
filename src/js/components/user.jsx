@@ -24,7 +24,7 @@ var Profile = React.createClass({
       || !allBadges().categories.val()
       || !userState().badge_relations.val()
       || userState().loaded.val() !== EntityStates.LOADED
-      || !userState().categories_count.val()) {
+      || !userState().levels.val()) {
       return <LoadingPage />;
     }
 
@@ -32,7 +32,7 @@ var Profile = React.createClass({
     var user = userState().user.val();
     var candidateBadges = allBadges().badges.val();
     var categories = allBadges().categories.val();
-    var categoriesCount = userState().categories_count.val();
+    var levels = userState().levels.val();
 
     return <main className="user">
       <div className="row">
@@ -56,7 +56,7 @@ var Profile = React.createClass({
           <br />
           <h4 className="subheader">Username: {user.username}</h4>
           <hr />
-          <CategoryCount categories={categories} categoriesCount={categoriesCount} />
+          <CategoryCount categories={categories} levels={levels} />
         </div>
       </div>
     </main>;
@@ -84,7 +84,8 @@ var Profile = React.createClass({
     loadBadges.specific_user(this.props.username, userState);
     loadBadges.all();
     loadCategories.categories();
-    loadCategories.specific_counts(this.props.username, userState);
+    loadCategories.levels(userState);
+
     this.loadUser();
   },
 });

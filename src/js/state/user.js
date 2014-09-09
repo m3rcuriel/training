@@ -8,7 +8,7 @@ var defaultValue = {
   user: null,
   loaded: EntityStates.NOT_LOADED,
   badge_relations: null,
-  categories_count: null,
+  levels: null,
 };
 
 Context.initialize('userState', function () {
