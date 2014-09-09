@@ -4,7 +4,9 @@ var applicationState = require('../state/application.js');
 
 var E404 = React.createClass({
   render: function() {
+    if (applicationState().auth.user.val()) {
     var userFirstName = applicationState().auth.user.first_name.val();
+    }
 
     return <main className="login">
       <div className="row">

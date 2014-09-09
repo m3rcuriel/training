@@ -41,6 +41,7 @@ var UnauthenticatedRouter = React.createClass({
   render: function () {
     return <CaptureClicks>
       <Locations path={this.props.path}>
+        <Location path="/" handler={Layout(Login)} />
         <Location path="/login" handler={Layout(Login)} />
         <Location path="/about" handler={Layout(About)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />

@@ -81,7 +81,7 @@ var EditBadge = React.createClass({
             <br />
             <div className="row">
               <div className="large-6 columns">
-                <h3 className="subheader">Resources:</h3>
+                <h3 className="subheader">Resources / Dates:</h3>
                 <textarea defaultValue={badge.resources} rows="3"
                   ref="resources" />
               </div>

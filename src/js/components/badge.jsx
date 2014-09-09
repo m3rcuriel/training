@@ -73,7 +73,7 @@ var Badge = React.createClass({
             <br />
             <div className="row">
               <div className="large-6 columns">
-                <h3 className="subheader">Resources:</h3>
+                <h3 className="subheader">Resources / Dates:</h3>
                 <span dangerouslySetInnerHTML={{__html: resources}} />
               </div>
               <div className="large-6 columns">

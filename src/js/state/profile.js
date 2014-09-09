@@ -6,8 +6,8 @@ var EntityStates = require('../lib/entity-states.js');
 
 var defaultValue = {
   badge_relations: null,
-  categories_count: null,
   students: null,
+  levels: null,
 };
 
 Context.initialize('profileState', function () {

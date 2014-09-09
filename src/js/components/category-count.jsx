@@ -9,7 +9,7 @@ var CategoryCount = React.createClass({
         {this.renderCategoryLabels(props.categories)}
       </div>
       <div className="large-4 columns">
-        {this.renderCategoryCount(props.categories, props.categoriesCount)}
+        {this.renderCategoryCount(props.categories, props.levels)}
       </div>
     </div>;
   },
@@ -20,9 +20,9 @@ var CategoryCount = React.createClass({
     });
   },
 
-  renderCategoryCount: function renderCategoryCount (categories, categoriesCount) {
+  renderCategoryCount: function renderCategoryCount (categories, levels) {
     return _.map(categories, function (category) {
-      return <h5 key={Math.random()} style={{color: 'red'}}>{categoriesCount[category]}</h5>;
+      return <h5 key={Math.random()} style={{color: 'red'}}>{levels[category]}</h5>;
     });
   },
 });

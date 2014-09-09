@@ -25,7 +25,7 @@ var Profile = React.createClass({
     if (allBadges().loaded.val() !== EntityStates.LOADED
       || !allBadges().categories.val()
       || !profileState().badge_relations.val()
-      || !profileState().categories_count.val()) {
+      || !profileState().levels.val()) {
       return <LoadingPage />;
     }
 
@@ -34,11 +34,13 @@ var Profile = React.createClass({
       return <LoadingPage />;
     }
 
-    var targetBadges = profileState().badge_relations.val();
+    var state = profileState().val();
+
+    var targetBadges =    state.badge_relations;
     var candidateBadges = allBadges().badges.val();
-    var categories = allBadges().categories.val();
-    var categoriesCount = profileState().categories_count.val();
-    var studentHash = profileState().students.val();
+    var categories =      allBadges().categories.val();
+    var studentHash =     state.students;
+    var levels =          state.levels;
 
     return <main className="profile">
       <div className="row">
@@ -55,7 +57,8 @@ var Profile = React.createClass({
           <h2>{user.permissions === 'mentor' ? 'REVIEW QUEUE' : 'BADGES'}</h2>
           {user.permissions === 'mentor'
             ? <ReviewQueue studentHash={studentHash} />
-            : <Categories targetBadges={targetBadges} categories={categories} candidateBadges={candidateBadges} />
+            : <Categories targetBadges={targetBadges} categories={categories}
+                candidateBadges={candidateBadges} />
           }
         </div>
         <div className="large-4 columns">
@@ -67,7 +70,7 @@ var Profile = React.createClass({
           <br />
           <h4 className="subheader">Username: {user.username}</h4>
           <hr />
-          <CategoryCount categories={categories} categoriesCount={categoriesCount} />
+          <CategoryCount categories={categories} levels={levels} />
         </div>
       </div>
     </main>;
@@ -77,7 +80,7 @@ var Profile = React.createClass({
     loadBadges.user(profileState);
     loadBadges.all();
     loadCategories.categories();
-    loadCategories.counts(profileState);
+    loadCategories.levels(profileState);
 
     applicationState().auth.user.val().permissions === 'mentor'
       ? loadBadges.students(profileState)

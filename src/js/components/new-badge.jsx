@@ -65,8 +65,8 @@ var NewBadge = React.createClass({
             <br />
             <div className="row">
               <div className="large-6 columns">
-                <h3 className="subheader">Resources:</h3>
-                <textarea placeholder="Where can I go to learn this?"
+                <h3 className="subheader">Resources / Dates:</h3>
+                <textarea placeholder="Where can I go to learn this? When will training be?"
                   rows="3" ref="resources" />
               </div>
               <div className="large-6 text-center columns">

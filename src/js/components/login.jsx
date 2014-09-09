@@ -46,12 +46,15 @@ var Login = React.createClass({
       </div>
     </main>;
   },
+
   componentDidMount: function () {
     this.refs.email.getDOMNode().focus();
   },
+
   getInitialState: function () {
     return {state: LoginState.NEUTRAL};
   },
+
   submit: function () {
     var self = this;
     if (this.state.state === LoginState.LOADING) {

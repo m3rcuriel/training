@@ -32,5 +32,5 @@ var Account = module.exports = {
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
-  }
+  },
 };

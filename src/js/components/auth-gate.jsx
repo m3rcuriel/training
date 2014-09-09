@@ -18,10 +18,12 @@ var AuthGate = React.createClass({
     var authenticatedRouter = this.props.authenticatedRouter;
     var unauthenticatedRouter = this.props.unauthenticatedRouter;
 
-    // TODO: replace with actual validation
-    return (applicationState().auth.token && applicationState().auth.token.val())
-      ? this.transferPropsTo(authenticatedRouter())
-      : this.transferPropsTo(unauthenticatedRouter());
+    var auth = applicationState().auth;
+    var authenticated = auth.token && auth.token.val();
+
+    return this.transferPropsTo(authenticated
+      ? authenticatedRouter()
+      : unauthenticatedRouter());
   }
 });
 
