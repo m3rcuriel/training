@@ -21,7 +21,7 @@
     "pagedown": "^1.1.0",
     "react": "^0.10.0",
     "react-async": "^0.9.4",
-    "react-image-component": "^0.1.4",
+    "react-image-component": "^0.2.1",
     "react-router-component": "^0.19.0",
     "react-tools": "^0.11.1",
     "superagent": "^0.18.0",

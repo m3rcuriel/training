@@ -35,26 +35,30 @@ var AssignBadge = React.createClass({
       <div>
         <div className="row">
           <br /><br />
+
           <div className="large-4 column">
             <Image aspectRatio={1} width={300} src={pathToBadge} />
             <br />
             <hr />
             <a href={'/badge/' + badge.id} className="button" >Back to badge</a>
           </div>
+
           <div className="large-8 column">
             <div className="row">
               <h1>{badge.name} <small>{badge.subcategory} series</small></h1>
               {this.state.message}
             </div>
             <br />
+
             <form onSubmit={this.addUser}>
               <input type="text" name="add" ref="add" autoFocus
                 defaultValue={this.state.searchString} onChange={this.updateSearch}
                 placeholder="Type a name here..." />
               <input type="submit" name="submit" ref="submit"
                 className="button alert" value="Add user" />
-              <p>The user in the first spot will be added when you press enter.</p>
+              <p>The user in the first spot will be un/linked when you press enter.</p>
             </form>
+
             {this.renderSearch(users)}
           </div>
         </div>
@@ -84,6 +88,39 @@ var AssignBadge = React.createClass({
       return false;
     }
 
+    this.linkUnlinkBadge(firstUser);
+
+    return false;
+  },
+
+  linkUnlinkBadge: function (firstUser) {
+    var badgeId = assignBadge().badge.id.val();
+    var user = applicationState().auth.user.val();
+    var self = this;
+    var status;
+
+    Badges.specific_user_badges(firstUser.username, function (response) {
+      if (response.status !== 200) {
+        return 'no';
+      }
+
+      var badge_relations = response.badge_relations;
+
+      var badge_relation = _.filter(badge_relations, function (relation) {
+        return _.isEqual(relation.badge_id, badgeId);
+      });
+
+      status = badge_relation[0].status;
+
+
+      (status === 'no'
+        || (status === 'review' && user.permissions === 'mentor'))
+        ? self.linkBadge(firstUser)
+        : self.unlinkBadge(firstUser);
+    });
+  },
+
+  linkBadge: function (firstUser) {
     var self = this;
     Badges.link_badge(firstUser.id.toS(), assignBadge().badge.id.val().toS(),
       function (response) {
@@ -99,6 +136,21 @@ var AssignBadge = React.createClass({
             + firstUser.first_name + '.'});
       }
     );
+
+    return false;
+  },
+
+  unlinkBadge: function (firstUser) {
+    var self = this;
+    Badges.unlink_badge(firstUser.id.toS(), assignBadge().badge.id.val().toS(),
+      function (response) {
+        if (response.status !== 200) {
+          self.setState({message: 'Something went wrong when unlinking the badge.'});
+          return false;
+        }
+
+        self.setState({message: firstUser.first_name + ' has been UNLINKED from this badge.'});
+    });
 
     return false;
   },
@@ -141,8 +193,8 @@ var AssignBadge = React.createClass({
   },
 
   renderUser: function renderUser (user, search) {
-    return <li key={user.id + (search ? '-search' : null)} className="user">
-      <a href={'/user/' + user.id} className="cover">
+    return <li key={user.username + (search ? '-search' : null)} className="user">
+      <a href={'/user/' + user.username} className="cover">
         <Image src={gravatar.url(user.email, {s: '150', r: 'pg', d: 'identicon'}, true)}
           className="profile-pic" aspectRatio={1} />
         <div className="cover">

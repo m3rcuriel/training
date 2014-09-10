@@ -32,6 +32,20 @@ var Badge = {
       }));
   },
 
+  unlink_badge: function (userId, badgeId, callback) {
+    var payload = API.encode({
+      user_id: userId,
+      badge_id: badgeId,
+      status: 'no',
+    });
+
+    API.request.patch('/badges/user')
+      .send(payload)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
+
   specific_user_badges: function (username, callback) {
     API.request.get('/badges/user/' + username)
       .end(API.end(function (res) {
