@@ -30,7 +30,7 @@ var Profile = React.createClass({
     }
 
     var user = applicationState().auth.user.val();
-    if (user.permissions === 'mentor' && !profileState().students.val()) {
+    if (user.permissions === 'mentor' && !allBadges().students.val()) {
       return <LoadingPage />;
     }
 
