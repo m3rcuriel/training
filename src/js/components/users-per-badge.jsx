@@ -6,8 +6,10 @@ var gravatar = require('gravatar');
 var ReviewQueue = React.createClass({
   render: function render () {
     var loggedIn = applicationState().auth.user;
-    if (!loggedIn) {
-      return <div></div>;
+    if (!loggedIn || !loggedIn.val()) {
+      return <div>
+        You have to be logged in to see this.
+      </div>;
     }
 
     var props = this.props;

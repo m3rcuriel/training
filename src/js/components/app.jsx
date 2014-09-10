@@ -19,6 +19,7 @@ var Badge = require('../components/badge.js');
 var Badges = require('../components/all-badges.js');
 var Category = require('../components/category.js');
 var About = require('../components/about.js');
+var AboutCode = require('../components/about-code.js');
 
 // unauthenticated
 var Login = require('../components/login.js');
@@ -44,6 +45,7 @@ var UnauthenticatedRouter = React.createClass({
         <Location path="/" handler={Layout(Login)} />
         <Location path="/login" handler={Layout(Login)} />
         <Location path="/about" handler={Layout(About)} />
+        <Location path="/about/code" handler={Layout(AboutCode)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <Location path="/category/:category" handler={Layout(Category)} />
         <Location path="/badges" handler={Layout(Badges)} />
@@ -61,6 +63,7 @@ var AuthenticatedRouter = React.createClass({
       <Locations path={this.props.path}>
         <Location path="/" handler={Layout(Profile)} />
         <Location path="/about" handler={Layout(About)} />
+        <Location path="/about/code" handler={Layout(AboutCode)} />
         <Location path="/important-info" handler={Layout(ImportantInfo)} />
         <Location path="/settings" handler={Layout(Settings)} />
         <Location path="/badge/new" handler={Layout(NewBadge)} />
