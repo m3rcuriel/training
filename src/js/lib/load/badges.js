@@ -1,6 +1,7 @@
 var allBadges = require('../../state/badges.js');
 var EntityStates = require('../../lib/entity-states.js');
 var Badges = require('../api/badges.js');
+var desiredBadge = require('../../state/badge.js');
 
 var loadAllBadges = function loadAllBadges () {
   if (allBadges().loaded.val() === EntityStates.LOADED) {
@@ -42,18 +43,28 @@ var loadUserBadges = function loadUserBadges (id, state) {
   });
 }
 
-var loadStudents = function loadStudents (state, isSubscribed) {
-  Badges.review_queue(function (response) {
+var loadStudents = function loadStudents (isSubscribed) {
+  Badges.all_relations(function (response) {
     if (response.status !== 200) {
       return;
     }
 
     // if subscribed and needs refresh, XOR not subscribed...
-    if ((isSubscribed && !_.isEqual(state().students.val(), response.all))
+    if ((isSubscribed && !_.isEqual(allBadges().students.val(), response.all))
       || !isSubscribed) {
-      state().students.set(response.all);
+      allBadges().students.set(response.all);
     }
   });
+}
+
+var perBadge = function perBadge (id) {
+  Badges.per_badge_relations(id, function (response) {
+    if (response.status !== 200) {
+      return;
+    }
+
+    desiredBadge().relations.set(response.relations);
+  })
 }
 
 
@@ -61,3 +72,4 @@ module.exports.all = loadAllBadges;
 module.exports.user = loadProfileBadges;
 module.exports.specific_user = loadUserBadges;
 module.exports.students = loadStudents;
+module.exports.perBadge = perBadge;

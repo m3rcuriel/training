@@ -39,7 +39,7 @@ var Profile = React.createClass({
     var targetBadges =    state.badge_relations;
     var candidateBadges = allBadges().badges.val();
     var categories =      allBadges().categories.val();
-    var studentHash =     state.students;
+    var studentHash =     allBadges().students.val();
     var levels =          state.levels;
 
     return <main className="profile">
@@ -83,7 +83,7 @@ var Profile = React.createClass({
     loadCategories.levels(profileState);
 
     applicationState().auth.user.val().permissions === 'mentor'
-      ? loadBadges.students(profileState)
+      ? loadBadges.students()
       : null;
   },
 });

@@ -118,8 +118,15 @@ var Badge = {
       }));
   },
 
-  review_queue: function (callback) {
+  all_relations: function (callback) {
     API.request.get('/badges/user/all')
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
+
+  per_badge_relations: function (id, callback) {
+    API.request.get('/badges/user/badge/' + id)
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));

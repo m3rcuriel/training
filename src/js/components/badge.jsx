@@ -2,9 +2,11 @@
 
 var Badges = require('../lib/api/badges.js');
 var EntityStates = require('../lib/entity-states.js');
+var loadBadges = require('../lib/load/badges.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage = require('../components/loading-page.js');
+var UsersPerBadge = require('../components/users-per-badge.js');
 
 var desiredBadge = require('../state/badge.js');
 var allBadges = require('../state/badges.js');
@@ -15,14 +17,20 @@ var converter = new pagedown.getSanitizingConverter();
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
-  reactToCortices: [desiredBadge()],
+  reactToCortices: [desiredBadge(), allBadges()],
 
   render: function () {
-    if (desiredBadge().loaded.val() !== EntityStates.LOADED) {
+    var permissions = applicationState().auth.user.permissions;
+
+    if (desiredBadge().loaded.val() !== EntityStates.LOADED
+      || (!desiredBadge().relations.val() && permissions)) {
       return <LoadingPage />;
     }
+    permissions = permissions ? permissions.val() : 'student';
 
     var badge = desiredBadge().badge.val();
+    var studentHash = desiredBadge().relations.val();
+
     var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
@@ -30,32 +38,29 @@ var Badge = React.createClass({
     var learningMethod = converter.makeHtml(badge.learning_method || '');
     var resources = converter.makeHtml(badge.resources || '');
 
-    var permissions = applicationState().auth.user.permissions;
-    if (permissions) {
-      permissions = permissions.val();
-    } else {
-      permissions = 'student';
-    }
-
     return <main className="badge">
       <div>
         <div className="row">
           <br /><br />
+
           <div className="large-4 column">
             <Image width={300} src={pathToBadge} aspectRatio={1} transition="none" />
             <br /><br />
             <div className="row">
+
               <hr />
               <div className="large-6 column">
                 <p>Category:</p>
                 <p>Level:</p>
                 <p>Verifiers:</p>
               </div>
+
               <div className="large-6 column">
                 <p>{badge.category}</p>
                 <p>{badge.level}</p>
                 <p>{badge.verifiers}</p>
               </div>
+
               <hr />
               {permissions === 'mentor' || permissions === 'lead'
                 ? <div>
@@ -67,31 +72,45 @@ var Badge = React.createClass({
                 : null}
             </div>
           </div>
+
           <div className="large-8 column">
             <div className="row"><h1>{badge.name} <small>{badge.subcategory
               } series</small></h1></div>
             <br />
+
             <h3 className="subheader">Requirements:</h3>
             <span dangerouslySetInnerHTML={{__html: description}} />
+
             <h3 className="subheader">Learning methods:</h3>
             <span dangerouslySetInnerHTML={{__html: learningMethod}} />
+
             <br />
             <div className="row">
               <div className="large-6 columns">
                 <h3 className="subheader">Resources / Dates:</h3>
                 <span dangerouslySetInnerHTML={{__html: resources}} />
               </div>
+
               <div className="large-6 columns">
                 <h3 className="subheader">Need help? </h3>
                 <p>Ask someone who's already received the badge. Or ask one of
                   the verifiers to be a <a href="http://en.wikipedia.org/wiki/HTTP_302">human 302.</a></p>
               </div>
             </div>
+
+            <br />
+            <br />
+            <h3>Users with this badge:</h3>
+            <br />
+            <br />
+            <UsersPerBadge studentHash={studentHash} />
           </div>
+
         </div>
       </div>
     </main>;
   },
+
   loadBadge: function loadBadge () {
     var self = this;
 
@@ -102,10 +121,8 @@ var Badge = React.createClass({
       });
 
       if (cachedBadge) {
-        desiredBadge().set({
-          badge: cachedBadge,
-          loaded: EntityStates.LOADED,
-        });
+        desiredBadge().badge.set(cachedBadge);
+        desiredBadge().loaded.set(EntityStates.LOADED);
 
         return;
       }
@@ -123,14 +140,14 @@ var Badge = React.createClass({
         return;
       }
 
-      desiredBadge().set({
-        badge: response.badge,
-        loaded: EntityStates.LOADED,
-      });
+      desiredBadge().badge.set(response.badge);
+      desiredBadge().loaded.set(EntityStates.LOADED);
     });
   },
+
   componentDidMount: function componentDidMount () {
     this.loadBadge();
+    loadBadges.perBadge(this.props.id);
   },
 });
 

@@ -6,7 +6,6 @@ var EntityStates = require('../lib/entity-states.js');
 
 var defaultValue = {
   badge_relations: null,
-  students: null,
   levels: null,
 };
 
