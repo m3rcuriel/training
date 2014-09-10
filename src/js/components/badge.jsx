@@ -30,7 +30,12 @@ var Badge = React.createClass({
     var learningMethod = converter.makeHtml(badge.learning_method || '');
     var resources = converter.makeHtml(badge.resources || '');
 
-    var permissions = applicationState().auth.user.permissions.val();
+    var permissions = applicationState().auth.user.permissions;
+    if (permissions) {
+      permissions = permissions.val();
+    } else {
+      permissions = 'student';
+    }
 
     return <main className="badge">
       <div>
