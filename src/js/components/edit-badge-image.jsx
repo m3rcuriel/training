@@ -37,7 +37,7 @@ var EditBadgeImage = React.createClass({
         <div className="row">
           <br /><br />
           <div className="large-4 column">
-            <Image width={300} src={pathToBadge} aspectRatio={1} />
+            <Image width={300} src={pathToBadge} aspectRatio={1} transition="none" />
             <br />
             <hr />
             <input type="file" name="file" ref="file" />

@@ -33,7 +33,7 @@ var EditBadge = React.createClass({
           <br /><br />
           <div className="large-4 column">
             <a href={'/badge/' + badge.id + '/edit/image'}>
-              <Image width={300} src={pathToBadge} aspectRatio={1} />
+              <Image width={300} src={pathToBadge} aspectRatio={1} transition="none" />
             </a>
             <br /><br />
             <div className="row">

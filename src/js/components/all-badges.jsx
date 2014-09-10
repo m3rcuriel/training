@@ -114,7 +114,7 @@ var Badge = React.createClass({
 
     return <li key={badge.id + (search ? '-search' : null)} className="badge">
       <a href={'/badge/' + badge.id} className="cover">
-        <Image src={pathToBadge} width={150} aspectRatio={1} />
+        <Image src={pathToBadge} width={150} aspectRatio={1} transition="none" />
         <div className="cover">
           <h5>{badge.name}</h5>
           <p>{badge.subcategory} {badge.level}</p>
@@ -148,10 +148,6 @@ var Badge = React.createClass({
       }
 
       var badges = response.all;
-      badges = _.sortBy(badges, function (badge) {
-        return [badge.subcategory, badge.level];
-      });
-
       allBadges().badges.set(badges);
       allBadges().loaded.set(EntityStates.LOADED);
     });
