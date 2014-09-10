@@ -23,7 +23,7 @@ var Badge = React.createClass({
     var permissions = applicationState().auth.user.permissions;
 
     if (desiredBadge().loaded.val() !== EntityStates.LOADED
-      || (!desiredBadge().relations.val() && permissions)) {
+      || (permissions && !desiredBadge().relations && !desiredBadge().relations.val())) {
       return <LoadingPage />;
     }
     permissions = permissions ? permissions.val() : 'student';
@@ -128,11 +128,6 @@ var Badge = React.createClass({
       }
     }
 
-    if (desiredBadge().badge.id
-      && desiredBadge().badge.id.toS() === this.props.id
-      && desiredBadge().loaded.val() === EntityStates.LOADED) {
-      return false;
-    }
     desiredBadge().loaded.set(EntityStates.LOADING);
 
     Badges.badge(this.props.id, function all (response) {
