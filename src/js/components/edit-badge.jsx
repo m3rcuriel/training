@@ -195,10 +195,8 @@ var EditBadge = React.createClass({
       });
 
       if (cachedBadge) {
-        desiredBadge().set({
-          badge: cachedBadge,
-          loaded: EntityStates.LOADED,
-        });
+        desiredBadge().badge.set(cachedBadge);
+        desiredBadge().loaded.set(EntityStates.LOADED);
 
         return;
       }
@@ -217,10 +215,8 @@ var EditBadge = React.createClass({
         return;
       }
 
-      desiredBadge().set({
-        badge: response.badge,
-        loaded: EntityStates.LOADED,
-      });
+      desiredBadge().badge.set(response.badge);
+      desiredBadge().loaded.set(EntityStates.LOADED);
     });
   },
 });

@@ -23,7 +23,7 @@ var Badge = React.createClass({
     var permissions = applicationState().auth.user.permissions;
 
     if (desiredBadge().loaded.val() !== EntityStates.LOADED
-      || (permissions && desiredBadge().relations && !desiredBadge().relations.val())) {
+      || (permissions && !desiredBadge().relations)) {
       return <LoadingPage />;
     }
     permissions = permissions ? permissions.val() : 'student';
