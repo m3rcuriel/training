@@ -38,10 +38,12 @@ var SettingsForm = module.exports = React.createClass({
           <div className="large-6 columns">
             <h4>Normal:</h4>
             {this.settingsFields([
-              {label: 'First Name',   field: 'first_name',    placeholder: 'First'},
-              {label: 'Last Name',    field: 'last_name',     placeholder: 'Last'},
-              {label: 'Username',     field: 'username',      placeholder: 'What you would like to be called'},
-              {label: 'Email',        field: 'email',         placeholder: 'you@example.com'},
+              {label: 'First Name',         field: 'first_name',        placeholder: 'First'},
+              {label: 'Last Name',          field: 'last_name',         placeholder: 'Last'},
+              {label: 'Username',           field: 'username',          placeholder: 'What you would like to be called'},
+              {label: 'Email',              field: 'email',             placeholder: 'you@example.com'},
+              {label: 'Technical group',    field: 'technical_group',   placeholder: 'Technical group'},
+              {label: 'Nontechnical group', field: 'nontechnical_group',placeholder: 'Nontechnical group'},
             ])}
 
             <input type="submit" value="Submit" className={
@@ -176,10 +178,12 @@ var SettingsForm = module.exports = React.createClass({
       return false;
     }
 
-    var firstName     = this.refs.first_name.getDOMNode().value.trim();
-    var lastName      = this.refs.last_name.getDOMNode().value.trim();
-    var username      = this.refs.username.getDOMNode().value.trim();
-    var email         = this.refs.email.getDOMNode().value.trim();
+    var firstName         = this.refs.first_name.getDOMNode().value.trim();
+    var lastName          = this.refs.last_name.getDOMNode().value.trim();
+    var username          = this.refs.username.getDOMNode().value.trim();
+    var email             = this.refs.email.getDOMNode().value.trim();
+    var technicalGroup    = this.refs.technical_group.getDOMNode().value.trim();
+    var nontechnicalGroup = this.refs.nontechnical_group.getDOMNode().value.trim();
 
     if (!firstName || !lastName || !username || !email) {
       return false;
@@ -190,6 +194,8 @@ var SettingsForm = module.exports = React.createClass({
     if (lastName  !== applicationState().auth.user.last_name.val()) { delta.last_name = lastName };
     if (username  !== applicationState().auth.user.username.val()) { delta.username = username };
     if (email     !== applicationState().auth.user.email.val()) { delta.email = email };
+    if (technicalGroup !== applicationState().auth.user.technical_group.val()) { delta.technical_group = technicalGroup };
+    if (nontechnicalGroup !== applicationState().auth.user.nontechnical_group.val()) { delta.nontechnical_group = nontechnicalGroup };
 
     if (_.size(delta) === 0) {
       return false;
