@@ -49,7 +49,7 @@ var Categories = React.createClass({
     var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
-    return <li key={badge.id}>
+    return <li key={badge.id} className="badge">
       <a href={'/badge/' + badge.id} className={'badge ' + status}>
         <Image width={300} src={pathToBadge} aspectRatio={1} />
       </a>

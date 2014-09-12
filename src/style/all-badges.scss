@@ -19,7 +19,7 @@ main.badges, main.users, main.assign-badge, main.categories, main.badge {
     color: gray;
   }
 
-  li {
+  li.badge, li.user {
     margin-bottom: -20px;
   }
 }
