@@ -40,7 +40,7 @@ $(BUILD)/js/%.js: src/js/%.wisp
 $(BUILD)/js/%.js: src/js/%.jsx
 	@echo "Compiling JSX: $^."
 	@mkdir -p $$(dirname "$@")
-	@cat $^ | jsx > $@ ; fi
+	@cat $^ | jsx > $@
 
 $(BUILD)/server/%.js: src/server/%.js
 	@echo "Copying server js: $^."
@@ -68,7 +68,11 @@ $(DIST)/static/app.js: jsx wisp $(patsubst ./src/js/%.js,./$(BUILD)/js/%.js,$(JS
 # NOTE: only the root file is compiled, the rest are included by sass itself
 $(DIST)/static/style.css: $(SCSS_FILES)
 	@echo "Compiling SCSS."
-	@sass src/style/style.scss $(DIST)/static/style.css ; fi
+	@sass src/style/style.scss $(DIST)/static/style.css
+	@NODE_ENV="$(NODE_ENV)"
+	@if [ "$(NODE_ENV)" == "production" ] ; then cleancss -o $(DIST)/static/mini.css $(DIST)/static/style.css ; fi
+	@if [ "$(NODE_ENV)" == "production" ] ; then rm $(DIST)/static/style.css ; fi
+	@if [ "$(NODE_ENV)" == "production" ] ; then mv $(DIST)/static/mini.css $(DIST)/static/style.css ; fi
 
 $(DIST)/static/assets/%: src/assets/%
 	@echo "Copying asset: $^"
