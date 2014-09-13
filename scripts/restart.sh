@@ -11,4 +11,6 @@ sleep 1
 
 make server NODE_ENV=production &
 
+echo
 echo 'Server is restarting, you are free to go.'
+echo
