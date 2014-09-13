@@ -18,10 +18,7 @@ ex.use(compression());
 ex.use(function(req, res, next) {
     if (toobusy()) res.send(503, "I'm busy right now, sorry.");
 
-    if (process.env.OPENSHIFT_NODEJS_PORT
-        && req.headers['x-forwarded-proto'] === 'http') {
-        return res.redirect('https://' + req.headers.host + req.path);
-    } else if (req.path.match(/^\/static/)) {
+    if (req.path.match(/^\/static/)) {
         return next();
     }
     try {
@@ -65,23 +62,10 @@ ex.use(function(req, res, next) {
     }
 });
 
-if (process.env.OPENSHIFT_NODEJS_PORT) {
-    var dist = '_dist';
-}
+ex.use(express.static(process.env.DIST));
 
-ex.use(express.static(dist || process.env.DIST));
-
-var port = process.env.OPENSHIFT_NODEJS_PORT || 5000 ;
-var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var port = process.env.TRAINING_PORT || 5000 ;
+var ip = '127.0.0.1';
 ex.listen(port, ip);
 
 console.log('Server up and running, listening on port ' + port + '.');
-
-if (process.env.OPENSHIFT_NODEJS_PORT) {
-    var fs = require('fs');
-    var stream = fs.createWriteStream('go.txt');
-    stream.once('open', function (fd) {
-        stream.write('First row\n');
-        stream.end();
-    });
-}

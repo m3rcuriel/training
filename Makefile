@@ -40,8 +40,7 @@ $(BUILD)/js/%.js: src/js/%.wisp
 $(BUILD)/js/%.js: src/js/%.jsx
 	@echo "Compiling JSX: $^."
 	@mkdir -p $$(dirname "$@")
-	@if [ "$(OPENSHIFT_CLOUD_DOMAIN)" == "rhcloud.com" ] ; then cat $^ | ./node_modules/react-tools/bin/jsx > $@ ; fi
-	@if [ "$(OPENSHIFT_CLOUD_DOMAIN)" != "rhcloud.com" ] ; then cat $^ | jsx > $@ ; fi
+	@cat $^ | jsx > $@ ; fi
 
 $(BUILD)/server/%.js: src/server/%.js
 	@echo "Copying server js: $^."
@@ -61,16 +60,15 @@ $(DIST)/static/app.js: jsx wisp $(patsubst ./src/js/%.js,./$(BUILD)/js/%.js,$(JS
 	@echo "Running envify."
 	@NODE_ENV="$(NODE_ENV)" API_BASE="$(API_BASE)" \
 	envify $(BUILD)/bundle.js > $(BUILD)/envified.js
-	@if [ "$(NODE_ENV)" = "production" ] ; then echo "Running uglify." ; fi
-	@if [ "$(NODE_ENV)" = "production" ] ; then ./node_modules/uglify-js/bin/uglifyjs $(BUILD)/envified.js > $@ ; fi
+	@if [ "$(NODE_ENV)" == "production" ] ; then echo "Running uglify." ; fi
+	@if [ "$(NODE_ENV)" == "production" ] ; then ./node_modules/uglify-js/bin/uglifyjs $(BUILD)/envified.js > $@ ; fi
 	@if [ "$(NODE_ENV)" != "production" ] ; then cp $(BUILD)/envified.js $@ ; fi
 
 # files for target scss
 # NOTE: only the root file is compiled, the rest are included by sass itself
 $(DIST)/static/style.css: $(SCSS_FILES)
 	@echo "Compiling SCSS."
-	@if [ "$(OPENSHIFT_CLOUD_DOMAIN)" == "rhcloud.com" ] ; then ~/.gem/bin/sass src/style/style.scss $(DIST)/static/style.css ; fi
-	@if [ "$(OPENSHIFT_CLOUD_DOMAIN)" != "rhcloud.com" ] ; then sass src/style/style.scss $(DIST)/static/style.css ; fi
+	@sass src/style/style.scss $(DIST)/static/style.css ; fi
 
 $(DIST)/static/assets/%: src/assets/%
 	@echo "Copying asset: $^"
