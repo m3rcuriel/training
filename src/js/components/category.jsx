@@ -19,7 +19,7 @@ var Category = React.createClass({
     }
 
     // capitalize category
-    var category = this.props.category;
+    var category = decodeURIComponent(this.props.category);
     category = category[0].toUpperCase() + category.slice(1);
     var badges = allBadges().badges.val();
 
