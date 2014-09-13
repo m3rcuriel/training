@@ -65,7 +65,7 @@ cd training
 # install from package.json
 npm install
 # install compiling tools
-npm install -g react-tools browserify envify
+npm install -g react-tools browserify envify clean-css
 
 # install sass compiler
 gem install sass
