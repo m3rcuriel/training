@@ -74,6 +74,7 @@ gem install sass
 make file-structure
 make server NODE_ENV=production
 
-# once the server is running properly, press `ctrl-c` a few times, then...
-make server NODE_ENV=production &
+# once you've ensured that the server is running properly,
+# press `ctrl-c` a few times, then...
+./restart.sh
 ```

@@ -9,7 +9,7 @@ var LoginState = {
 };
 
 var Login = React.createClass({
-  render: function() {
+  render: function () {
     return <main className="login">
       <div className="small-6 large-centered columns">
         <br />

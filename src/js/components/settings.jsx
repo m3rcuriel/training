@@ -222,7 +222,7 @@ var SettingsForm = module.exports = React.createClass({
 
   refreshUser: function () {
     var user = applicationState().auth.user;
-    Account.get(user.username.val(), function (response) {
+    Account.get_by_id(user.id.val().toS(), function (response) {
       if (response.status !== 200) {
         return;
       }
