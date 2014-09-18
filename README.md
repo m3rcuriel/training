@@ -2,17 +2,9 @@
 
 This is the code that powers the frontend of the training site for team 3501 Firebots.
 
-### Usage
+### Usage and install
 
-Install dependencies:
-
-    npm install
-    npm install -g react-tools
-    gem install watchr
-
-Then, develop with one command:
-
-    make dev
+[Instructions here](https://gitlab.com/fremont-robotics-software-team/general/blob/master/tutorials/setup/training-app.md)
 
 # Licensing and credits
 
