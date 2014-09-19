@@ -40,6 +40,7 @@ var Auth = {
         if (callback) callback(res.body);
       }));
   },
+
   register: function (data, callback) {
     data = API.encode(data);
     API.request.post('/account')
@@ -47,7 +48,16 @@ var Auth = {
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
-  }
+  },
+
+  reset_password_email: function (email, callback) {
+    data = API.encode({email: email});
+    API.request.post('/auth/forgot-password')
+      .send(data)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
 
 module.exports = Auth;

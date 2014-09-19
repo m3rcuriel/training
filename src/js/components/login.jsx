@@ -38,7 +38,9 @@ var Login = React.createClass({
             </div>
           </div>
 
-          <input type="submit" className={'button' + (this.state.state === LoginState.LOADING ? ' disabled' : '')} value="Login" />
+          <input type="submit" value="Login" className={'button submit success'
+            + (this.state.state === LoginState.LOADING ? ' disabled' : '')} />
+          <a href="/forgot-password" className="button tiny right">Forgot password</a>
         </form>
         <hr />
         <p><b>If you do not have an account and are a team member:</b> contact any of the leads or a mentor.</p>

@@ -23,6 +23,8 @@ var AboutCode = require('../components/about-code.js');
 
 // unauthenticated
 var Login = require('../components/login.js');
+var ForgotPassword = require('../components/forgot-password.js');
+var ForgotPasswordReset = require('../components/forgot-password-reset.js');
 
 // authenticated
 var Profile = require('../components/profile.js');
@@ -44,6 +46,8 @@ var UnauthenticatedRouter = React.createClass({
       <Locations path={this.props.path}>
         <Location path="/" handler={Layout(Login)} />
         <Location path="/login" handler={Layout(Login)} />
+        <Location path="/forgot-password" handler={Layout(ForgotPassword)} />
+        <Location path="/forgot-password/reset" handler={Layout(ForgotPasswordReset)} />
         <Location path="/about" handler={Layout(About)} />
         <Location path="/about/code" handler={Layout(AboutCode)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
