@@ -58,6 +58,18 @@ var Auth = {
         if (callback) callback(res.body);
       }));
   },
+
+  reset_password: function (token, password, callback) {
+    data = API.encode({
+      'reset-token': token,
+      password: password,
+    });
+    API.request.post('/auth/forgot-password/reset')
+      .send(data)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
 
 module.exports = Auth;

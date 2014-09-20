@@ -18,11 +18,37 @@ var ResetPassword = React.createClass({
 
   render: function () {
     return <main className="forgot-password-reset">
-      {this.state.state == ResetState.FAILED ?
-        <div style={{background: 'red'}}>
-          {this.state.message}
-        </div>
-      : null}
+      <div className="small-6 large-centered columns">
+        <br />
+        <br />
+        <h1>Welcome Back.</h1>
+        <form onSubmit={this.submit}>
+          {this.state.state == ResetState.FAILED
+            ? <div style={{background: 'red'}}>
+              {this.state.message}
+            </div>
+          : null}
+
+          <div>
+            <label>OK, choose a new password.</label>
+            <div>
+              <input type="password" name="password1"
+                placeholder="new password" ref="password1" />
+            </div>
+          </div>
+
+          <div>
+            <label>And again...</label>
+            <div>
+              <input type="password" name="password2"
+                placeholder="same new password" ref="password2" />
+            </div>
+          </div>
+
+          <input type="submit" value="Reset password" className={'button submit success'
+            + (this.state.state === ResetState.LOADING ? ' disabled' : '')} />
+        </form>
+      </div>
     </main>;
   },
 
@@ -32,15 +58,6 @@ var ResetPassword = React.createClass({
     if (!token) {
       redirect('/forgot-password');
     }
-
-    // Check if they have a valid email token
-    this.refs.password1.getDOMNode().focus();
-    var self = this;
-    Auth.resetPasswordEmailVerify(token, function (response) {
-      if (response.status !== 200) {
-        self.setState({state: ResetState.FAILED, message: "Invalid email token."});
-      }
-    });
   },
 
   getInitialState: function () {
@@ -63,7 +80,7 @@ var ResetPassword = React.createClass({
       return false;
     }
 
-    Auth.resetPassword(password1, token, function (response) {
+    Auth.reset_password(token, password1, function (response) {
       if (response.status !== 200) {
         self.setState({state: ResetState.FAILED, message: response.message});
         self.refs.password1.getDOMNode().focus();

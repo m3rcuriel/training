@@ -22,11 +22,7 @@ var ForgotPassword = React.createClass({
         <br />
         <h1>Forgot your password?</h1>
         <form onSubmit={this.submit}>
-          {this.state.state === ResetState.FAILED
-            ? <div style={{background: 'red'}}>
-              {this.state.message}
-            </div>
-          : null}
+          {this.state.message}
 
           <div>
             <label htmlFor="email">You know your email</label>
