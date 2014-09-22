@@ -30,6 +30,9 @@ var ReviewQueue = React.createClass({
       <a href={'/user/' + relation.username} className="cover">
         <Image src={gravatar.url(relation.email, {s: '150', r: 'pg', d: 'identicon'}, true)}
           className="profile-pic" aspectRatio={1} />
+        <div className="cover">
+          <h5>{relation.first_name}</h5>
+        </div>
       </a>
     </li>;
   },
