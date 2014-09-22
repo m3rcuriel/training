@@ -32,7 +32,7 @@ var ResetPassword = React.createClass({
           <div>
             <label>OK, choose a new password.</label>
             <div>
-              <input type="password" name="password1"
+              <input type="password" name="password1" autoFocus
                 placeholder="new password" ref="password1" />
             </div>
           </div>
