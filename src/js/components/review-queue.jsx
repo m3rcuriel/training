@@ -12,32 +12,36 @@ var ReviewQueue = React.createClass({
   renderStudents: function renderStudents (studentHash) {
     ret = []
     for (var student in studentHash) {
-      ret.push(studentHash[student].length >= 1
-        ? <div key={Math.random()}>
-          <h4 className="subheader">{student}:</h4>
+      var val = studentHash[student];
+
+      ret.push(
+        <div key={Math.random()}>
+          <h4 className="subheader">{val.user.first_name} {val.user.last_name}:</h4>
           <ul className="small-block-grid-6">
-            {this.renderBadges(student, studentHash[student])}
+            {this.renderBadges(val)}
           </ul>
         </div>
-        : null);
+      );
     }
 
     return ret;
   },
 
-  renderBadges: function renderBadges (student, badgeIds) {
+  renderBadges: function renderBadges (relationInfo) {
     var self = this;
-    return _.map(badgeIds, function (badgeId) {
-      return self.renderBadge(student, badgeId);
+    return _.map(relationInfo.badges, function (badge) {
+      return self.renderBadge(relationInfo.user, badge);
     });
   },
 
-  renderBadge: function renderBadge (student, badgeId) {
+  renderBadge: function renderBadge (user, badge) {
+    var badgeId = badge.badge_id.toS();
+    var name = user.first_name + ' ' + user.last_name;
     var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badgeId + '.jpg';
 
     return <li key={badgeId}>
-      <Link href={'/badge/' + badgeId + '/assign?search=' + student} >
+      <Link href={'/badge/' + badgeId + '/assign?search=' + name} >
         <Image width={300} src={pathToBadge} className="badge" aspectRatio={1} />
       </Link>
     </li>;
