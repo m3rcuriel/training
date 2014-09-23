@@ -17,7 +17,7 @@ var ReviewQueue = React.createClass({
       ret.push(
         <div key={Math.random()}>
           <h4 className="subheader">{val.user.first_name} {val.user.last_name}:</h4>
-          <ul className="small-block-grid-6">
+          <ul className="small-block-grid-4">
             {this.renderBadges(val)}
           </ul>
         </div>
@@ -43,6 +43,7 @@ var ReviewQueue = React.createClass({
     return <li key={badgeId}>
       <Link href={'/badge/' + badgeId + '/assign?search=' + name} >
         <Image width={300} src={pathToBadge} className="badge" aspectRatio={1} />
+        <p className="text-center">{badge.reviewer.first_name} approves</p>
       </Link>
     </li>;
   },
