@@ -17,7 +17,7 @@ var Login = React.createClass({
         <br />
         <h1>Welcome Back.</h1>
         <form onSubmit={this.submit}>
-          <div style={this.state.state == LoginState.FAILED ? {background: 'red'} : null}>
+          <div style={{background: this.state.state === LoginState.FAILED ? 'red' : 'green'}}>
             {this.state.message}
           </div>
 
