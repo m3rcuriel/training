@@ -58,11 +58,9 @@ var Login = React.createClass({
   },
 
   submit: function () {
-    var self = this;
     if (this.state.state === LoginState.LOADING) {
       return false;
     }
-    self.setState({state: LoginState.LOADING});
 
     var email = this.refs.email.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();
@@ -70,12 +68,14 @@ var Login = React.createClass({
       return false;
     }
 
+    this.setState({state: LoginState.LOADING});
+    var self = this;
     Auth.login(email, password, function (response) {
       if (response.status !== 200) {
         self.setState({state: LoginState.FAILED, message: response.message});
         self.refs.email.getDOMNode().focus();
       } else {
-        self.setState({state: LoginState.success, message: 'You\'ve been logged in.'});
+        self.setState({state: LoginState.SUCCESS, message: 'You\'ve been logged in.'});
       }
     });
     return false;
