@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var Auth = require('../lib/api.js').Auth;
+var redirect = require('../lib/redirect.js');
 
 var LoginState = {
   NEUTRAL: 0,
@@ -16,11 +17,9 @@ var Login = React.createClass({
         <br />
         <h1>Welcome Back.</h1>
         <form onSubmit={this.submit}>
-          {this.state.state == LoginState.FAILED
-            ? <div style={{background: 'red'}}>
-              {this.state.message}
-            </div>
-          : null}
+          <div style={this.state.state == LoginState.FAILED ? {background: 'red'} : null}>
+            {this.state.message}
+          </div>
 
           <div>
             <label htmlFor="email">Hi again</label>
@@ -76,6 +75,7 @@ var Login = React.createClass({
         self.refs.email.getDOMNode().focus();
       } else {
         self.setState({state: LoginState.SUCCESS, message: 'You\'ve been logged in.'});
+        redirect('/');
       }
     });
     return false;
