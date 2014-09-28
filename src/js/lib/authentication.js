@@ -17,12 +17,16 @@ module.exports.authenticate = function authenticate (req, res) {
     var cookie = document.cookie;
     authentication = CookieParser.parse(cookie).auth;
   }
+
   if (authentication !== 'undefined' && typeof authentication === 'string' && authentication !== '') {
     var parsed = JSONbig.parse(authentication);
     if (parsed.token && parsed.user) {
       applicationState().auth.set(parsed);
+      return applicationState().auth.user.id.val();
     }
   }
+
+  return null;
 };
 
 module.exports.persistAuthentication = function persistAuthentication () {
