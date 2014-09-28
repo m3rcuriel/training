@@ -24,6 +24,7 @@ ex.use(function(req, res, next) {
     try {
         Context.reset();
         var userId = authenticate(req, res) || '';
+        console.log(userId.toS());
         query.setQuery(req.query);
         setResponse(res);
 
