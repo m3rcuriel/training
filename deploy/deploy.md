@@ -17,9 +17,9 @@ then type `exit` then `mosh root@111.111.111.111`
 ```bash
 mkdir /etc/nginx/ssl
 cd /etc/nginx/ssl
-nano STAR_oflogan_com.crt
+nano STAR_fremontrobotics_com.crt
 # paste in the cert
-nano oflogan.key
+nano fremontrobotics.key
 # paste in the key
 
 rm /etc/nginx/nginx.conf
