@@ -10,7 +10,7 @@ JSX ?= jsx
 
 # Variables
 NODE_ENV ?= development
-API_BASE ?= https://api.oflogan.com
+API_BASE ?= https://api.fremontrobotics.com
 
 
 # Paths
