@@ -48,9 +48,9 @@ var NewBadge = React.createClass({
               </div>
               <div className="large-4 columns end">
                 <small>
-                  <label>Subcategory
+                  <label>Nickname
                     <input type="text" name="subcategory" ref="subcategory"
-                      placeholder="Badge subcategory" />
+                      placeholder="Badge nickname" />
                   </label>
                 </small>
               </div>

@@ -74,8 +74,8 @@ var Badge = React.createClass({
           </div>
 
           <div className="large-8 column">
-            <div className="row"><h1>{badge.name} <small>{badge.subcategory
-              } series</small></h1></div>
+            <div className="row"><h1>{badge.name} <small>{
+              badge.subcategory}</small></h1></div>
             <br />
 
             <h3 className="subheader">Requirements:</h3>
