@@ -24,8 +24,7 @@ var Profile = React.createClass({
   render: function () {
     if (allBadges().loaded.val() !== EntityStates.LOADED
       || !allBadges().categories.val()
-      || !profileState().badge_relations.val()
-      || !profileState().levels.val()) {
+      || !profileState().badge_relations.val()) {
       return <LoadingPage />;
     }
 

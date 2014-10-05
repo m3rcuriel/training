@@ -22,7 +22,7 @@ var CategoryCount = React.createClass({
 
   renderCategoryCount: function renderCategoryCount (categories, levels) {
     return _.map(categories, function (category) {
-      return <h5 key={Math.random()} style={{color: 'red'}}>{levels[category]}</h5>;
+      return <h5 key={Math.random()} style={{color: 'red'}}>{levels[category] || '–'}</h5>;
     });
   },
 });
