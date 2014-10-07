@@ -56,6 +56,12 @@ var Profile = React.createClass({
           <h4 className="subheader">Username: {user.username}</h4>
           <hr />
           <CategoryCount categories={categories} levels={levels} />
+
+          <hr />
+          <br />
+          <br />
+          <br />
+          {user.bio}
         </div>
       </div>
     </main>;

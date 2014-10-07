@@ -44,6 +44,7 @@ var SettingsForm = module.exports = React.createClass({
               {label: 'Email',              field: 'email',             placeholder: 'you@example.com'},
               {label: 'Technical group',    field: 'technical_group',   placeholder: 'Technical group'},
               {label: 'Nontechnical group', field: 'nontechnical_group',placeholder: 'Nontechnical group'},
+              {label: 'Biography',          field: 'bio',               placeholder: 'Limited to 255 chars!', textarea: true}
             ])}
 
             <input type="submit" value="Submit" className={
@@ -77,13 +78,17 @@ var SettingsForm = module.exports = React.createClass({
     </main>;
   },
 
-  settingsFieldFor: function (label, field, placeholder) {
+  settingsFieldFor: function (label, field, placeholder, textarea) {
     var defaultValue = applicationState().auth.user[field].val();
 
     return <div key={field}>
       <label htmlFor={field}>{label}
-        <input type="text" ref={field} name={field} placeholder={placeholder}
-          defaultValue={defaultValue} autoFocus={field === 'first_name' ? true : null} />
+        {textarea
+          ? <textarea type="text" ref={field} name={field} placeholder={placeholder}
+            defaultValue={defaultValue} rows={4} />
+          : <input type="text" ref={field} name={field} placeholder={placeholder}
+            defaultValue={defaultValue} autoFocus={field === 'first_name' ? true : null} />
+        }
       </label>
     </div>;
   },
@@ -105,7 +110,7 @@ var SettingsForm = module.exports = React.createClass({
   settingsFields: function (fields) {
     var self = this;
     return _.map(fields, function (field) {
-      return self.settingsFieldFor(field.label, field.field, field.placeholder);
+      return self.settingsFieldFor(field.label, field.field, field.placeholder, field.textarea);
     });
   },
 
@@ -184,6 +189,7 @@ var SettingsForm = module.exports = React.createClass({
     var email             = this.refs.email.getDOMNode().value.trim();
     var technicalGroup    = this.refs.technical_group.getDOMNode().value.trim();
     var nontechnicalGroup = this.refs.nontechnical_group.getDOMNode().value.trim();
+    var bio               = this.refs.bio.getDOMNode().value.trim();
 
     if (!firstName || !lastName || !username || !email) {
       return false;
@@ -196,6 +202,7 @@ var SettingsForm = module.exports = React.createClass({
     if (email     !== applicationState().auth.user.email.val()) { delta.email = email };
     if (technicalGroup !== applicationState().auth.user.technical_group.val()) { delta.technical_group = technicalGroup };
     if (nontechnicalGroup !== applicationState().auth.user.nontechnical_group.val()) { delta.nontechnical_group = nontechnicalGroup };
+    if (bio !== applicationState().auth.user.bio.val()) { delta.bio = bio };
 
     if (_.size(delta) === 0) {
       return false;
