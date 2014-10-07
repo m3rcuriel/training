@@ -59,6 +59,7 @@ var Profile = React.createClass({
 
           <hr />
           <br />
+          <h4 className="subheader">About</h4>
           <br />
           <br />
           {user.bio}
