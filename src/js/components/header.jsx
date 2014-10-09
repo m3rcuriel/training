@@ -42,7 +42,7 @@ var LoggedInBar = React.createClass({
             : <div>
               <ul className="button-group">
                 <li><a className="button success" href="/important-info">Important info</a></li>
-                <li><a className="button success" href="http://fremontrobotics.com">Main</a></li>
+                <li><a className="button success" href="https://fremontrobotics.com">Main</a></li>
               </ul>
             </div>}
         </ul>
