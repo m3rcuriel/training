@@ -62,7 +62,7 @@ var Profile = React.createClass({
           <h4 className="subheader">About</h4>
           <br />
           <br />
-          <p className="bio">user.bio</p>
+          <p className="bio">{user.bio}</p>
         </div>
       </div>
     </main>;
