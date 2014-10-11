@@ -69,8 +69,7 @@ ex.use(function(req, res, next) {
     }
 });
 
-var oneHour = 60 * 60 * 1000;
-ex.use(express.static(process.env.DIST, {maxAge: oneHour}));
+ex.use(express.static(process.env.DIST));
 
 var port = process.env.TRAINING_PORT || 5000 ;
 var ip = '127.0.0.1';
