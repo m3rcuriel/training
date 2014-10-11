@@ -2,6 +2,7 @@
 # vim: ft=ruby
 
 ENV['NODE_ENV'] = 'development'
+ENV['API_BASE'] = 'http://localhost:9977'
 
 def quit_server
   return unless $server
@@ -19,7 +20,8 @@ def run_server
   end
 end
 
-watch('^src') do |_|
+watch('^src') do |change|
+  puts "Change noticed: #{change}"
   run_server
 end
 
