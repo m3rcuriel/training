@@ -15,7 +15,7 @@ var About = React.createClass({
   reactToCortices: [publicState()],
 
   render: function () {
-    if (!publicState().about) {
+    if (!publicState().about.val()) {
       return <LoadingPage />;
     }
 

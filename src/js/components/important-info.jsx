@@ -15,7 +15,7 @@ var ImportantInfo = React.createClass({
   reactToCortices: [publicState()],
 
   render: function () {
-    if (!publicState().important_info) {
+    if (!publicState().important_info.val()) {
       return <LoadingPage />;
     }
 

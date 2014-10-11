@@ -29,10 +29,6 @@ var LoggedInBar = React.createClass({
   reactToCortices: [publicState()],
 
   render: function render () {
-    if (!publicState().message) {
-      return <div></div>;
-    }
-
     var user = applicationState().auth.user.val();
     var authorized = user.permissions === 'mentor' || user.permissions === 'lead';
     var message = publicState().message.val();
