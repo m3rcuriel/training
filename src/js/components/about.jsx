@@ -2,18 +2,24 @@
 
 var Public = require('../lib/api/public.js');
 
+var publicState = require('../state/public.js');
+
 var LoadingPage = require('../components/loading-page.js');
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 
 var pagedown = require('pagedown');
 var converter = new pagedown.getSanitizingConverter();
 
 var About = React.createClass({
+  mixins: [CortexReactivityMixin],
+  reactToCortices: [publicState()],
+
   render: function () {
-    if (this.state.message === '') {
+    if (!publicState().about) {
       return <LoadingPage />;
     }
 
-    var message = converter.makeHtml(this.state.message);
+    var message = converter.makeHtml(publicState().about.val());
 
     return <main className="about">
       <div className="row">
@@ -34,16 +40,9 @@ var About = React.createClass({
     </main>;
   },
 
-  getInitialState: function () {
-    return {
-      message: ''
-    };
-  },
-
   componentDidMount: function () {
-    var self = this;
     Public.about(function (response) {
-      self.setState({message: response.message});
+      publicState().about.set(response.message);
     });
   },
 });

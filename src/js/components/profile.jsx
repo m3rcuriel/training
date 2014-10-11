@@ -87,9 +87,9 @@ var Profile = React.createClass({
     loadCategories.categories();
     loadCategories.levels(profileState);
 
-    applicationState().auth.user.val().permissions === 'mentor'
-      ? loadBadges.students()
-      : null;
+    if (applicationState().auth.user.val().permissions === 'mentor') {
+      loadBadges.students();
+    }
   },
 });
 

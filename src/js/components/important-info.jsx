@@ -2,18 +2,24 @@
 
 var Public = require('../lib/api/public.js');
 
+var publicState = require('../state/public.js');
+
 var LoadingPage = require('../components/loading-page.js');
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 
 var pagedown = require('pagedown');
 var converter = new pagedown.getSanitizingConverter();
 
 var ImportantInfo = React.createClass({
+  mixins: [CortexReactivityMixin],
+  reactToCortices: [publicState()],
+
   render: function () {
-    if (this.state.message === '') {
+    if (!publicState().important_info) {
       return <LoadingPage />;
     }
 
-    var message = converter.makeHtml(this.state.message);
+    var message = converter.makeHtml(publicState().important_info.val());
     var calendar = '<iframe src="https://www.google.com/calendar/embed?height=600\
 &amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=fhsroboticsmentors%40gmail.com&amp;\
 color=%23A32929&amp;ctz=America%2FLos_Angeles" style=" border-width:0 "\
@@ -44,16 +50,9 @@ width="800" height="600" frameborder="0" scrolling="no"></iframe>';
     </main>;
   },
 
-  getInitialState: function () {
-    return {
-      message: ''
-    };
-  },
-
   componentDidMount: function () {
-    var self = this;
     Public.important_info(function (response) {
-      self.setState({message: response.message});
+      publicState().important_info.set(response.message);
     });
   },
 });

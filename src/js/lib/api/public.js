@@ -14,6 +14,13 @@ var Public = {
         if (callback) callback(res.body);
       }));
   },
+
+  message: function (callback) {
+    API.request.get('/public/message')
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  },
 };
 
 module.exports = Public;
