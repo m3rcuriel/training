@@ -106,13 +106,9 @@ var AssignBadge = React.createClass({
 
       var badge_relations = response.badge_relations;
 
-      console.log(badge_relations);
-
       var badge_relation = _.filter(badge_relations, function (relation) {
         return _.isEqual(relation.badge_id, badgeId);
       });
-
-      console.log(badge_relation);
 
       status = badge_relation[0].status;
 
