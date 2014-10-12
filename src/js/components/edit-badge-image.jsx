@@ -33,7 +33,6 @@ var EditBadgeImage = React.createClass({
         <input type="hidden" name="AWSAccessKeyId" value={this.state.access_key_id} />
         <input type="hidden" name="policy" value={this.state.policy} />
         <input type="hidden" name="signature" value={this.state.signature} />
-        <input type="hidden" name="Cache-Control" value="max-age=300" />
 
         <div className="row">
           <br /><br />
