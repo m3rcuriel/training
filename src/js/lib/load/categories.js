@@ -46,7 +46,18 @@ var loadLevels = function loadLevels (state) {
   });
 }
 
+var loadUserLevels = function loadUserLevels (username, state) {
+  Badges.get_user_levels(username, function (response) {
+    if (response.status !== 200) {
+      return;
+    }
+
+    state().levels.set(response.levels);
+  })
+}
+
 module.exports.counts = loadCategoryCounts;
 module.exports.specific_counts = countUserCategories;
 module.exports.categories = loadCategories;
 module.exports.levels = loadLevels;
+module.exports.user_levels = loadUserLevels;

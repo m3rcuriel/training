@@ -90,7 +90,7 @@ var Profile = React.createClass({
     loadBadges.specific_user(this.props.username, userState);
     loadBadges.all();
     loadCategories.categories();
-    loadCategories.levels(userState);
+    loadCategories.user_levels(this.props.username, userState);
 
     this.loadUser();
   },
