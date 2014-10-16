@@ -23,7 +23,7 @@ ex.use(function(req, res, next) {
     }
     try {
         Context.reset();
-        var userId = authenticate(req, res).toS();
+        var userId = authenticate(req, res);
         query.setQuery(req.query);
         setResponse(res);
 
@@ -53,7 +53,7 @@ ex.use(function(req, res, next) {
                       })(window,document,"script","//www.google-analytics.com/analytics.js","ga");\
                       ga("create", "UA-54088466-2", "auto");\
                       ga("send", "pageview");' +
-                      (userId ? 'ga("set", "&uid", {{' + userId + '}});)' : '') +
+                      (userId ? 'ga("set", "&uid", {{' + userId.toS() + '}});)' : '') +
                     '</script>\
                 </body>\
                 </html>';
