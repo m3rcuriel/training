@@ -2,9 +2,6 @@
 
 var Auth = require('../lib/api.js').Auth;
 
-var query = require('../lib/query.js');
-var redirect = require('../lib/redirect.js');
-
 var ResetState = {
   NEUTRAL: 0,
   LOADING: 1,

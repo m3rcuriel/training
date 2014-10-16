@@ -23,7 +23,7 @@ ex.use(function(req, res, next) {
     }
     try {
         Context.reset();
-        var userId = authenticate(req, res);
+        var userId = authenticate(req, res).toS();
         query.setQuery(req.query);
         setResponse(res);
 
@@ -32,12 +32,6 @@ ex.use(function(req, res, next) {
 
         setImmediate(function reactRenderOnNextTick () {
             var markup = React.renderComponentToString(app);
-
-            if (userId) {
-                var userIdTracking =
-                    'ga("create", "UA-XXXX-Y", { "userId":' + userId.toS() + '});\
-                    ga("send", "pageview");';
-            }
 
             var html = '<!DOCTYPE html>\
                 <html>\
@@ -52,12 +46,14 @@ ex.use(function(req, res, next) {
                     <div id="app">' + markup + '</div>\
                     \
                     <script src="/static/app.js" type="text/javascript" charset="utf-8"></script>\
-                    <script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){\
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\
-                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\
-                        })(window,document,"script","//www.google-analytics.com/analytics.js","ga");\
-                        ga("create","UA-54088466-1","auto");ga("send","pageview");'
-                        + (userIdTracking || '') +
+                    <script>\
+                      (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){\
+                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\
+                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\
+                      })(window,document,"script","//www.google-analytics.com/analytics.js","ga");\
+                      ga("create", "UA-54088466-2", "auto");\
+                      ga("send", "pageview");' +
+                      (userId ? 'ga("set", "&uid", {{' + userId + '}});)' : '') +
                     '</script>\
                 </body>\
                 </html>';
