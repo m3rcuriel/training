@@ -54,7 +54,7 @@ ga("send", "pageview");';
                     <div id="app">' + markup + '</div>\
                     <script src="/static/app.js" type="text/javascript" charset="utf-8"></script>'
                         + googleAnalytics
-                        + (userId ? '\nga("set", "&uid", {{' + userId.toS() + '}});' : '') +
+                        + (userId ? '\nga("set", "&uid", ' + userId.toS() + ');' : '') +
                     '</script>\
                 </body>\
                 </html>';
