@@ -48,7 +48,7 @@ ex.use(function(req, res, next) {
               })(window,document,'script','//www.google-analytics.com/analytics.js','ga');\
               ga('create', 'UA-54088466-3', 'auto');\
               ga('send', 'pageview');\
-              " + (userId ? 'ga(‘set’, ‘&uid’, ‘' + userId.toS() + '’);' : '' +  "\
+              " + (userId ? 'ga(‘set’, ‘&uid’, ‘' + userId.toS() + '’);' : '') +  "\
             </script>";
 
             var html = '<!DOCTYPE html>\
