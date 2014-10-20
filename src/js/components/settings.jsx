@@ -52,6 +52,8 @@ var SettingsForm = module.exports = React.createClass({
           </div>
         </form>
 
+        {this.state.accountSaved ? this.state.message : null}
+
         <form onSubmit={this.submitPassword}>
           <div className="large-6 columns">
             <h4>Password:</h4>
@@ -72,7 +74,7 @@ var SettingsForm = module.exports = React.createClass({
           </div>
         </form>
 
-        {this.state.message}
+        {this.state.passwordSaved ? this.state.message : null}
 
       </div>
     </main>;
@@ -116,11 +118,13 @@ var SettingsForm = module.exports = React.createClass({
 
   getInitialState: function () {
     query.refresh();
-    return {state: SettingsState.EDITING
-        , message: query().message || ''
-        , accountSaved: false
-        , passwordSaved: false
-        , saveWorked: false};
+    return {
+      state: SettingsState.EDITING,
+      message: query().message || '',
+      accountSaved: false,
+      passwordSaved: false,
+      saveWorked: false,
+    };
   },
 
   componentWillUnmount: function componentWillUnmount () {
@@ -144,25 +148,32 @@ var SettingsForm = module.exports = React.createClass({
     var password2 = this.refs.password2.getDOMNode().value.trim();
 
     if (!oldPassword || !password1 || !password2 || password1 !== password2) {
-      this.setState({message: 'Check that all password fields are filled in '
-        + 'and your new passwords match.'});
+      this.setState({
+        message: 'Check that all password fields are filled in and your new passwords match.',
+      });
       return false;
     }
 
     var data = {
       old_password: oldPassword,
       password: password1,
-    }
-    this.setState({state: SettingsState.SUBMITTING, message: 'Loading...',
-      passwordSaved: true});
+    };
+
+    this.setState({
+      state: SettingsState.SUBMITTING,
+      message: 'Loading...',
+      passwordSaved: true,
+    });
 
     var self = this;
     Account.update(data, function (response) {
       var successful = response.status === 200;
 
-      self.setState({state: SettingsState.SUBMITTED
-        , message: response.message
-        , saveWorked: successful});
+      self.setState({
+        state: SettingsState.SUBMITTED,
+        message: response.message,
+        saveWorked: successful,
+      });
 
       if (successful) {
         if (!isNode()) {
@@ -196,28 +207,35 @@ var SettingsForm = module.exports = React.createClass({
     }
 
     var delta = {};
-    if (firstName !== applicationState().auth.user.first_name.val()) { delta.first_name = firstName };
-    if (lastName  !== applicationState().auth.user.last_name.val()) { delta.last_name = lastName };
-    if (username  !== applicationState().auth.user.username.val()) { delta.username = username };
-    if (email     !== applicationState().auth.user.email.val()) { delta.email = email };
-    if (technicalGroup !== applicationState().auth.user.technical_group.val()) { delta.technical_group = technicalGroup };
-    if (nontechnicalGroup !== applicationState().auth.user.nontechnical_group.val()) { delta.nontechnical_group = nontechnicalGroup };
-    if (bio !== applicationState().auth.user.bio.val()) { delta.bio = bio };
+    var user = applicationState().auth.user.val();
+    if (firstName !== user.first_name) { delta.first_name = firstName };
+    if (lastName  !== user.last_name) { delta.last_name = lastName };
+    if (username  !== user.username) { delta.username = username };
+    if (email     !== user.email) { delta.email = email };
+    if (technicalGroup !== user.technical_group) { delta.technical_group = technicalGroup };
+    if (nontechnicalGroup !== user.nontechnical_group) { delta.nontechnical_group = nontechnicalGroup };
+    if (bio !== user.bio) { delta.bio = bio };
 
     if (_.size(delta) === 0) {
       return false;
     }
 
-    this.setState({state: SettingsState.SUBMITTING, message: 'Loading...'
-      , accountSaved: true});
+    this.setState({
+      state: SettingsState.SUBMITTING,
+      message: 'Loading...',
+      accountSaved: true
+    });
 
     var self = this;
     Account.update(delta, function (response) {
       var successful = response.status === 200;
 
-      self.setState({state: SettingsState.SUBMITTED
-        , message: response.message
-        , saveWorked: successful});
+      self.setState({
+        state: SettingsState.SUBMITTED,
+        message: response.message,
+        saveWorked: successful,
+      });
+
       if (successful) {
         self.setState({setNewUser: response.user});
         self.refreshUser();
