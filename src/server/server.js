@@ -34,12 +34,22 @@ ex.use(function(req, res, next) {
             var markup = React.renderComponentToString(app);
 //ga("create", "UA-54088466-2", "auto");\
             var googleAnalytics = '<script>\
-(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){\
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\
-})(window,document,"script","//www.google-analytics.com/analytics.js","ga");\
-ga("create", "UA-54088466-2", ' + (userId ? '{"userId": "' + userId.toS() + '"});' : '"auto");') +
-'ga("send", "pageview");';
+  (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){\
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\
+  })(window,document,"script","//www.google-analytics.com/analytics.js","ga");\
+  ga("create", "UA-54088466-3", ' + (userId ? '{"userId": "' + userId.toS() + '"});' : '"auto");') +
+  'ga("send", "pageview");';
+
+            var googleAnalytics = "<script>\
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');\
+              ga('create', 'UA-54088466-3', 'auto');\
+              ga('send', 'pageview');\
+              " + (userId ? 'ga(‘set’, ‘&uid’, ‘' + userId.toS() + '’);' : '' +  "\
+            </script>";
 
             var html = '<!DOCTYPE html>\
                 <html>\
@@ -52,10 +62,8 @@ ga("create", "UA-54088466-2", ' + (userId ? '{"userId": "' + userId.toS() + '"})
                 </head>\
                 <body>\
                     <div id="app">' + markup + '</div>\
-                    <script src="/static/app.js" type="text/javascript" charset="utf-8"></script>'
-                        + googleAnalytics
-                        + (userId ? '\nga("set", "&uid", "' + userId.toS() + '");' : '') +
-                    '</script>\
+                    <script src="/static/app.js" type="text/javascript" charset="utf-8"></script>\
+                        ' + googleAnalytics + '\
                 </body>\
                 </html>';
 
