@@ -141,6 +141,14 @@ var AssignBadge = React.createClass({
   },
 
   unlinkBadge: function (firstUser) {
+    var remove = confirm('Are you suring you want to remove this badge from '
+      + firstUser.first_name + '?');
+
+    if (!remove) {
+      this.setState({message: 'OK, ' + firstUser.first_name + ' still has this badge.'});
+      return false;
+    }
+
     var self = this;
     Badges.unlink_badge(firstUser.id.toS(), assignBadge().badge.id.val().toS(),
       function (response) {
