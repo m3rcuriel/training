@@ -50,6 +50,7 @@ var UnauthenticatedRouter = React.createClass({
         <Location path="/forgot-password/reset" handler={Layout(ForgotPasswordReset)} />
         <Location path="/about" handler={Layout(About)} />
         <Location path="/about/code" handler={Layout(AboutCode)} />
+        <Location path="/important-info" handler={Layout(ImportantInfo)} />
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <Location path="/category/:category" handler={Layout(Category)} />
         <Location path="/badges" handler={Layout(Badges)} />
