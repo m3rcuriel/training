@@ -23,9 +23,11 @@ var E404 = React.createClass({
           : <h3>You done bad, {userFirstName || 'friend'}. Real bad.</h3>}
         {lead
           ? <h5 className="subheader">
-              (Maybe you need <a href={link}>some life advice.</href>)
+              (Maybe you need <a href={link} value="some life advice" />)
             </h5>
-          : <h5 className="subheader">(Click on the back button to check yourself. Before you wreck yourself.)</h5>}
+          : <h5 className="subheader">
+              (Click on the back button to check yourself. Before you wreck yourself.)
+            </h5>}
       </div>
     </main>;
   },
