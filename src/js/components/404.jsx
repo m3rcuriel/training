@@ -10,7 +10,7 @@ var E404 = React.createClass({
 
     if (userFirstName) {
       var lead = (applicationState().auth.user.permissions.val() === 'lead');
-      var link = 'http://www.goodfuckingdesignadvice.com/';
+      var link = 'http://www.gfda.co';
     }
 
     return <main className="login">
@@ -23,7 +23,7 @@ var E404 = React.createClass({
           : <h3>You done bad, {userFirstName || 'friend'}. Real bad.</h3>}
         {lead
           ? <h5 className="subheader">
-              (Maybe you need <a href={link}>some life advice</a>)
+              (Maybe you need <a href={link} target="_blank">some life advice</a>)
             </h5>
           : <h5 className="subheader">
               (Click on the back button to check yourself. Before you wreck yourself.)
