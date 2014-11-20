@@ -10,7 +10,7 @@ var E404 = React.createClass({
 
     if (userFirstName) {
       var lead = (applicationState().auth.user.permissions.val() === 'lead');
-      var link = "http://www.goodfuckingdesignadvice.com/advice/201/";
+      var link = 'http://www.goodfuckingdesignadvice.com/';
     }
 
     return <main className="login">
