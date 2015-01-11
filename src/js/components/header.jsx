@@ -34,42 +34,32 @@ var LoggedInBar = React.createClass({
     var message = publicState().message.val();
 
     return <div>
-      <div className="row">
-        <div className="button-bar left">
-          {authorized
-            ? <ul className="button-group">
-                <li><a href="/user/new" className="button success">Add User</a></li>
-                <li><a href="/badge/new" className="button success">Create Badge</a></li>
-              </ul>
-            : null}
-          <ul className="button-group">
-            <li><a className="button" href="/users">All Users</a></li>
-            <li><a className="button" href="/badges">All Badges</a></li>
-            <li><a className="button success" href="/">Home</a></li>
-            <li><a className="button success" href="/settings">Settings</a></li>
-            {authorized
-              ? null
-              : <div>
-                <ul className="button-group">
-                  <li><a className="button success" href="/important-info">Important info</a></li>
-                  <li><a className="button success" href="https://fremontrobotics.com">Main</a></li>
-                </ul>
-              </div>}
-          </ul>
-        </div>
-        <div className="button-bar right">
-          <ul className="button-group">
-            <li><a className="button alert" onClick={this.logout}>Logout</a></li>
-          </ul>
-        </div>
-      </div>
-      <div className="row">
-        {message
-          ? <div className="panel callout">
-            {message}
-          </div>
+      <ul className="off-canvas-list">
+        {authorized
+            ? 
+        <li><label></label></li>
+        <li><a href="/user/new">Add User</a></li>
+        <li><a href="/badge/new">Create Badge</a></li>
           : null}
-      </div>
+        <li><label></label></li>
+        <li><a href="/users">All Users</a></li>
+        <li><a href="/badges">All Badges</a></li>
+        <li><label></label></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/settings">Settings</a></li>
+        {authorized
+              ? null
+              : <li><a href="/important-info">Important Info</a></li>
+        }
+        <li><label></label></li>
+        <li><a onClick={this.logout}>Logout</a></li>
+
+        {message
+          ? <li><label>
+            {message}
+          </label></li>
+          : null}
+      </ul>
     </div>;
   },
 
