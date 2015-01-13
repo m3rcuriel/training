@@ -16,19 +16,19 @@ var NewBadge = React.createClass({
       <form onSubmit={this.submit}>
         <div className="row">
           <br /><br />
-          <div className="large-4 column">
+          <div className="small-4 large-4 column">
             <Image width={300} aspectRatio={1}
               src={'https://3501-training-2014-us-west-2.s3.amazonaws.com'
                 + '/badge_placeholder.gif'} />
             <br /><br />
             <div className="row">
               <hr />
-              <div className="large-6 column">
+              <div className="small-9 large-6 column">
                 <p>Category:</p>
                 <p>Level:</p>
                 <p>Verifiers:</p>
               </div>
-              <div className="large-6 column">
+              <div className="small-3 large-6 column">
                 <input type="text" name="category" ref="category"
                   placeholder="Badge category" />
                 <input type="number" name="level" ref="level" max={8} min={1}
@@ -38,7 +38,7 @@ var NewBadge = React.createClass({
               </div>
             </div>
           </div>
-          <div className="large-8 column">
+          <div className="small-8 large-8 column">
             <div className="row"><h1>
               <div className="large-4 columns">
                 <label>Name
@@ -64,12 +64,12 @@ var NewBadge = React.createClass({
               rows="4" ref="learning_method" />
             <br />
             <div className="row">
-              <div className="large-6 columns">
+              <div className="small-6 large-6 columns">
                 <h3 className="subheader">Resources / Dates:</h3>
                 <textarea placeholder="Where can I go to learn this? When will training be?"
                   rows="3" ref="resources" />
               </div>
-              <div className="large-6 text-center columns">
+              <div className="small-6 large-6 text-center columns">
                 <br />
                 <input type="submit" className={
                   'button alert' + (this.state.state === NewBadgeState.LOADING ? ' disabled' : '')}

@@ -7,13 +7,13 @@ var Footer = React.createClass({
         <hr />
         <div className="row">
 
-          <div className="large-7 columns">
+          <div className="small-7 large-7 columns">
             <p><a href="mailto:admin@oflogan.com">Contact Logan</a> for code
               / <a href="mailto:sohiniss@gmail.com">Sohini</a> for admin
               issues or missing badges.</p>
           </div>
 
-          <div className="large-5 columns">
+          <div className="small-5 large-5 columns">
             <ul className="inline-list right">
               <li><a href="/about">About</a></li>
               <li><a href="/important-info">Important Info</a></li>
