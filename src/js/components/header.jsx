@@ -1,11 +1,11 @@
 /** @jsx React.DOM */
 
 var applicationState = require('../state/application.js');
-var publicState = require('../state/public.js');
+var publicState      = require('../state/public.js');
 
-var isNode = require('../lib/is-node.js');
+var isNode   = require('../lib/is-node.js');
 var redirect = require('../lib/redirect.js');
-var Public = require('../lib/api/public.js');
+var Public   = require('../lib/api/public.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 
@@ -36,10 +36,11 @@ var LoggedInBar = React.createClass({
     return <div>
       <ul className="off-canvas-list">
         {authorized
-            ? 
-        <li><label></label></li>
-        <li><a href="/user/new">Add User</a></li>
-        <li><a href="/badge/new">Create Badge</a></li>
+          ? <div>
+              <li><label></label></li>
+              <li><a href="/user/new">Add User</a></li>
+              <li><a href="/badge/new">Create Badge</a></li>
+            </div>
           : null}
         <li><label></label></li>
         <li><a href="/users">All Users</a></li>
