@@ -4,30 +4,30 @@ var Categories = React.createClass({
   render: function render () {
     var props = this.props;
     return <div>
-      {this.renderCategories(props.targetBadges, props.categories, props.candidateBadges)}
+      {this.renderCategories(props.targetBadges, props.categories, props.candidateBadges, props.showUnearned)}
     </div>;
   },
 
-  renderCategories: function renderCategories (targetBadges, categories, candidateBadges) {
+  renderCategories: function renderCategories (targetBadges, categories, candidateBadges, showUnearned) {
     var self = this;
     return _.map(categories, function (category) {
       return <div key={Math.random()}>
         <h4 className="subheader">{category}:</h4>
         <ul className="small-block-grid-6">
-          {self.renderBadgesByCategory(targetBadges, category, candidateBadges)}
+          {self.renderBadgesByCategory(targetBadges, category, candidateBadges, showUnearned)}
         </ul>
         <br />
       </div>
     });
   },
 
-  renderBadgesByCategory: function renderBadgesByCategory (targetBadges, category, candidateBadges) {
+  renderBadgesByCategory: function renderBadgesByCategory (targetBadges, category, candidateBadges, showUnearned) {
     category = category.toLowerCase();
     targetBadges = _.sortBy(targetBadges, 'status').reverse();
 
     var self = this;
     return _.map(targetBadges, function (targetBadge) {
-      if (targetBadge.status === 'no') {
+      if (targetBadge.status === (showUnearned ? 'yes' : 'no')) {
         return null;
       }
 

@@ -1,25 +1,34 @@
 /** @jsx React.DOM */
 
 var applicationState = require('../state/application.js');
-var allBadges = require('../state/badges.js');
-var profileState = require('../state/profile.js');
+var allBadges        = require('../state/badges.js');
+var profileState     = require('../state/profile.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
-var Categories = require('../components/categories.js');
-var CategoryCount = require('../components/category-count.js');
-var ReviewQueue = require('../components/review-queue.js');
+var LoadingPage           = require('../components/loading-page.js');
+var Categories            = require('../components/categories.js');
+var CategoryCount         = require('../components/category-count.js');
+var ReviewQueue           = require('../components/review-queue.js');
 
-var loadBadges = require('../lib/load/badges.js');
+var loadBadges     = require('../lib/load/badges.js');
 var loadCategories = require('../lib/load/categories.js');
-var EntityStates = require('../lib/entity-states.js');
-var Badges = require('../lib/api/badges.js');
+var EntityStates   = require('../lib/entity-states.js');
+var Badges         = require('../lib/api/badges.js');
+var query          = require('../lib/query.js');
+var redirect       = require('../lib/redirect.js');
 
 var gravatar = require('gravatar');
 
 var Profile = React.createClass({
   mixins: [CortexReactivityMixin],
   reactToCortices: [profileState(), allBadges()],
+
+  getInitialState: function() {
+    query.refresh();
+    return {
+      showUnearned: query().showUnearned ? true : false,
+    };
+  },
 
   render: function () {
     if (allBadges().loaded.val() !== EntityStates.LOADED
@@ -35,11 +44,12 @@ var Profile = React.createClass({
 
     var state = profileState().val();
 
-    var targetBadges =    state.badge_relations;
+    var targetBadges    = state.badge_relations;
     var candidateBadges = allBadges().badges.val();
-    var categories =      allBadges().categories.val();
-    var studentHash =     allBadges().students.val();
-    var levels =          state.levels;
+    var categories      = allBadges().categories.val();
+    var studentHash     = allBadges().students.val();
+    var levels          = state.levels;
+    var isMentor        = (user.permissions === 'mentor');
 
     return <main className="profile">
       <div className="row">
@@ -53,18 +63,33 @@ var Profile = React.createClass({
               </h3>
             : null}
           <hr />
-          <h2>{user.permissions === 'mentor' ? 'REVIEW QUEUE' : 'BADGES'}</h2>
-          {user.permissions === 'mentor'
+
+          <h2>{isMentor ? 'REVIEW QUEUE' : 'BADGES'}</h2>
+          <a onClick={this.toggleUnearned}>
+            {isMentor
+              ? null
+              : 'Show ' + (this.state.showUnearned ? 'earned' : 'unearned')}
+          </a>
+          {isMentor
             ? <ReviewQueue studentHash={studentHash} />
-            : <Categories targetBadges={targetBadges} categories={categories}
-                candidateBadges={candidateBadges} />
-          }
+            : <Categories
+                targetBadges={targetBadges}
+                categories={categories}
+                candidateBadges={candidateBadges}
+                showUnearned={this.state.showUnearned}
+              />}
         </div>
+
         <div className="large-4 columns">
           <a href="https://gravatar.com">
-            <Image src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, true)}
-              className="profile-pic" aspectRatio={1} transition="none" />
+            <Image
+              src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, true)}
+              className="profile-pic"
+              aspectRatio={1}
+              transition="none"
+            />
           </a>
+
           <br />
           <br />
           <h4 className="subheader">Username: {user.username}</h4>
@@ -90,6 +115,10 @@ var Profile = React.createClass({
     if (applicationState().auth.user.val().permissions === 'mentor') {
       loadBadges.students();
     }
+  },
+
+  toggleUnearned: function toggleUnearned () {
+    redirect(this.state.showUnearned ? '' : '?showUnearned=true');
   },
 });
 
