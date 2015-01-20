@@ -34,33 +34,24 @@ var LoggedInBar = React.createClass({
     var message = publicState().message.val();
 
     return <div>
-      <ul className="off-canvas-list">
-        {authorized
-          ? <div>
-              <li><label></label></li>
-              <li><a href="/user/new">Add User</a></li>
-              <li><a href="/badge/new">Create Badge</a></li>
-            </div>
-          : null}
-        <li><label></label></li>
-        <li><a href="/users">All Users</a></li>
-        <li><a href="/badges">All Badges</a></li>
-        <li><label></label></li>
-        <li><a href="/">Home</a></li>
-        <li><a href="/settings">Settings</a></li>
-        {authorized
-              ? null
-              : <li><a href="/important-info">Important Info</a></li>
-        }
-        <li><label></label></li>
-        <li><a onClick={this.logout}>Logout</a></li>
-
-        {message
-          ? <li><label>
-            {message}
-          </label></li>
-          : null}
-      </ul>
+        <ul className="right">
+          <li className="active"><a href="/">Home</a></li>
+          <li className="active"><a href="/settings">Settings</a></li>
+          <li className="has-dropdown">
+            <a href="#">Pages</a>
+            <ul className="dropdown">
+              <li><a href="/users">All Users</a></li>
+              <li><a href="/badges">All Badges</a></li>
+              {authorized ? <div>
+              <li className="active"><a href="/user/new">Add User</a></li>
+              <li className="active"><a href="/badge/new">Create Badge</a></li>
+              </div> : null}
+              {authorized ? null : <li className="active"><a href="/important-info">Important Info</a></li>}
+              <li><a onClick={this.logout}>Logout</a></li>
+              {message ? <li><label> {message} </label></li> : null}
+            </ul>
+          </li>
+        </ul>
     </div>;
   },
 
@@ -81,22 +72,12 @@ var LoggedInBar = React.createClass({
 
 var LoggedOutBar = React.createClass({
   render: function render () {
-    return <div className="row">
-      <div className="large-5 columns">
-        <a href="/">
-          <Image className="logo" src="/static/assets/logo.jpg" width={400}
-            aspectRatio={7.27} transition="none" />
-        </a>
-      </div>
-      <div className="button-bar right">
-        <ul className="button-group">
-          <li><a href="/" className="button success">Home</a></li>
-          <li><a href="/badges" className="button">All Badges</a></li>
-        </ul>
-        <ul className="button-group">
-          <li><a href="/" className="button alert">Login</a></li>
-        </ul>
-      </div>
+    return <div>
+      <ul className="right">
+        <li><a href="/">Home</a></li>
+        <li><a href="/badges">All Badges</a></li>
+        <li><a href="/">Login</a></li>
+      </ul>
     </div>;
   }
 });

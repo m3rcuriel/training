@@ -15,9 +15,19 @@ var LayoutWrapper = function (body) {
         applicationState().auth.token.val().length > 0;
 
       return <div>
-        <Header signedIn={signedIn} />
-        {body(this.props)}
-        <Footer signedIn={signedIn} />
+        <nav className="top-bar" data-topbar role="navigation">
+         <ul className="title-area">
+          <li className="name">
+            <h1><a href="#">Team 3501 Badge Site</a></h1>
+          </li>
+         </ul>
+          
+         <section className="top-bar-section">
+          <Header signedIn={signedIn} />
+         </section>
+        </nav>
+      {body(this.props)}
+      <Footer signedIn={signedIn} />
       </div>;
     },
   });
