@@ -118,7 +118,7 @@ var Profile = React.createClass({
   },
 
   toggleUnearned: function toggleUnearned () {
-    redirect(this.state.showUnearned ? '' : '?showUnearned=true');
+    redirect(this.state.showUnearned ? '/' : '/?showUnearned=true');
   },
 });
 
