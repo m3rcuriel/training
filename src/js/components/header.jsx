@@ -39,10 +39,10 @@ var LoggedInBar = React.createClass({
           <li className="active"><a href="/settings">Settings</a></li>
           <li><a href="/users">All Users</a></li>
           <li><a href="/badges">All Badges</a></li>
-          {authorized ? <div>
+          {authorized ?
           <li className="active"><a href="/user/new">Add User</a></li>
           <li className="active"><a href="/badge/new">Create Badge</a></li>
-          </div> : null}
+           : null}
           {authorized ? null : <li className="active"><a href="/important-info">Important Info</a></li>}
           <li><a onClick={this.logout}>Logout</a></li>
           {message ? <li><label> {message} </label></li> : null}
