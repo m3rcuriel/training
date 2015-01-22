@@ -34,15 +34,17 @@ var LoggedInBar = React.createClass({
     var message = publicState().message.val();
 
     return <div>
+        <ul className="left">
+        {authorized ? <div>
+          <li className="active"><a href="/user/new">Add User</a></li>
+          <li className="active"><a href="/badge/new">Create Badge</a></li>
+        </div> : null}
+        </ul>
         <ul className="right">
           <li className="active"><a href="/">Home</a></li>
           <li className="active"><a href="/settings">Settings</a></li>
           <li><a href="/users">All Users</a></li>
           <li><a href="/badges">All Badges</a></li>
-          {authorized ?
-          <li className="active"><a href="/user/new">Add User</a></li>
-          <li className="active"><a href="/badge/new">Create Badge</a></li>
-           : null}
           {authorized ? null : <li className="active"><a href="/important-info">Important Info</a></li>}
           <li><a onClick={this.logout}>Logout</a></li>
           {message ? <li><label> {message} </label></li> : null}
