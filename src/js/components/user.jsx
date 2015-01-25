@@ -1,23 +1,33 @@
 /** @jsx React.DOM */
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
-var Categories = require('../components/categories.js');
-var CategoryCount = require('../components/category-count.js');
+var LoadingPage           = require('../components/loading-page.js');
+var Categories            = require('../components/categories.js');
+var CategoryCount         = require('../components/category-count.js');
 
 var allBadges = require('../state/badges.js');
 var userState = require('../state/user.js');
 
-var Account = require('../lib/api/account.js');
-var EntityStates = require('../lib/entity-states.js');
-var loadBadges = require('../lib/load/badges.js');
+var Account        = require('../lib/api/account.js');
+var EntityStates   = require('../lib/entity-states.js');
+var loadBadges     = require('../lib/load/badges.js');
 var loadCategories = require('../lib/load/categories.js');
+var query          = require('../lib/query.js');
+var redirect       = require('../lib/redirect.js');
+var isNode         = require('../lib/is-node.js');
 
 var gravatar = require('gravatar');
 
 var Profile = React.createClass({
   mixins: [CortexReactivityMixin],
   reactToCortices: [userState(), allBadges()],
+
+  getInitialState: function () {
+    query.refresh();
+    return {
+      showUnearned: query().showUnearned ? true : false,
+    };
+  },
 
   render: function () {
     if (allBadges().loaded.val() !== EntityStates.LOADED
@@ -27,11 +37,11 @@ var Profile = React.createClass({
       return <LoadingPage />;
     }
 
-    var targetBadges = userState().badge_relations.val();
-    var user = userState().user.val();
+    var targetBadges    = userState().badge_relations.val();
+    var user            = userState().user.val();
     var candidateBadges = allBadges().badges.val();
-    var categories = allBadges().categories.val();
-    var levels = userState().levels.val();
+    var categories      = allBadges().categories.val();
+    var levels          = userState().levels.val();
 
     return <main className="user">
       <div className="row">
@@ -46,7 +56,15 @@ var Profile = React.createClass({
             : null}
           <hr />
           <h2>BADGES</h2>
-          <Categories targetBadges={targetBadges} categories={categories} candidateBadges={candidateBadges} />
+          <a onClick={this.toggleUnearned}>
+            {'Show ' + (this.state.showUnearned ? 'earned' : 'unearned')}
+          </a>
+          <Categories
+            targetBadges={targetBadges}
+            categories={categories}
+            candidateBadges={candidateBadges}
+            showUnearned={this.state.showUnearned}
+          />
         </div>
         <div className="small-4 large-4 columns">
           <Image src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, true)}
@@ -93,6 +111,11 @@ var Profile = React.createClass({
     loadCategories.user_levels(this.props.username, userState);
 
     this.loadUser();
+  },
+
+  toggleUnearned: function toggleUnearned () {
+    var path = isNode() ? null : window.location.pathname;
+    redirect(path + (this.state.showUnearned ? '' : '?showUnearned=true'));
   },
 });
 
