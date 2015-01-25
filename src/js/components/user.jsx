@@ -33,7 +33,8 @@ var Profile = React.createClass({
     if (allBadges().loaded.val() !== EntityStates.LOADED
       || !allBadges().categories.val()
       || !userState().badge_relations.val()
-      || userState().loaded.val() !== EntityStates.LOADED) {
+      || userState().loaded.val() !== EntityStates.LOADED
+      || _.isEmpty(userState().levels.val())) {
       return <LoadingPage />;
     }
 
@@ -91,6 +92,7 @@ var Profile = React.createClass({
       && this.props.username === userState().user.username.val()) {
       return false;
     }
+
     userState().loaded.set(EntityStates.LOADING);
 
     var self = this;
