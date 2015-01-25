@@ -43,19 +43,19 @@ var Badge = React.createClass({
         <div className="row">
           <br /><br />
 
-          <div className="large-4 column">
+          <div className="small-4 large-4 column">
             <Image width={300} src={pathToBadge} aspectRatio={1} transition="none" />
             <br /><br />
             <div className="row">
 
               <hr />
-              <div className="large-6 column">
+              <div className="small-9 large-6 column">
                 <p>Category:</p>
                 <p>Level:</p>
                 <p>Verifiers:</p>
               </div>
 
-              <div className="large-6 column">
+              <div className="small-3 large-6 column">
                 <p>{badge.category}</p>
                 <p>{badge.level}</p>
                 <p>{badge.verifiers}</p>
@@ -73,7 +73,7 @@ var Badge = React.createClass({
             </div>
           </div>
 
-          <div className="large-8 column">
+          <div className="small-8 large-8 column">
             <div className="row"><h1>{badge.name} <small>{
               badge.subcategory}</small></h1></div>
             <br />

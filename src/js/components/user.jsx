@@ -66,12 +66,9 @@ var Profile = React.createClass({
             showUnearned={this.state.showUnearned}
           />
         </div>
-        <div className="large-4 columns">
-          <Image
-            src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, true)}
-            className="profile-pic"
-            aspectRatio={1}
-          />
+        <div className="small-4 large-4 columns">
+          <Image src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, true)}
+            className="profile-pic" aspectRatio={1} />
           <br />
           <br />
           <h4 className="subheader">Username: {user.username}</h4>

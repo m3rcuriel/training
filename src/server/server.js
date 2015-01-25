@@ -63,6 +63,10 @@ ex.use(function(req, res, next) {
                 <body>\
                     <div id="app">' + markup + '</div>\
                     <script src="/static/app.js" type="text/javascript" charset="utf-8"></script>\
+                    <script src="/static/assets/jquery.js"></script>\
+                    <script src="/static/assets/foundation.min.js"></script>\
+                    <script src="/static/assets/foundation.topbar.js"></script>\
+                    <script>$(document).foundation();</script>\
                         ' + googleAnalytics + '\
                 </body>\
                 </html>';
