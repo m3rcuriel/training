@@ -2,41 +2,41 @@
 
 // React stuff...
 //
-var ReactRouter = require('react-router-component');
-var Locations = ReactRouter.Locations;
-var Location = ReactRouter.Location;
-var Link = ReactRouter.Link;
-var NotFound = ReactRouter.NotFound;
+var ReactRouter   = require('react-router-component');
+var Locations     = ReactRouter.Locations;
+var Location      = ReactRouter.Location;
+var Link          = ReactRouter.Link;
+var NotFound      = ReactRouter.NotFound;
 var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 
 // App components...
 //
 // common
-var Layout = require('../components/layout.js');
-var AuthGate = require('../components/auth-gate.js');
-var E404 = require('../components/404.js');
-var Badge = require('../components/badge.js');
-var Badges = require('../components/all-badges.js');
-var Category = require('../components/category.js');
-var About = require('../components/about.js');
+var Layout    = require('../components/layout.js');
+var AuthGate  = require('../components/auth-gate.js');
+var E404      = require('../components/404.js');
+var Badge     = require('../components/badge.js');
+var Badges    = require('../components/all-badges.js');
+var Category  = require('../components/category.js');
+var About     = require('../components/about.js');
 var AboutCode = require('../components/about-code.js');
 
 // unauthenticated
-var Login = require('../components/login.js');
-var ForgotPassword = require('../components/forgot-password.js');
+var Login               = require('../components/login.js');
+var ForgotPassword      = require('../components/forgot-password.js');
 var ForgotPasswordReset = require('../components/forgot-password-reset.js');
 
 // authenticated
-var Profile = require('../components/profile.js');
-var Settings = require('../components/settings.js');
-var NewBadge = require('../components/new-badge.js');
-var AssignBadge = require('../components/assign-badge.js');
-var EditBadge = require('../components/edit-badge.js');
+var Profile        = require('../components/profile.js');
+var Settings       = require('../components/settings.js');
+var NewBadge       = require('../components/new-badge.js');
+var AssignBadge    = require('../components/assign-badge.js');
+var EditBadge      = require('../components/edit-badge.js');
 var EditBadgeImage = require('../components/edit-badge-image.js');
-var Users = require('../components/all-users.js');
-var User = require('../components/user.js');
-var NewUser = require('../components/new-user.js');
-var ImportantInfo = require('../components/important-info.js');
+var Users          = require('../components/all-users.js');
+var User           = require('../components/user.js');
+var NewUser        = require('../components/new-user.js');
+var ImportantInfo  = require('../components/important-info.js');
 
 // Router if not logged in
 //
@@ -54,6 +54,7 @@ var UnauthenticatedRouter = React.createClass({
         <Location path="/badge/:id" handler={Layout(Badge)} />
         <Location path="/category/:category" handler={Layout(Category)} />
         <Location path="/badges" handler={Layout(Badges)} />
+        <Location path="/user/:username" handler={Layout(User)} />
         <NotFound handler={Layout(Login)} />
       </Locations>
     </CaptureClicks>;

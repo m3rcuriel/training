@@ -5,16 +5,8 @@ var gravatar = require('gravatar');
 
 var ReviewQueue = React.createClass({
   render: function render () {
-    var loggedIn = applicationState().auth.user;
-    if (!loggedIn || !loggedIn.val()) {
-      return <div>
-        You have to be logged in to see this.
-      </div>;
-    }
-
-    var props = this.props;
     return <ul className="small-block-grid-6 thumbnail-list">
-      {this.renderUsers(props.studentHash)}
+      {this.renderUsers(this.props.studentHash)}
     </ul>;
   },
 

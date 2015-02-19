@@ -1,18 +1,18 @@
 /** @jsx React.DOM */
 
-var Badges = require('../lib/api/badges.js');
+var Badges       = require('../lib/api/badges.js');
 var EntityStates = require('../lib/entity-states.js');
-var loadBadges = require('../lib/load/badges.js');
+var loadBadges   = require('../lib/load/badges.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
-var UsersPerBadge = require('../components/users-per-badge.js');
+var LoadingPage           = require('../components/loading-page.js');
+var UsersPerBadge         = require('../components/users-per-badge.js');
 
-var desiredBadge = require('../state/badge.js');
-var allBadges = require('../state/badges.js');
+var desiredBadge     = require('../state/badge.js');
+var allBadges        = require('../state/badges.js');
 var applicationState = require('../state/application.js');
 
-var pagedown = require('pagedown');
+var pagedown  = require('pagedown');
 var converter = new pagedown.getSanitizingConverter();
 
 var Badge = React.createClass({
@@ -26,6 +26,7 @@ var Badge = React.createClass({
       || (permissions && !desiredBadge().relations)) {
       return <LoadingPage />;
     }
+
     permissions = permissions ? permissions.val() : 'student';
 
     var badge = desiredBadge().badge.val();
@@ -34,9 +35,9 @@ var Badge = React.createClass({
     var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badge.id + '.jpg';
 
-    var description = converter.makeHtml(badge.description || '');
+    var description    = converter.makeHtml(badge.description || '');
     var learningMethod = converter.makeHtml(badge.learning_method || '');
-    var resources = converter.makeHtml(badge.resources || '');
+    var resources      = converter.makeHtml(badge.resources || '');
 
     return <main className="badge">
       <div>
