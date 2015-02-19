@@ -1,8 +1,6 @@
 var express = require('express');
 var ex = express();
 var compression = require('compression');
-var toobusy = require('toobusy');
-
 var url = require('url');
 
 var App = require('../js/app.js');
@@ -16,8 +14,6 @@ ex.disable('etag');
 
 ex.use(compression());
 ex.use(function(req, res, next) {
-    if (toobusy()) res.send(503, "I'm busy right now, sorry.");
-
     if (req.path.match(/^\/static/)) {
         return next();
     }
