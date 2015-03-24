@@ -4,7 +4,7 @@ This is the code that powers the frontend of the training site for team 3501 Fir
 
 ### Usage and install
 
-[Instructions here](https://gitlab.com/fremont-robotics-software-team/general/blob/master/tutorials/setup/training-app.md)
+Follow instuctions in `setup.md`.
 
 # Licensing and credits
 
