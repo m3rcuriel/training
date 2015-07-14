@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var Account = require('../lib/api/auth.js');
+var Account  = require('../lib/api/auth.js');
 var redirect = require('../lib/redirect.js');
 
 var NewUserState = {
@@ -84,40 +84,48 @@ var NewUser = React.createClass({
       </form>
     </main>;
   },
-  getInitialState: function () {
+
+  getInitialState: function getInitialState () {
     return {
       state: NewUserState.EDITING,
-      message: ''
+      message: '',
     };
   },
+
+  getValue: function getValue (ref) {
+    return this.refs[ref].getDOMNode().value.trim();
+  },
+
   submit: function submit () {
     if (this.state.state === NewUserState.LOADING) {
       return false;
     }
+
     this.setState({state: NewUserState.LOADING, message: 'Submitting new user...'});
 
-    var first_name =        this.refs.first_name.getDOMNode().value.trim();
-    var last_name =         this.refs.last_name.getDOMNode().value.trim();
-    var email =             this.refs.email.getDOMNode().value.trim();
-    var username =          this.refs.username.getDOMNode().value.trim();
-    var technicalGroup =    this.refs.technical_group.getDOMNode().value.trim();
-    var nontechnicalGroup = this.refs.nontechnical_group.getDOMNode().value.trim();
+    var first_name =        this.getValue('first_name');
+    var last_name =         this.getValue('last_name');
+    var email =             this.getValue('email');
+    var username =          this.getValue('username');
+    var technicalGroup =    this.getValue('technical_group');
+    var nontechnicalGroup = this.getValue('nontechnical_group');
 
     if (!first_name || !last_name || !email || !username || !technicalGroup
-      || !nontechnicalGroup) {
-      this.setState({
-        state: NewUserState.EDITING,
-        message: 'Make sure all the fields are filled in.'
-      });
-      return false;
+     || !nontechnicalGroup) {
+       this.setState({
+         state: NewUserState.EDITING,
+         message: 'Make sure all the fields are filled in.',
+       });
+
+       return false;
     }
 
     var data = {
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      username: username,
-      technical_group: technicalGroup,
+      first_name:         first_name,
+      last_name:          last_name,
+      email:              email,
+      username:           username,
+      technical_group:    technicalGroup,
       nontechnical_group: nontechnicalGroup,
     };
 
@@ -132,6 +140,7 @@ var NewUser = React.createClass({
         redirect('/user/' + savedUser.username);
       }
     });
+
     return false;
   },
 });

@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
 
-var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var applicationState = require('../state/application.js');
+
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 
 // This requires two router props: `authenticatedRouter` and
 // `unauthenticatedRouter`. If the auth token is valid (the user is signed in),
@@ -15,10 +16,10 @@ var AuthGate = React.createClass({
   reactToCortices: [applicationState()],
 
   render: function() {
-    var authenticatedRouter = this.props.authenticatedRouter;
+    var authenticatedRouter   = this.props.authenticatedRouter;
     var unauthenticatedRouter = this.props.unauthenticatedRouter;
 
-    var auth = applicationState().auth;
+    var auth          = applicationState().auth;
     var authenticated = auth.token && auth.token.val();
 
     return this.transferPropsTo(authenticated

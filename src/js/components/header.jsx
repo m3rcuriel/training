@@ -1,11 +1,11 @@
 /** @jsx React.DOM */
 
+var isNode   = require('../lib/is-node.js');
+var Public   = require('../lib/api/public.js');
+var redirect = require('../lib/redirect.js');
+
 var applicationState = require('../state/application.js');
 var publicState      = require('../state/public.js');
-
-var isNode   = require('../lib/is-node.js');
-var redirect = require('../lib/redirect.js');
-var Public   = require('../lib/api/public.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 
@@ -16,10 +16,9 @@ var deleteCookie = function deleteCookie(name) {
 // This component simply evaluates to the currently signed in user's name.
 //
 var SignedInUser = React.createClass({
-
   render: function render () {
-
     var user = applicationState().auth.user.val();
+
     return <span>{user.first_name} {user.last_name}</span>;
   },
 });
@@ -29,9 +28,9 @@ var LoggedInBar = React.createClass({
   reactToCortices: [publicState()],
 
   render: function render () {
-    var user = applicationState().auth.user.val();
+    var user       = applicationState().auth.user.val();
     var authorized = user.permissions === 'mentor' || user.permissions === 'lead';
-    var message = publicState().message.val();
+    var message    = publicState().message.val();
 
     return <div>
         <ul className="left">
@@ -84,7 +83,6 @@ var Header = React.createClass({
   propTypes: { signedIn: React.PropTypes.bool.isRequired, },
 
   render: function () {
-
     return <header>
       {this.props.signedIn
         ? <LoggedInBar />

@@ -1,8 +1,9 @@
 /** @jsx React.DOM */
 
-var Header = require('../components/header.js');
-var Footer = require('../components/footer.js');
 var applicationState = require('../state/application.js');
+
+var Footer = require('../components/footer.js');
+var Header = require('../components/header.js');
 
 var LayoutWrapper = function (body) {
 
@@ -21,7 +22,7 @@ var LayoutWrapper = function (body) {
             <h1><a href="#">Team 3501 Badge Site</a></h1>
           </li>
          </ul>
-          
+
          <section className="top-bar-section">
           <Header signedIn={signedIn} />
          </section>

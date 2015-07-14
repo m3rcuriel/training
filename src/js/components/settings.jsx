@@ -1,15 +1,14 @@
 /** @jsx React.DOM */
-//sitar was here
+
+var Account      = require('../lib/api.js').Account;
+var Auth         = require('../lib/api.js').Auth;
+var EntityStates = require('../lib/entity-states.js');
+var isNode       = require('../lib/is-node.js');
+var query        = require('../lib/query.js');
 
 var applicationState = require('../state/application.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-
-var Account = require('../lib/api.js').Account;
-var Auth = require('../lib/api.js').Auth;
-var EntityStates = require('../lib/entity-states.js');
-var isNode = require('../lib/is-node.js');
-var query = require('../lib/query.js');
 
 var deleteCookie = function deleteCookie(name) {
   document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -110,14 +109,14 @@ var SettingsForm = module.exports = React.createClass({
   },
 
   settingsFields: function (fields) {
-    var self = this;
     return _.map(fields, function (field) {
-      return self.settingsFieldFor(field.label, field.field, field.placeholder, field.textarea);
-    });
+      return this.settingsFieldFor(field.label, field.field, field.placeholder, field.textarea);
+    }, this);
   },
 
   getInitialState: function () {
     query.refresh();
+
     return {
       state: SettingsState.EDITING,
       message: query().message || '',
@@ -144,8 +143,8 @@ var SettingsForm = module.exports = React.createClass({
     }
 
     var oldPassword = this.refs.old_password.getDOMNode().value.trim();
-    var password1 = this.refs.password1.getDOMNode().value.trim();
-    var password2 = this.refs.password2.getDOMNode().value.trim();
+    var password1   = this.refs.password1.getDOMNode().value.trim();
+    var password2   = this.refs.password2.getDOMNode().value.trim();
 
     if (!oldPassword || !password1 || !password2 || password1 !== password2) {
       this.setState({
@@ -247,6 +246,7 @@ var SettingsForm = module.exports = React.createClass({
 
   refreshUser: function () {
     var user = applicationState().auth.user;
+
     Account.get_by_id(user.id.val().toS(), function (response) {
       if (response.status !== 200) {
         return;

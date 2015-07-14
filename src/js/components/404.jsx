@@ -9,7 +9,7 @@ var E404 = React.createClass({
     }
 
     if (userFirstName) {
-      var lead = (applicationState().auth.user.permissions.val() === 'lead');
+      var isLead = (applicationState().auth.user.permissions.val() === 'lead');
       var link = 'http://www.gfda.co';
     }
 
@@ -18,15 +18,15 @@ var E404 = React.createClass({
         <br />
         <h1>404 – Page Not Found.</h1>
         <br /><br />
-        {lead
+        {isLead
           ? <h3>We're sorry, but the page you wanted was not fucking found.</h3>
           : <h3>You done bad, {userFirstName || 'friend'}. Real bad.</h3>}
-        {lead
+        {isLead
           ? <h5 className="subheader">
-              (Maybe you need <a href={link} target="_blank">some life advice</a>)
+              Maybe you need <a href={link} target="_blank">some life advice</a>
             </h5>
           : <h5 className="subheader">
-              (Click on the back button to check yourself. Before you wreck yourself.)
+              Click on the back button to check yourself. Before you wreck yourself.
             </h5>}
       </div>
     </main>;

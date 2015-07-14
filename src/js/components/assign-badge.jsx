@@ -1,20 +1,20 @@
 /** @jsx React.DOM */
 
-var Badges = require('../lib/api/badges.js');
-var Account = require('../lib/api/account.js');
+var fuzzy    = require('fuzzy');
+var gravatar = require('gravatar');
+
+var Badges       = require('../lib/api/badges.js');
+var Account      = require('../lib/api/account.js');
 var EntityStates = require('../lib/entity-states.js');
-var query = require('../lib/query.js');
+var query        = require('../lib/query.js');
 
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
+var LoadingPage           = require('../components/loading-page.js');
 
-var assignBadge = require('../state/assign-badge.js');
-var allBadges = require('../state/badges.js');
-var allUsers = require('../state/users.js');
+var assignBadge      = require('../state/assign-badge.js');
+var allBadges        = require('../state/badges.js');
+var allUsers         = require('../state/users.js');
 var applicationState = require('../state/application.js');
-
-var gravatar = require('gravatar');
-var fuzzy = require('fuzzy');
 
 var AssignBadge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -68,6 +68,7 @@ var AssignBadge = React.createClass({
 
   getInitialState: function () {
     query.refresh();
+
     return {
       message: '',
       searchString: query().search || '',
@@ -176,7 +177,7 @@ var AssignBadge = React.createClass({
     var options = {
       extract: function (user) {
         return user.first_name + ' ' + user.last_name + ' ' + user.first_name;
-      }
+      },
     };
 
     var results = fuzzy.filter(searchString, users, options);
@@ -224,13 +225,12 @@ var AssignBadge = React.createClass({
         return;
       }
 
-      var users = response.users;
-      users = _.sortBy(users, function (user) {
+      users = _.sortBy(response.users, function (user) {
         return [user.first_name];
       });
 
       allUsers().set({
-        users: users,
+        users:  users,
         loaded: EntityStates.LOADED,
       });
     });
@@ -258,6 +258,7 @@ var AssignBadge = React.createClass({
       && assignBadge().loaded.val() === EntityStates.LOADED) {
       return false;
     }
+
     assignBadge().loaded.set(EntityStates.LOADING);
 
     Badges.badge(this.props.id, function all (response) {

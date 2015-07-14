@@ -99,7 +99,7 @@ css: $(DIST)/static/style.css
 server: all server-only
 server-only:
 	@echo "Running server."
-	@DIST=$(DIST) BUILD=$(BUILD) forever $(BUILD)/server/server.js
+	@DIST=$(DIST) BUILD=$(BUILD) node $(BUILD)/server/server.js
 
 dev:
 	@echo "Watching for filesystem changes, while running server."

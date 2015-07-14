@@ -90,8 +90,9 @@ var AuthenticatedRouter = React.createClass({
 
 var App = React.createClass({
   render: function () {
-    props = this.props;
-    props.authenticatedRouter = AuthenticatedRouter;
+    var props = this.props;
+
+    props.authenticatedRouter   = AuthenticatedRouter;
     props.unauthenticatedRouter = UnauthenticatedRouter;
 
     return AuthGate(props);

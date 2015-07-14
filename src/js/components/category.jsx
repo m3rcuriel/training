@@ -1,12 +1,15 @@
 /** @jsx React.DOM */
 
-var Badges = require('../lib/api/badges.js');
-var allBadges = require('../state/badges.js');
-var EntityStates = require('../lib/entity-states.js');
-var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
-
 var pagedown = require('pagedown');
+
+var Badges       = require('../lib/api/badges.js');
+var EntityStates = require('../lib/entity-states.js');
+
+var allBadges = require('../state/badges.js');
+
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
+var LoadingPage           = require('../components/loading-page.js');
+
 var converter = new pagedown.getSanitizingConverter();
 
 var Category = React.createClass({
@@ -20,8 +23,8 @@ var Category = React.createClass({
 
     // capitalize category
     var category = decodeURIComponent(this.props.category);
-    category = category[0].toUpperCase() + category.slice(1);
-    var badges = allBadges().badges.val();
+    category     = category[0].toUpperCase() + category.slice(1);
+    var badges   = allBadges().badges.val();
 
     return <main className="categories">
       <div className="row">
@@ -57,12 +60,11 @@ var Category = React.createClass({
   renderBadges: function renderBadges (badges, category) {
     category = category.toLowerCase();
 
-    var self = this;
     var badges = _.map(badges, function (badge) {
       if (badge.category && badge.category.toLowerCase() === category) {
-        return self.renderBadge(badge);
+        return this.renderBadge(badge);
       }
-    });
+    }, this);
 
     return badges;
   },
@@ -71,6 +73,7 @@ var Category = React.createClass({
     if (allBadges().loaded.val() === EntityStates.LOADED) {
       return false;
     }
+
     allBadges().loaded.set(EntityStates.LOADING);
 
     Badges.all(function all (response) {
@@ -78,8 +81,7 @@ var Category = React.createClass({
         return;
       }
 
-      var badges = response.all;
-      badges = _.sortBy(badges, function (badge) {
+      var badges = _.sortBy(response.all, function (badge) {
         return [badge.subcategory, badge.level];
       });
 

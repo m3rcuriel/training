@@ -10,7 +10,8 @@ var ReviewQueue = React.createClass({
   },
 
   renderStudents: function renderStudents (studentHash) {
-    ret = []
+    var ret = []
+
     for (var student in studentHash) {
       var val = studentHash[student];
 
@@ -28,15 +29,14 @@ var ReviewQueue = React.createClass({
   },
 
   renderBadges: function renderBadges (relationInfo) {
-    var self = this;
     return _.map(relationInfo.badges, function (badge) {
-      return self.renderBadge(relationInfo.user, badge);
-    });
+      return this.renderBadge(relationInfo.user, badge);
+    }, this);
   },
 
   renderBadge: function renderBadge (user, badge) {
-    var badgeId = badge.badge_id.toS();
-    var name = user.first_name + ' ' + user.last_name;
+    var badgeId     = badge.badge_id.toS();
+    var name        = user.first_name + ' ' + user.last_name;
     var pathToBadge = 'https://3501-training-2014-us-west-2.s3'
       + '.amazonaws.com/badges/' + badgeId + '.jpg';
 

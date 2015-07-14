@@ -1,11 +1,14 @@
 /** @jsx React.DOM */
 
-var Badges = require('../lib/api/badges.js');
-var allBadges = require('../state/badges.js');
-var EntityStates = require('../lib/entity-states.js');
-var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
 var fuzzy = require('fuzzy');
+
+var Badges       = require('../lib/api/badges.js');
+var EntityStates = require('../lib/entity-states.js');
+
+var allBadges = require('../state/badges.js');
+
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
+var LoadingPage           = require('../components/loading-page.js');
 
 var Badge = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -17,7 +20,7 @@ var Badge = React.createClass({
       return <LoadingPage />;
     }
 
-    var badges = allBadges().badges.val();
+    var badges     = allBadges().badges.val();
     var categories = allBadges().categories.val();
 
     return <main className="badges">
@@ -32,7 +35,7 @@ var Badge = React.createClass({
 
   getInitialState: function () {
     return {
-      searchString: ''
+      searchString: '',
     };
   },
 
@@ -54,7 +57,7 @@ var Badge = React.createClass({
     var options = {
       extract: function (badge) {
         return badge.subcategory + ' ' + badge.name + ' ' + badge.subcategory;
-      }
+      },
     };
 
     var results = fuzzy.filter(searchString, badges, options);
@@ -140,6 +143,7 @@ var Badge = React.createClass({
     if (allBadges().loaded.val() === EntityStates.LOADED) {
       return false;
     }
+
     allBadges().loaded.set(EntityStates.LOADING);
 
     Badges.all(function all (response) {
@@ -148,6 +152,7 @@ var Badge = React.createClass({
       }
 
       var badges = response.all;
+
       allBadges().badges.set(badges);
       allBadges().loaded.set(EntityStates.LOADED);
     });
@@ -168,8 +173,7 @@ var Badge = React.createClass({
         return false;
       }
 
-      var categories = allBadges().categories.val();
-      setShouldRender(categories);
+      setShouldRender(allBadges().categories.val());
     }
 
     Badges.categories(function (response) {
@@ -178,6 +182,7 @@ var Badge = React.createClass({
       }
 
       var categories = response.categories;
+
       allBadges().categories.set(categories);
       setShouldRender(categories);
     });

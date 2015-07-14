@@ -5,19 +5,24 @@
 var CortexReactivityMixin = {
   componentDidMount: function cortexReactivityComponentDidMount () {
     var onChange = this._cortexReactivityMixinRefresh;
+
     this._cortexReactivityMixinEachCortex(function (cortex) {
       cortex.on('update', onChange);
     });
   },
+
   componentWillUnmount: function cortexReactivityComponentWillUnmount () {
     var onChange = this._cortexReactivityMixinRefresh;
+
     this._cortexReactivityMixinEachCortex(function (cortex) {
       cortex.off('update', onChange);
     });
   },
+
   _cortexReactivityMixinRefresh: function cortexReactivityMixinRefresh () {
     this.setState({cortexReactivityMixinLastRefresh: (new Date).getTime()});
   },
+
   _cortexReactivityMixinEachCortex: function cortexReactivityMixinEachCortex (fn) {
     _.each(this.reactToCortices, fn);
   },

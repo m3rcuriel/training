@@ -1,12 +1,6 @@
 /** @jsx React.DOM */
 
-var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage           = require('../components/loading-page.js');
-var Categories            = require('../components/categories.js');
-var CategoryCount         = require('../components/category-count.js');
-
-var allBadges = require('../state/badges.js');
-var userState = require('../state/user.js');
+var gravatar = require('gravatar');
 
 var Account        = require('../lib/api/account.js');
 var EntityStates   = require('../lib/entity-states.js');
@@ -16,7 +10,13 @@ var query          = require('../lib/query.js');
 var redirect       = require('../lib/redirect.js');
 var isNode         = require('../lib/is-node.js');
 
-var gravatar = require('gravatar');
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
+var LoadingPage           = require('../components/loading-page.js');
+var Categories            = require('../components/categories.js');
+var CategoryCount         = require('../components/category-count.js');
+
+var allBadges = require('../state/badges.js');
+var userState = require('../state/user.js');
 
 var Profile = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -24,6 +24,7 @@ var Profile = React.createClass({
 
   getInitialState: function () {
     query.refresh();
+
     return {
       showUnearned: query().showUnearned ? true : false,
     };
@@ -31,11 +32,12 @@ var Profile = React.createClass({
 
   render: function () {
     if (allBadges().loaded.val() !== EntityStates.LOADED
-      || !allBadges().categories.val()
-      || !userState().badge_relations.val()
-      || userState().loaded.val() !== EntityStates.LOADED
-      || _.isEmpty(userState().levels.val())) {
-      return <LoadingPage />;
+        || !allBadges().categories.val()
+        || !userState().badge_relations.val()
+        || userState().loaded.val() !== EntityStates.LOADED
+        || _.isEmpty(userState().levels.val())) {
+
+          return <LoadingPage />;
     }
 
     var targetBadges    = userState().badge_relations.val();

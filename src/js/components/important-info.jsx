@@ -1,13 +1,14 @@
 /** @jsx React.DOM */
 
+var pagedown = require('pagedown');
+
 var Public = require('../lib/api/public.js');
 
 var publicState = require('../state/public.js');
 
-var LoadingPage = require('../components/loading-page.js');
+var LoadingPage           = require('../components/loading-page.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 
-var pagedown = require('pagedown');
 var converter = new pagedown.getSanitizingConverter();
 
 var ImportantInfo = React.createClass({
@@ -19,7 +20,7 @@ var ImportantInfo = React.createClass({
       return <LoadingPage />;
     }
 
-    var message = converter.makeHtml(publicState().important_info.val());
+    var message  = converter.makeHtml(publicState().important_info.val());
     var calendar = '<iframe src="https://www.google.com/calendar/embed?height=600\
 &amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=fhsroboticsmentors%40gmail.com&amp;\
 color=%23A32929&amp;ctz=America%2FLos_Angeles" style=" border-width:0 "\

@@ -61,14 +61,16 @@ var Login = React.createClass({
       return false;
     }
 
-    var email = this.refs.email.getDOMNode().value.trim();
+    var email    = this.refs.email.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();
+
     if (!email || !password) {
       return false;
     }
 
     this.setState({state: LoginState.LOADING});
     var self = this;
+
     Auth.login(email, password, function (response) {
       if (response.status !== 200) {
         self.setState({state: LoginState.FAILED, message: response.message});
@@ -78,6 +80,7 @@ var Login = React.createClass({
         redirect('/');
       }
     });
+
     return false;
   },
 });

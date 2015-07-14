@@ -1,11 +1,13 @@
 /** @jsx React.DOM */
 
-var Badges = require('../lib/api/badges.js');
-var desiredBadge = require('../state/badge.js');
+var Badges       = require('../lib/api/badges.js');
 var EntityStates = require('../lib/entity-states.js');
+
+var allBadges    = require('../state/badges.js');
+var desiredBadge = require('../state/badge.js');
+
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
-var allBadges = require('../state/badges.js');
+var LoadingPage           = require('../components/loading-page.js');
 
 var EditState = {
   EDITING: 1,
@@ -112,35 +114,46 @@ var EditBadge = React.createClass({
       </form>
     </main>;
   },
+
   getInitialState: function () {
     return {
       state: EditState.EDITING,
-      message: ""
+      message: '',
     };
   },
+
   componentDidMount: function componentDidMount () {
     this.loadBadge();
   },
+
+  getValue: function getValue(ref) {
+    return this.refs[ref].getDOMNode().value.trim();
+  },
+
   submit: function submit () {
     if (this.state.state === EditState.LOADING) {
       return false;
     }
+
     this.setState({state: EditState.LOADING, message: 'Submitting changes...'});
 
-    var name = this.refs.name.getDOMNode().value.trim();
-    var subcategory = this.refs.subcategory.getDOMNode().value.trim();
-    var category = this.refs.category.getDOMNode().value.trim();
-    var level = parseInt(this.refs.level.getDOMNode().value);
-    var description = this.refs.description.getDOMNode().value.trim();
-    var learningMethod = this.refs.learning_method.getDOMNode().value.trim();
-    var resources = this.refs.resources.getDOMNode().value.trim();
-    var verifiers = this.refs.verifiers.getDOMNode().value.trim();
+    var name           = this.getValue('name');
+    var subcategory    = this.getValue('subcategory');
+    var category       = this.getValue('category');
+    var level          = parseInt(this.refs.level.getDOMNode().value);
+    var description    = this.getValue('description');
+    var learningMethod = this.getValue('learning_method');
+    var resources      = this.getValue('resources');
+    var verifiers      = this.getValue('verifiers');
+
     if (!name || !subcategory || !category || !resources || !verifiers
-      || !level || !description || !learningMethod) {
+     || !level || !description || !learningMethod) {
+
       this.setState({
         state: EditState.EDITING,
         message: 'Make sure all fields are filled in.'
       });
+
       return false;
     }
 
@@ -169,6 +182,7 @@ var EditBadge = React.createClass({
         state: EditState.EDITING,
         message: "No changes made."
       });
+
       return false;
     }
 
@@ -183,14 +197,15 @@ var EditBadge = React.createClass({
         self.setState({state: EditState.SUCCESS, message: "Badge saved."});
       }
     });
+
     return false;
   },
+
   loadBadge: function loadBadge () {
     var self = this;
 
-    var cachedBadge;
     if (allBadges().badges.val()) {
-      cachedBadge = _.find(allBadges().badges.val(), function (badge) {
+      var cachedBadge = _.find(allBadges().badges.val(), function (badge) {
         return badge.id.toS() === self.props.id;
       });
 
@@ -208,6 +223,7 @@ var EditBadge = React.createClass({
       && desiredBadge().loaded.val() === EntityStates.LOADED) {
       return false;
     }
+
     desiredBadge().loaded.set(EntityStates.LOADING);
 
     Badges.badge(this.props.id, function all (response) {

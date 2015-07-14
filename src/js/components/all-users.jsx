@@ -1,12 +1,16 @@
 /** @jsx React.DOM */
 
-var Account = require('../lib/api/account.js');
-var allUsers = require('../state/users.js');
-var EntityStates = require('../lib/entity-states.js');
-var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
-var fuzzy = require('fuzzy');
+var fuzzy    = require('fuzzy');
 var gravatar = require('gravatar');
+
+var Account      = require('../lib/api/account.js');
+var EntityStates = require('../lib/entity-states.js');
+
+var allUsers = require('../state/users.js');
+
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
+var LoadingPage           = require('../components/loading-page.js');
+
 
 var AllUsers = React.createClass({
   mixins: [CortexReactivityMixin],
@@ -39,7 +43,7 @@ var AllUsers = React.createClass({
 
   getInitialState: function () {
     return {
-      searchString: ''
+      searchString: '',
     };
   },
 
@@ -104,6 +108,7 @@ var AllUsers = React.createClass({
     if (allUsers().loaded.val() === EntityStates.LOADED) {
       return false;
     }
+
     allUsers().loaded.set(EntityStates.LOADING);
 
     Account.all(function all (response) {
@@ -111,13 +116,12 @@ var AllUsers = React.createClass({
         return;
       }
 
-      var users = response.users;
-      users = _.sortBy(users, function (user) {
+      users = _.sortBy(response.users, function (user) {
         return [user.first_name, user.last_name];
       });
 
       allUsers().set({
-        users: users,
+        users:  users,
         loaded: EntityStates.LOADED,
       });
     });

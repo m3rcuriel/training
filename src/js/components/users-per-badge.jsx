@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
 
-var applicationState = require('../state/application.js');
 var gravatar = require('gravatar');
+
+var applicationState = require('../state/application.js');
 
 var ReviewQueue = React.createClass({
   render: function render () {
@@ -14,7 +15,7 @@ var ReviewQueue = React.createClass({
     var self = this;
     return _.map(users, function (user) {
       return self.renderRelation(user);
-    });
+    }, this);
   },
 
   renderRelation: function renderRelation (relation) {

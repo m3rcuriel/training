@@ -1,12 +1,14 @@
 /** @jsx React.DOM */
 
 var Badges = require('../lib/api/badges.js');
-var desiredBadge = require('../state/badge.js');
 var EntityStates = require('../lib/entity-states.js');
-var CortexReactivityMixin = require('../components/cortex-reactivity.js');
-var LoadingPage = require('../components/loading-page.js');
-var allBadges = require('../state/badges.js');
 var query = require('../lib/query.js');
+
+var allBadges    = require('../state/badges.js');
+var desiredBadge = require('../state/badge.js');
+
+var CortexReactivityMixin = require('../components/cortex-reactivity.js');
+var LoadingPage           = require('../components/loading-page.js');
 
 var EditState = {
   EDITING: 1,
@@ -70,18 +72,20 @@ var EditBadgeImage = React.createClass({
       </form>
     </main>;
   },
+
   getInitialState: function () {
     return {
       state: EditState.EDITING,
       message: '',
     };
   },
+
   componentDidMount: function componentDidMount () {
     this.loadBadge();
 
     var self = this;
-    Badges.s3_creds(function (response) {
 
+    Badges.s3_creds(function (response) {
       self.setState({
         policy: response.policy,
         signature: response.signature,
@@ -89,22 +93,24 @@ var EditBadgeImage = React.createClass({
       });
     });
   },
+
   submit: function submit () {
     if (this.state.state === EditState.LOADING) {
       return false;
     }
+
     this.setState({
       state: EditState.LOADING,
       message: "We can't know whether or not your upload completed due to the way"
-        + " it is sent. It's probably done if you used the recommended image size."
+        + " it is sent. It's probably done if you used the recommended image size.",
     });
   },
+
   loadBadge: function loadBadge () {
     var self = this;
 
-    var cachedBadge;
     if (allBadges().badges.val()) {
-      cachedBadge = _.find(allBadges().badges.val(), function (badge) {
+      var cachedBadge = _.find(allBadges().badges.val(), function (badge) {
         return badge.id.toS() === self.props.id;
       });
 
@@ -122,6 +128,7 @@ var EditBadgeImage = React.createClass({
       && desiredBadge().loaded.val() === EntityStates.LOADED) {
       return false;
     }
+
     desiredBadge().loaded.set(EntityStates.LOADING);
 
     Badges.badge(this.props.id, function all (response) {

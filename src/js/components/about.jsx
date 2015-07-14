@@ -1,13 +1,14 @@
 /** @jsx React.DOM */
 
+var pagedown = require('pagedown');
+
 var Public = require('../lib/api/public.js');
 
 var publicState = require('../state/public.js');
 
-var LoadingPage = require('../components/loading-page.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
+var LoadingPage           = require('../components/loading-page.js');
 
-var pagedown = require('pagedown');
 var converter = new pagedown.getSanitizingConverter();
 
 var About = React.createClass({

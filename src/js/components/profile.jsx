@@ -1,5 +1,14 @@
 /** @jsx React.DOM */
 
+var gravatar = require('gravatar');
+
+var loadBadges     = require('../lib/load/badges.js');
+var loadCategories = require('../lib/load/categories.js');
+var EntityStates   = require('../lib/entity-states.js');
+var Badges         = require('../lib/api/badges.js');
+var query          = require('../lib/query.js');
+var redirect       = require('../lib/redirect.js');
+
 var applicationState = require('../state/application.js');
 var allBadges        = require('../state/badges.js');
 var profileState     = require('../state/profile.js');
@@ -10,21 +19,13 @@ var Categories            = require('../components/categories.js');
 var CategoryCount         = require('../components/category-count.js');
 var ReviewQueue           = require('../components/review-queue.js');
 
-var loadBadges     = require('../lib/load/badges.js');
-var loadCategories = require('../lib/load/categories.js');
-var EntityStates   = require('../lib/entity-states.js');
-var Badges         = require('../lib/api/badges.js');
-var query          = require('../lib/query.js');
-var redirect       = require('../lib/redirect.js');
-
-var gravatar = require('gravatar');
-
 var Profile = React.createClass({
   mixins: [CortexReactivityMixin],
   reactToCortices: [profileState(), allBadges()],
 
   getInitialState: function() {
     query.refresh();
+
     return {
       showUnearned: query().showUnearned ? true : false,
     };
@@ -32,9 +33,10 @@ var Profile = React.createClass({
 
   render: function () {
     if (allBadges().loaded.val() !== EntityStates.LOADED
-      || !allBadges().categories.val()
-      || !profileState().badge_relations.val()
-      || _.isEmpty(profileState().levels.val())) {
+        || !allBadges().categories.val()
+        || !profileState().badge_relations.val()
+        || _.isEmpty(profileState().levels.val())) {
+
       return <LoadingPage />;
     }
 

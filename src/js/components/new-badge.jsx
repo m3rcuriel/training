@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var Badges = require('../lib/api/badges.js');
+var Badges   = require('../lib/api/badges.js');
 var redirect = require('../lib/redirect.js');
 
 var NewBadgeState = {
@@ -87,44 +87,53 @@ var NewBadge = React.createClass({
       </form>
     </main>;
   },
-  getInitialState: function () {
+
+  getInitialState: function getInitialState () {
     return {
       state: NewBadgeState.EDITING,
-      message: ''
+      message: '',
     };
   },
+
+  getValue: function getValue (ref) {
+    return this.refs[ref].getDOMNode().value.trim();
+  },
+
   submit: function submit () {
     if (this.state.state === NewBadgeState.LOADING) {
       return false;
     }
+
     this.setState({state: NewBadgeState.LOADING, message: 'Submitting badge...'});
 
-    var name = this.refs.name.getDOMNode().value.trim();
-    var subcategory = this.refs.subcategory.getDOMNode().value.trim();
-    var category = this.refs.category.getDOMNode().value.trim();
-    var level = parseInt(this.refs.level.getDOMNode().value);
-    var description = this.refs.description.getDOMNode().value.trim();
-    var learningMethod = this.refs.learning_method.getDOMNode().value.trim();
-    var resources = this.refs.resources.getDOMNode().value.trim();
-    var verifiers = this.refs.verifiers.getDOMNode().value.trim();
+    var name           = this.getValue('name');
+    var subcategory    = this.getValue('subcategory');
+    var category       = this.getValue('category');
+    var level          = parseInt(this.refs.level.getDOMNode().value);
+    var description    = this.getValue('description');
+    var learningMethod = this.getValue('learning_method');
+    var resources      = this.getValue('resources');
+    var verifiers      = this.getValue('verifiers');
+
     if (!name || !subcategory || !category || !resources || !verifiers
-      || !level || !description || !learningMethod) {
-      this.setState({
-        state: NewBadgeState.EDITING,
-        message: 'Make sure all the fields are filled in.'
-      });
-      return false;
+     || !level || !description || !learningMethod) {
+       this.setState({
+         state: NewBadgeState.EDITING,
+         message: 'Make sure all the fields are filled in.',
+       });
+
+       return false;
     }
 
     var data = {
-      name: name,
-      subcategory: subcategory,
-      category: category,
-      level: parseInt(level),
-      description: description,
+      name:            name,
+      subcategory:     subcategory,
+      category:        category,
+      level:           parseInt(level),
+      description:     description,
       learning_method: learningMethod,
-      resources: resources,
-      verifiers: verifiers
+      resources:       resources,
+      verifiers:       verifiers
     };
 
     var self = this;
@@ -138,6 +147,7 @@ var NewBadge = React.createClass({
         redirect('/badge/' + savedBadge.id + '/edit/image?state=new');
       }
     });
+
     return false;
   },
 });

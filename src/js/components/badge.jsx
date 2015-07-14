@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+var pagedown  = require('pagedown');
+
 var Badges       = require('../lib/api/badges.js');
 var EntityStates = require('../lib/entity-states.js');
 var loadBadges   = require('../lib/load/badges.js');
@@ -8,11 +10,10 @@ var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage           = require('../components/loading-page.js');
 var UsersPerBadge         = require('../components/users-per-badge.js');
 
-var desiredBadge     = require('../state/badge.js');
 var allBadges        = require('../state/badges.js');
 var applicationState = require('../state/application.js');
+var desiredBadge     = require('../state/badge.js');
 
-var pagedown  = require('pagedown');
 var converter = new pagedown.getSanitizingConverter();
 
 var Badge = React.createClass({
@@ -29,7 +30,7 @@ var Badge = React.createClass({
 
     permissions = permissions ? permissions.val() : 'student';
 
-    var badge = desiredBadge().badge.val();
+    var badge       = desiredBadge().badge.val();
     var studentHash = desiredBadge().relations.val();
 
     var pathToBadge = 'https://3501-training-2014-us-west-2.s3'

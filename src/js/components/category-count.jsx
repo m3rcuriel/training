@@ -2,14 +2,12 @@
 
 var CategoryCount = React.createClass({
   render: function render () {
-    var props = this.props;
-
     return <div className="row">
       <div className="large-8 columns">
-        {this.renderCategoryLabels(props.categories)}
+        {this.renderCategoryLabels(this.props.categories)}
       </div>
       <div className="large-4 columns">
-        {this.renderCategoryCount(props.categories, props.levels)}
+        {this.renderCategoryCount(this.props.categories, this.props.levels)}
       </div>
     </div>;
   },
