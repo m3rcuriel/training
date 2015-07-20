@@ -50,7 +50,7 @@ var Blog = React.createClass({
         <br />
         <br />
         <div className="row">
-          <div className="columns large-10">
+          <div className="columns large-8">
             <span dangerouslySetInnerHTML={{__html: markup}} />
           </div>
         </div>
