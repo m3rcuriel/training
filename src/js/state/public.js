@@ -8,6 +8,7 @@ var defaultValue = {
   about: null,
   important_info: null,
   message: null,
+  posts: {},
 };
 
 Context.initialize('publicState', function () {
