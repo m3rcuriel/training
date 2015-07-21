@@ -15,7 +15,7 @@ var Blog = React.createClass({
   reactToCortices: [publicState()],
 
   componentDidMount: function componentDidMount () {
-    var id = this.props.id;
+    var id = this.props.post;
 
     Public.blog(id, function (response) {
       if (response.post) {
@@ -35,7 +35,7 @@ var Blog = React.createClass({
   },
 
   render: function render () {
-    var post = publicState().posts.val()[this.props.id];
+    var post = publicState().posts.val()[this.props.post];
 
 console.log('post', post);
 
