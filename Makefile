@@ -61,7 +61,8 @@ $(DIST)/static/app.js: jsx wisp $(patsubst ./src/js/%.js,./$(BUILD)/js/%.js,$(JS
 	@NODE_ENV="$(NODE_ENV)" API_BASE="$(API_BASE)" \
 	envify $(BUILD)/bundle.js > $(BUILD)/envified.js
 	@if [ "$(NODE_ENV)" == "production" ] ; then echo "Running uglify." ; fi
-	@if [ "$(NODE_ENV)" == "production" ] ; then ./node_modules/uglify-js/bin/uglifyjs $(BUILD)/envified.js > $@ ; fi
+        @if [ "$(NODE_ENV)" == "production" ] ; then cp $(BUILD)/envified.js $@ ; fi
+	#@if [ "$(NODE_ENV)" == "production" ] ; then ./node_modules/uglify-js/bin/uglifyjs $(BUILD)/envified.js > $@ ; fi
 	@if [ "$(NODE_ENV)" != "production" ] ; then cp $(BUILD)/envified.js $@ ; fi
 
 # files for target scss

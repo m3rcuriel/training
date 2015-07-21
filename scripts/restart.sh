@@ -9,7 +9,7 @@ sleep 1
 kill -9 $oldProcess
 sleep 1
 
-make server NODE_ENV=production &
+make server NODE_ENV=production > log.txt 2> error.txt &
 
 echo
 echo 'Server is restarting, you are free to go.'
