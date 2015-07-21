@@ -6,7 +6,6 @@ var Public = require('../lib/api/public.js');
 
 var publicState = require('../state/public.js');
 
-var LoadingPage           = require('../components/loading-page.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 
 var converter = new pagedown.getSanitizingConverter();
@@ -38,8 +37,23 @@ var Blog = React.createClass({
   render: function render () {
     var post = publicState().posts.val()[this.props.id];
 
+console.log('post', post);
+
     if (post === undefined) {
-      return <LoadingPage />;
+      return (
+        <main className="blog">
+          <br />
+          <br />
+          <br />
+          <div className="row">
+            <div className="columns large-8">
+              <h2>
+                Loading post...
+              </h2>
+            </div>
+          </div>
+        </main>
+      );
     }
 
     var markup = converter.makeHtml(post);
