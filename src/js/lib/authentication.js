@@ -22,7 +22,8 @@ module.exports.authenticate = function authenticate (req, res) {
     var parsed = JSONbig.parse(authentication);
     if (parsed.token && parsed.user) {
       applicationState().auth.set(parsed);
-      return applicationState().auth.user.id.val();
+
+      return parsed.user.id;
     }
   }
 
