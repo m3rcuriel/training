@@ -53,7 +53,12 @@ var Categories = React.createClass({
       <a href={'/badge/' + badge.id} className={'badge ' + status}>
         <Image width={300} src={pathToBadge} aspectRatio={1} />
       </a>
+      <h4>{this.trunc(badge.name, 6)}</h4>
     </li>;
+  },
+
+  trunc: function trunc (str, n) {
+    return str.length > n ? str.substr(0, n) + '...' : str;
   },
 
 });
