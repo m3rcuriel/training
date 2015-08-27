@@ -189,10 +189,9 @@ var AssignBadge = React.createClass({
       assignBadge().first_user.set(null);
     }
 
-    var self = this;
     var userList = _.map(results, function (user) {
-      return self.renderUser(user.original, true);
-    });
+      return this.renderUser(user.original, true);
+    }, this);
 
     return <div>
       <ul className="small-block-grid-6 thumbnail-list">
@@ -203,7 +202,7 @@ var AssignBadge = React.createClass({
 
   renderUser: function renderUser (user, search) {
     return <li key={user.username + (search ? '-search' : null)} className="user">
-      <a href={'/user/' + user.username} className="cover">
+      <a onClick={this.linkUnlinkBadge.bind(this, user)} className="cover">
         <Image src={gravatar.url(user.email, {s: '150', r: 'pg', d: 'identicon'}, true)}
           className="profile-pic" aspectRatio={1} transition="opacity 0.3s ease" />
         <div className="cover">

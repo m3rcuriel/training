@@ -7,12 +7,11 @@ var EntityStates = require('../lib/entity-states.js');
 var defaultValue = {
   user: null,
   loaded: EntityStates.NOT_LOADED,
-  badge_relations: null,
-  levels: {},
+  badge_relations: null
 };
 
 Context.initialize('userState', function () {
   return new Cortex(defaultValue);
-})
+});
 
 module.exports = Context.wrap('userState');

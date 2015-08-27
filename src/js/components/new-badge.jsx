@@ -25,14 +25,14 @@ var NewBadge = React.createClass({
               <hr />
               <div className="small-9 large-6 column">
                 <p>Category:</p>
-                <p>Level:</p>
+                <p>Year:</p>
                 <p>Verifiers:</p>
               </div>
               <div className="small-3 large-6 column">
                 <input type="text" name="category" ref="category"
                   placeholder="Badge category" />
-                <input type="number" name="level" ref="level" max={8} min={1}
-                  placeholder={1} />
+                <input type="number" name="year" ref="year" max={new Date().getFullYear()} min={2010}
+                  placeholder={new Date().getFullYear()} />
                 <textarea placeholder="Who can check this badge off?" rows="2"
                   ref="verifiers" />
               </div>
@@ -109,14 +109,14 @@ var NewBadge = React.createClass({
     var name           = this.getValue('name');
     var subcategory    = this.getValue('subcategory');
     var category       = this.getValue('category');
-    var level          = parseInt(this.refs.level.getDOMNode().value);
+    var year           = parseInt(this.refs.year.getDOMNode().value);
     var description    = this.getValue('description');
     var learningMethod = this.getValue('learning_method');
     var resources      = this.getValue('resources');
     var verifiers      = this.getValue('verifiers');
 
     if (!name || !subcategory || !category || !resources || !verifiers
-     || !level || !description || !learningMethod) {
+     || !description || !learningMethod) {
        this.setState({
          state: NewBadgeState.EDITING,
          message: 'Make sure all the fields are filled in.',
@@ -129,7 +129,7 @@ var NewBadge = React.createClass({
       name:            name,
       subcategory:     subcategory,
       category:        category,
-      level:           parseInt(level),
+      year:            parseInt(year),
       description:     description,
       learning_method: learningMethod,
       resources:       resources,

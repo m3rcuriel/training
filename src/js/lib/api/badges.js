@@ -104,20 +104,6 @@ var Badge = {
       }));
   },
 
-  get_levels: function (callback) {
-    API.request.get('/badges/levels')
-      .end(API.end(function (res) {
-        if (callback) callback(res.body);
-      }));
-  },
-
-  get_user_levels: function (username, callback) {
-    API.request.get('/badges/levels/' + username)
-      .end(API.end(function (res) {
-        if (callback) callback(res.body);
-      }));
-  },
-
   all_relations: function (callback) {
     API.request.get('/badges/user/all')
       .end(API.end(function (res) {

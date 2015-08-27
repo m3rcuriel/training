@@ -10,14 +10,23 @@ var LoginState = {
 };
 
 var Login = React.createClass({
+  getInitialState: function () {
+    return {
+      state: LoginState.NEUTRAL
+    };
+  },
+
   render: function () {
+    var hasFailed = (this.state.state === LoginState.FAILED);
+    var isLoading = (this.state.state === LoginState.LOADING);
+
     return <main className="login">
       <div className="small-6 large-centered columns">
         <br />
         <br />
         <h1>Welcome Back.</h1>
         <form onSubmit={this.submit}>
-          <div style={{background: this.state.state === LoginState.FAILED ? 'red' : 'green'}}>
+          <div style={{background: hasFailed ? 'red' : 'green'}}>
             {this.state.message}
           </div>
 
@@ -38,7 +47,7 @@ var Login = React.createClass({
           </div>
 
           <input type="submit" value="Login" className={'button submit success'
-            + (this.state.state === LoginState.LOADING ? ' disabled' : '')} />
+            + (isLoading ? ' disabled' : '')} />
           <a href="/forgot-password" className="button tiny right">Forgot password</a>
         </form>
         <hr />
@@ -50,10 +59,6 @@ var Login = React.createClass({
 
   componentDidMount: function () {
     this.refs.email.getDOMNode().focus();
-  },
-
-  getInitialState: function () {
-    return {state: LoginState.NEUTRAL};
   },
 
   submit: function () {

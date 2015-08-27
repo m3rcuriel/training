@@ -7,11 +7,11 @@ var redirect = function redirect (path) {
   } else {
     redirectResponse.redirect(path);
   }
-}
+};
 
 var setResponse = function setResponse (redirectResponse) {
   Context.set('redirectResponse', redirectResponse);
-}
+};
 
 module.exports = redirect;
 module.exports.setResponse = setResponse;

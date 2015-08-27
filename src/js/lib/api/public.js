@@ -20,14 +20,7 @@ var Public = {
       .end(API.end(function (res) {
         if (callback) callback(res.body);
       }));
-  },
-
-  blog: function(id, callback) {
-    API.request.get('/public/blog/' + id)
-      .end(API.end(function (res) {
-        if (callback) callback (res.body);
-      }));
-  },
+  }
 };
 
 module.exports = Public;

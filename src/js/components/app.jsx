@@ -37,7 +37,6 @@ var Users          = require('../components/all-users.js');
 var User           = require('../components/user.js');
 var NewUser        = require('../components/new-user.js');
 var ImportantInfo  = require('../components/important-info.js');
-var Blog           = require('../components/blog.js');
 
 // Router if not logged in
 //
@@ -83,7 +82,6 @@ var AuthenticatedRouter = React.createClass({
         <Location path="/user/new" handler={Layout(NewUser)} />
         <Location path="/user/:username" handler={Layout(User)} />
         <Location path="/users" handler={Layout(Users)} />
-        <Location path="/blog/:post" handler={Layout(Blog)} />
         <NotFound handler={Layout(E404)} />
       </Locations>
     </CaptureClicks>;

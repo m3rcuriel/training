@@ -5,12 +5,11 @@ var Cortex = require('cortexjs');
 var EntityStates = require('../lib/entity-states.js');
 
 var defaultValue = {
-  badge_relations: null,
-  levels: {},
+  badge_relations: null
 };
 
 Context.initialize('profileState', function () {
   return new Cortex(defaultValue);
-})
+});
 
 module.exports = Context.wrap('profileState');

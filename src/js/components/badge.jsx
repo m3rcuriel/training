@@ -53,13 +53,13 @@ var Badge = React.createClass({
               <hr />
               <div className="small-9 large-6 column">
                 <p>Category:</p>
-                <p>Level:</p>
+                <p>Year:</p>
                 <p>Verifiers:</p>
               </div>
 
               <div className="small-3 large-6 column">
                 <p>{badge.category}</p>
-                <p>{badge.level}</p>
+                <p>{badge.year}</p>
                 <p>{badge.verifiers}</p>
               </div>
 

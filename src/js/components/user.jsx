@@ -13,7 +13,6 @@ var isNode         = require('../lib/is-node.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage           = require('../components/loading-page.js');
 var Categories            = require('../components/categories.js');
-var CategoryCount         = require('../components/category-count.js');
 
 var allBadges = require('../state/badges.js');
 var userState = require('../state/user.js');
@@ -34,8 +33,7 @@ var Profile = React.createClass({
     if (allBadges().loaded.val() !== EntityStates.LOADED
         || !allBadges().categories.val()
         || !userState().badge_relations.val()
-        || userState().loaded.val() !== EntityStates.LOADED
-        || _.isEmpty(userState().levels.val())) {
+        || userState().loaded.val() !== EntityStates.LOADED) {
 
           return <LoadingPage />;
     }
@@ -44,7 +42,6 @@ var Profile = React.createClass({
     var user            = userState().user.val();
     var candidateBadges = allBadges().badges.val();
     var categories      = allBadges().categories.val();
-    var levels          = userState().levels.val();
 
     return <main className="user">
       <div className="row">
@@ -76,10 +73,6 @@ var Profile = React.createClass({
           <br />
           <h4 className="subheader">Username: {user.username}</h4>
           <hr />
-          <CategoryCount categories={categories} levels={levels} />
-
-          <hr />
-          <br />
           <h4 className="subheader">About</h4>
           <br />
           <br />
@@ -97,7 +90,6 @@ var Profile = React.createClass({
 
     userState().loaded.set(EntityStates.LOADING);
 
-    var self = this;
     Account.get(this.props.username, function (response) {
       if (response.status !== 200) {
         return;
@@ -112,7 +104,6 @@ var Profile = React.createClass({
     loadBadges.specific_user(this.props.username, userState);
     loadBadges.all();
     loadCategories.categories();
-    loadCategories.user_levels(this.props.username, userState);
 
     this.loadUser();
   },

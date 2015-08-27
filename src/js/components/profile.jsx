@@ -5,7 +5,6 @@ var gravatar = require('gravatar');
 var loadBadges     = require('../lib/load/badges.js');
 var loadCategories = require('../lib/load/categories.js');
 var EntityStates   = require('../lib/entity-states.js');
-var Badges         = require('../lib/api/badges.js');
 var query          = require('../lib/query.js');
 var redirect       = require('../lib/redirect.js');
 
@@ -16,7 +15,6 @@ var profileState     = require('../state/profile.js');
 var CortexReactivityMixin = require('../components/cortex-reactivity.js');
 var LoadingPage           = require('../components/loading-page.js');
 var Categories            = require('../components/categories.js');
-var CategoryCount         = require('../components/category-count.js');
 var ReviewQueue           = require('../components/review-queue.js');
 
 var Profile = React.createClass({
@@ -34,8 +32,7 @@ var Profile = React.createClass({
   render: function () {
     if (allBadges().loaded.val() !== EntityStates.LOADED
         || !allBadges().categories.val()
-        || !profileState().badge_relations.val()
-        || _.isEmpty(profileState().levels.val())) {
+        || !profileState().badge_relations.val()) {
 
       return <LoadingPage />;
     }
@@ -51,7 +48,6 @@ var Profile = React.createClass({
     var candidateBadges = allBadges().badges.val();
     var categories      = allBadges().categories.val();
     var studentHash     = allBadges().students.val();
-    var levels          = state.levels;
     var isMentor        = (user.permissions === 'mentor');
 
     return <main className="profile">
@@ -97,10 +93,6 @@ var Profile = React.createClass({
           <br />
           <h4 className="subheader">Username: {user.username}</h4>
           <hr />
-          <CategoryCount categories={categories} levels={levels} />
-
-          <hr />
-          <br />
           <h4 className="subheader">About</h4>
           <br />
           <p className="bio">{user.bio}</p>
@@ -113,7 +105,6 @@ var Profile = React.createClass({
     loadBadges.user(profileState);
     loadBadges.all();
     loadCategories.categories();
-    loadCategories.levels(profileState);
 
     if (applicationState().auth.user.val().permissions === 'mentor') {
       loadBadges.students();

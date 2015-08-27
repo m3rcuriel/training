@@ -50,7 +50,7 @@ var Category = React.createClass({
       <a href={'/badge/' + badge.id} className="cover">
         <Image src={pathToBadge} width={235} aspectRatio={1} />
         <div className="cover">
-          <h5><b>{badge.name} – {badge.subcategory} {badge.level}:</b></h5>
+          <h5><b>{badge.name} – {badge.subcategory}:</b></h5>
           <h5 className="subheader" dangerouslySetInnerHTML={{__html: description}}></h5>
         </div>
       </a>
@@ -82,7 +82,7 @@ var Category = React.createClass({
       }
 
       var badges = _.sortBy(response.all, function (badge) {
-        return [badge.subcategory, badge.level];
+        return [badge.year, badge.subcategory];
       });
 
       allBadges().badges.set(badges);
