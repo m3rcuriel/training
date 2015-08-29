@@ -4,6 +4,7 @@ var fuzzy = require('fuzzy');
 
 var Badges       = require('../lib/api/badges.js');
 var EntityStates = require('../lib/entity-states.js');
+var query        = require('../lib/query.js');
 
 var allBadges = require('../state/badges.js');
 
@@ -22,11 +23,31 @@ var Badge = React.createClass({
 
     var badges     = allBadges().badges.val();
     var categories = allBadges().categories.val();
+    var allYears   = _.uniq(_.map(badges, function (badge) {
+      return badge.year;
+    })).sort();
 
     return <main className="badges">
       <div className="row">
+        <br />
+        <br />
+        <br />
+
+        <div className="small-1 columns">
+          <label htmlFor="change-year" className="right inline">Year:</label>
+        </div>
+        <div className="small-3 columns">
+          <label>
+            <select id="change-year" onChange={this.switchYear}>
+              {_.map(allYears, function (year) {
+                return <option value={year} key={'year-' + year}>{year}</option>;
+               })}
+            </select>
+          </label>
+        </div>
+
         <input type="text" name="search" ref="search" placeholder="Search here..."
-          onChange={this.updateSearch} autoFocus />
+               onChange={this.updateSearch} autoFocus />
         {this.renderSearch(badges)}
         {this.renderCategories(badges, categories)}
       </div>
@@ -36,12 +57,21 @@ var Badge = React.createClass({
   getInitialState: function () {
     return {
       searchString: '',
+      desiredYear: new Date().getFullYear(),
     };
   },
 
   componentDidMount: function componentDidMount () {
     this.loadBadges();
     this.loadCategories();
+  },
+
+  switchYear: function switchYear (e) {
+    var selected = _.find(e.target.options, function (option) {
+      return option.selected;
+    });
+
+    this.setState({desiredYear: selected.value});
   },
 
   updateSearch: function updateSearch (e) {

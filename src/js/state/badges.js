@@ -9,11 +9,11 @@ var defaultValue = {
   loaded: EntityStates.NOT_LOADED,
   shouldRender: null,
   categories: null,
-  students: null,
+  students: null
 };
 
 Context.initialize('badgesState', function () {
   return new Cortex(defaultValue);
-})
+});
 
 module.exports = Context.wrap('badgesState');
