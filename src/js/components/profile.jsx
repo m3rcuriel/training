@@ -26,6 +26,7 @@ var Profile = React.createClass({
 
     return {
       showUnearned: query().showUnearned ? true : false,
+      desiredYear:  new Date().getFullYear(),
     };
   },
 
@@ -44,11 +45,19 @@ var Profile = React.createClass({
 
     var state = profileState().val();
 
-    var targetBadges    = state.badge_relations;
-    var candidateBadges = allBadges().badges.val();
-    var categories      = allBadges().categories.val();
-    var studentHash     = allBadges().students.val();
-    var isMentor        = (user.permissions === 'mentor');
+    var targetBadges = state.badge_relations;
+    var categories   = allBadges().categories.val();
+    var studentHash  = allBadges().students.val();
+    var isMentor     = (user.permissions === 'mentor');
+    var badges       = allBadges().badges.val();
+
+    var allYears = _.uniq(_.map(badges, function (badge) {
+      return badge.year;
+    })).sort();
+
+    var candidateBadges = _.select(badges, function (badge) {
+      return badge.year === this.state.desiredYear;
+    }, this);
 
     return <main className="profile">
       <div className="row">
@@ -64,11 +73,22 @@ var Profile = React.createClass({
           <hr />
 
           <h2>{isMentor ? 'REVIEW QUEUE' : 'BADGES'}</h2>
-          <a onClick={this.toggleUnearned}>
-            {isMentor
-              ? null
-              : 'Show ' + (this.state.showUnearned ? 'earned' : 'unearned')}
-          </a>
+
+          <div className="row">
+            <div className="small-1 columns">
+              <label htmlFor="change-year" className="right inline">Year:</label>
+            </div>
+            <div className="small-3 columns end">
+              <label>
+                <select id="change-year" onChange={this.switchYear} defaultValue={new Date().getFullYear()}>
+                  {_.map(allYears, function (year) {
+                    return <option value={year} key={'year-' + year}>{year}</option>;
+                   }, this)}
+                </select>
+              </label>
+            </div>
+          </div>
+
           {isMentor
             ? <ReviewQueue studentHash={studentHash} />
             : <Categories
@@ -109,6 +129,14 @@ var Profile = React.createClass({
     if (applicationState().auth.user.val().permissions === 'mentor') {
       loadBadges.students();
     }
+  },
+
+  switchYear: function switchYear (e) {
+    var selected = _.find(e.target.options, function (option) {
+      return option.selected;
+    });
+
+    this.setState({desiredYear: parseInt(selected.value)});
   },
 
   toggleUnearned: function toggleUnearned () {

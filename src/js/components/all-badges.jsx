@@ -38,7 +38,7 @@ var Badge = React.createClass({
         </div>
         <div className="small-3 columns">
           <label>
-            <select id="change-year" onChange={this.switchYear}>
+            <select id="change-year" onChange={this.switchYear} defaultValue={new Date().getFullYear()}>
               {_.map(allYears, function (year) {
                 return <option value={year} key={'year-' + year}>{year}</option>;
                })}
@@ -57,7 +57,7 @@ var Badge = React.createClass({
   getInitialState: function () {
     return {
       searchString: '',
-      desiredYear: new Date().getFullYear(),
+      desiredYear:  new Date().getFullYear(),
     };
   },
 
@@ -71,7 +71,7 @@ var Badge = React.createClass({
       return option.selected;
     });
 
-    this.setState({desiredYear: selected.value});
+    this.setState({desiredYear: parseInt(selected.value)});
   },
 
   updateSearch: function updateSearch (e) {
@@ -108,27 +108,29 @@ var Badge = React.createClass({
   },
 
   renderCategories: function renderCategories (badges, categories) {
-    var self = this;
+    badges = _.select(badges, function (badge) {
+      return badge.year === this.state.desiredYear;
+    }, this);
 
     return _.map(categories, function (category) {
       if (!allBadges().val().shouldRender || !allBadges().val().shouldRender[category]) {
         return <div key={Math.random()}>
-          <div><a onClick={self.expandCategory}><h2>{category} ...</h2></a></div>
+          <div><a onClick={this.expandCategory}><h2>{category} ...</h2></a></div>
           <hr />
         </div>;
       }
 
       return <div key={Math.random()}>
-        <div><a onClick={self.expandCategory}><h2>{category}:</h2></a></div>
+        <div><a onClick={this.expandCategory}><h2>{category}:</h2></a></div>
         <div>
-          <a href={'/category/' + category} ><h3 className="subheader">See all {category}</h3></a>
+          <a href={'/category/' + category}><h3 className="subheader">See all {category}</h3></a>
           <ul className="small-block-grid-6 thumbnail-list">
-            {self.renderBadgesByCategory(badges, category)}
+            {this.renderBadgesByCategory(badges, category)}
           </ul>
         </div>
         <hr />
       </div>;
-    });
+    }, this);
   },
 
   expandCategory: function expandCategory (e) {

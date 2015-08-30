@@ -37,7 +37,7 @@ var Categories = React.createClass({
         }
       });
 
-      if (badge.category && badge.category.toLowerCase() === category) {
+      if (badge && badge.category && badge.category.toLowerCase() === category) {
         return this.renderBadge(badge, targetBadge.status);
       } else {
         return;
