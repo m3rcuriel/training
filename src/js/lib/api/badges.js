@@ -117,6 +117,13 @@ var Badge = {
         if (callback) callback(res.body);
       }));
   },
+
+  delete_badge: function (id, callback) {
+    API.request.post('/badges/' + id)
+      .end(API.end(function (res) {
+        if (callback) callback(res.body);
+      }));
+  }
 };
 
 module.exports = Badge;

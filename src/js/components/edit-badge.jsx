@@ -2,6 +2,7 @@
 
 var Badges       = require('../lib/api/badges.js');
 var EntityStates = require('../lib/entity-states.js');
+var redirect     = require('../lib/redirect.js');
 
 var allBadges    = require('../state/badges.js');
 var desiredBadge = require('../state/badge.js');
@@ -54,6 +55,7 @@ var EditBadge = React.createClass({
                   ref="verifiers" defaultValue={badge.verifiers} />
               </div>
               <a className="button" href={'/badge/' + badge.id} >Stop editing</a>
+              <a className="button" onClick={this.deleteBadge}>Delete badge</a>
             </div>
           </div>
           <div className="large-8 column">
@@ -124,6 +126,24 @@ var EditBadge = React.createClass({
 
   componentDidMount: function componentDidMount () {
     this.loadBadge();
+  },
+
+  deleteBadge: function deleteBadge () {
+    if (!confirm('Delete this badge?')) {
+      return;
+    }
+
+    var self = this;
+
+    Badges.delete_badge(this.props.id, function (response) {
+      if (response.status !== 200) {
+        self.setState({state: EditState.FAILED, message: response.message});
+        return;
+      }
+
+      alert(response.message);
+      redirect('/badges');
+    });
   },
 
   getValue: function getValue(ref) {
