@@ -63,7 +63,7 @@ cd training
 # install javascript dependencies listed in package.json
 npm install
 # install build tools
-npm install -g react-tools@0.11.0 browserify@4.2.0 envify@2.0.0 clean-css@2.2.15
+sudo npm install -g react-tools@0.11.0 browserify@4.2.0 envify@2.0.0 clean-css@2.2.15
 
 # install sass compiler & file watcher
 rvm use 2.1.3
