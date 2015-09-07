@@ -76,7 +76,7 @@ ex.use(function(req, res, next) {
 ex.use(express.static(process.env.DIST));
 
 var port = process.env.TRAINING_PORT || 5000 ;
-var ip = '192.168.1.81';
+var ip = '127.0.0.1';
 ex.listen(port, ip);
 
 console.log('Server up and running, listening on port ' + port + '.');

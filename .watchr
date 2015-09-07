@@ -2,7 +2,7 @@
 # vim: ft=ruby
 
 ENV['NODE_ENV'] = 'development'
-ENV['API_BASE'] = 'http://192.168.1.81:9977'
+ENV['API_BASE'] = 'http://localhost:9977'
 
 def quit_server
   return unless $server
