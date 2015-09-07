@@ -50,7 +50,7 @@ ex.use(function(req, res, next) {
             var html = '<!DOCTYPE html>\
                 <html>\
                 <head>\
-                    <title>3501 Training</title>\
+                    <title>MVRT Training</title>\
                     <meta charset="utf-8" />\
                     <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" charset="utf-8" />\
                     <link rel="icon" href="/static/assets/favicon.ico">\
@@ -76,7 +76,7 @@ ex.use(function(req, res, next) {
 ex.use(express.static(process.env.DIST));
 
 var port = process.env.TRAINING_PORT || 5000 ;
-var ip = '127.0.0.1';
+var ip = '192.168.1.81';
 ex.listen(port, ip);
 
 console.log('Server up and running, listening on port ' + port + '.');

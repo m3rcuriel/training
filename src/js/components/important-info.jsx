@@ -21,10 +21,7 @@ var ImportantInfo = React.createClass({
     }
 
     var message  = converter.makeHtml(publicState().important_info.val());
-    var calendar = '<iframe src="https://www.google.com/calendar/embed?height=600\
-&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=fhsroboticsmentors%40gmail.com&amp;\
-color=%23A32929&amp;ctz=America%2FLos_Angeles" style=" border-width:0 "\
-width="800" height="600" frameborder="0" scrolling="no"></iframe>';
+    var calendar = '<iframe src="https://www.google.com/calendar/embed?src=ccqvgoahc9br1pnu983qpc03l0%40group.calendar.google.com&ctz=America/Los_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>';
 
     return <main className="about">
       <div className="row">

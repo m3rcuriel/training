@@ -19,7 +19,7 @@ var LayoutWrapper = function (body) {
         <nav className="top-bar" data-topbar role="navigation">
          <ul className="title-area">
           <li className="name">
-            <h1><a href="#">Team 3501 Badge Site</a></h1>
+            <h1><a href="#">MVRT Badge Site</a></h1>
           </li>
          </ul>
 

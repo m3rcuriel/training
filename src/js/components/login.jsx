@@ -52,7 +52,7 @@ var Login = React.createClass({
         </form>
         <hr />
         <p><b>If you do not have an account and are a team member:</b> contact any of the leads or a mentor.</p>
-        <p><a href="mailto:admin@oflogan.com">Contact Logan</a> if you aren't able to login.</p>
+        <p><a href="mailto:training+lee.mracek@oflogan.com">Contact Lee</a> if you aren't able to login.</p>
       </div>
     </main>;
   },
