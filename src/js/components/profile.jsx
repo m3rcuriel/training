@@ -100,9 +100,9 @@ var Profile = React.createClass({
         </div>
 
         <div className="large-4 columns">
-          <a href="https://gravatar.com">
+          <a href="http://gravatar.com">
             <Image
-              src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, true)}
+              src={gravatar.url(user.email, {s: '303', r: 'pg', d: 'identicon'}, false)}
               className="profile-pic"
               aspectRatio={1}
               transition="none"
